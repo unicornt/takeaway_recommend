@@ -57,11 +57,17 @@ def check_cookie_login(request):
 
 
 def log_in(request):
+    
+    #debug
+    #print(request.body)
+    print(request.POST)
+
     global user
     reason = check_cookie_login(request)
     if reason != 'ok':
         return get_error_response(reason)
-    request_data = json.loads(request.body)
+    #request_data = json.loads(request.body)
+    request_data = request.POST
     usr, pwd = request_data['usr'], request_data['pwd']
     if usr.isdigit():
         try:
@@ -90,7 +96,9 @@ def register(request):
     reason = check_cookie_login(request)
     if reason != 'ok':
         return get_error_response(reason)
-    request_data = json.loads(request.body)
+    print(request.POST)
+    #request_data = json.loads(request.body)
+    request_data = request.POST
     usr, pwd, email = request_data['usr'], request_data['pwd'], request_data['email']
     if not usr.isdigit() :
         return get_error_response('Invalid Username')

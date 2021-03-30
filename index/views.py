@@ -6,3 +6,6 @@ def index(request):
 
 def login_index(request):
     return render(request, 'login.html', {})
+
+def register_index(request):
+    return render(request, 'register.html', {})
