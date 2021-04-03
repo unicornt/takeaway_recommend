@@ -9,3 +9,6 @@ def login_index(request):
 
 def register_index(request):
     return render(request, 'register.html', {})
+
+def confirm_index(request):
+    return render(request, 'confirm.html', {})
