@@ -37,7 +37,7 @@ def get_ok_response(reqeust_type, content=None):
 def get_error_response(reason, content=None):
     resp_dict={
         'status':'error',
-        'type':reason,
+        'type': reason,
     }
     return  get_response(resp_dict, content)
 
@@ -122,7 +122,8 @@ def email_validate(request):
     if reason != 'ok':
         return get_error_response(reason)
 
-    request_data = json.loads(request.body)
+    print(request.POST)
+    request_data = request.POST
     email = request_data['email']
     if not validators.email('someone@example.com'):
         return get_error_response('Invalid Email Address')
