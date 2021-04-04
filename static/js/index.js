@@ -17,7 +17,7 @@ $(document).ready(function () {
                  '</ul>';
     } else {
         doc += '<ul class="nav navbar-nav navbar-right">\n' +
-            '<li><a href="login">登陆</a></li>\n' +
+            '<li><a href="login">登录</a></li>\n' +
             '</ul>';
     }
     $("#navbar").append(doc);

@@ -61,13 +61,14 @@ def log_in(request):
     #debug
     #print(request.body)
     print(request.POST)
-
+    print("i am here")
     global user
     reason = check_cookie_login(request)
     if reason != 'ok':
         return get_error_response(reason)
     #request_data = json.loads(request.body)
     request_data = request.POST
+    print(request_data)
     usr, pwd = request_data['usr'], request_data['pwd']
     if usr.isdigit():
         try:
