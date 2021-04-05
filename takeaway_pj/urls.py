@@ -28,6 +28,7 @@ urlpatterns = [
     path('login/change_pwd', login_module.views.change_pwd),
     path('login/reset_pwd', login_module.views.reset_pwd),
     path('login/upload_pic', login_module.views.upload_pic),
+    path('login/confirm', login_module.views.user_confirm),
 
     path('get/user', login_module.views.get_current_user),
 

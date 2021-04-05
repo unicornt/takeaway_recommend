@@ -3,14 +3,18 @@ import random
 import datetime
 from hashlib import sha256
 
+import pytz
 import validators
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.mail import send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
-from login_module.models import usr_info
+from login_module import models
+from login_module.models import usr_info, ConfirmString
 from login_module.utils.utils import generate_verification_code
+from takeaway_pj import settings
 from takeaway_pj.settings import EMAIL_HOST_USER
 
 
@@ -101,7 +105,7 @@ def register(request):
     #request_data = json.loads(request.body)
     request_data = request.POST
     usr, pwd, email = request_data['usr'], request_data['pwd'], request_data['email']
-    if not usr.isdigit() :
+    if len(usr) >= 20 :
         return get_error_response('Invalid Username')
     if not validators.email('someone@example.com') :
         return get_error_response('Invalid Email Address')
@@ -117,6 +121,13 @@ def register(request):
     return get_ok_response('register')
 
 
+def make_confirm_string(email):
+    now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    code = hash_code(email, now)
+    models.ConfirmString.objects.create(usr_email=email, code=code, )
+    return code
+
+
 def email_validate(request):
     reason = check_cookie_login(request)
     if reason != 'ok':
@@ -125,16 +136,42 @@ def email_validate(request):
     print(request.POST)
     request_data = request.POST
     email = request_data['email']
+
     if not validators.email('someone@example.com'):
         return get_error_response('Invalid Email Address')
-    validate_code = generate_verification_code(False)
     email_subject = 'Validate Code for Take Away Recommend System'
-    text_content = 'Here is the Validate Code for Take Away Recommend System.\n' \
-                   'You should type the code \n{0} \ninto text box in the website in 10 minutes'.format(
-        validate_code)
+    text_content = 'This is a registration confirmation.'
+    url_part = 'localhost:8000'
+    confirm_code = make_confirm_string(email)
+    url = f'http://{url_part}/login/confirm/?code={confirm_code}'
+    html_content = f'<p>Click <a href="{url}" target="blank">this</a> to accomplish the confirmation.</p>'
+    message = EmailMultiAlternatives(email_subject, text_content, settings.DEFAULT_FROM_EMAIL, [email])
+    message.attach_alternative(html_content, 'text/html')
+    message.send()
+    return get_ok_response('email_validate', {'code': confirm_code})
 
-    send_mail(email_subject, text_content, EMAIL_HOST_USER, [email], fail_silently=False)
-    return get_ok_response('email_validate', {'code': validate_code})
+
+def user_confirm(request):
+    confirm_code = request.GET.get('code', None)
+    try:
+        confirm = ConfirmString.objects.get(code=confirm_code)
+    except:
+        message = 'Invalid confirm request.'
+        return render(request, 'login/Invalid_confirm_request.html', locals())
+
+    created_time = confirm.created_time
+    now = datetime.datetime.now()
+    now = now.replace(tzinfo=pytz.timezone('UTC'))
+    cmp = created_time + datetime.timedelta(minutes=settings.CONFIRM_MINUTES)
+    if now > cmp:
+        confirm.user.delete()
+        message = 'Your email expired. Please register again.'
+        return render(request, 'login/email_expired.html', locals())
+    confirm.user.has_confirmed = True
+    confirm.user.save()
+    confirm.delete()
+    message = 'Successfully confirmed.'
+    return render(request, 'login/Successfully_confirmed.html', {"email":confirm.usr_email})
 
 def log_out(request):
     if'is_login' not in request.session:
