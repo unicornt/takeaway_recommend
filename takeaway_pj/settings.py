@@ -178,4 +178,5 @@ EMAIL_HOST = 'smtp.126.com'
 EMAIL_PORT = 465
 EMAIL_HOST_USER = 'jincz2000@126.com'
 EMAIL_HOST_PASSWORD = 'RUNSQTQECRPFHXPA'
-DEFAULT_FROM_EMAIL = 'takeaway_recommend <jincz2000@126.com'
+DEFAULT_FROM_EMAIL = 'takeaway_recommend <jincz2000@126.com>'
+CONFIRM_MINUTES = 10

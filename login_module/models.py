@@ -25,3 +25,17 @@ class usr_info(models.Model):
             return self.usr_pic.url
         else:
             return '/media/default/user.jpg'
+
+
+class ConfirmString(models.Model):
+    code = models.CharField(max_length=256, verbose_name='confirm code')
+    usr_email = models.EmailField('用户邮箱', null=True,unique=True)
+    created_time = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.usr_email + ': ' + self.code
+
+    class Meta:
+        ordering = ['-created_time']
+        verbose_name = 'Confirm Code'
+        verbose_name_plural = 'Confirm Codes'
