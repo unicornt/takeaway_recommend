@@ -12,3 +12,4 @@ def register_index(request):
 
 def confirm_index(request):
     return render(request, 'confirm.html', {})
+
