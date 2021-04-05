@@ -16,7 +16,7 @@ function checkRegister() {
         success:function(data){
             console.log("success");
             if(data.status == 'ok') {
-                window.location.href='/';
+                window.location.href='/w';
             }
             else if(data.status == 'error'){
                 console.log('error');
