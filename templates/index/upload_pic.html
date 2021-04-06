@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="/static/js/upload_pic.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+    <form class="upload_pic">
+        <h2>上传图片</h2>
+        <input type="file" id="img" onchange="loadImg(this.files)"/><br/>
+        <input type="button" class="btn btn-lg btn-primary" value="上传" onclick="upload_pic()">
+    </form>
+    <img id="imgContent" width:100% height:100%/>
+</body>
+</html>

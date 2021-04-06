@@ -244,14 +244,17 @@ def upload_pic(request):
     }
     if request.method == 'POST':
         try:
+            print(request.POST)
+            print(request.FILES)
             usr = request.POST.get('usr')
+            pic_file = request.FILES['picture']
+            #print(pic_file)
             if usr.isdigit():
                 try:
                     d = usr_info.objects.get(usr_id=usr)
                 except usr_info.DoesNotExist:
                     return HttpResponse(json.dumps(data_error), content_type="application/json")
 
-            pic_file = request.FILES['picture']
             d.usr_pic = pic_file
             d.save()
             return HttpResponse(json.dumps(data_ok), content_type='application/json')

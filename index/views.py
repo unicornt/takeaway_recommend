@@ -13,3 +13,6 @@ def register_index(request):
 def confirm_index(request):
     return render(request, 'confirm.html', {})
 
+def upload_pic(request):
+    return render(request, 'upload_pic.html', {})
+
