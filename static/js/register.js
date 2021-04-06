@@ -12,7 +12,7 @@ function checkRegister() {
         success:function(data){
             console.log("success");
             if(data.status == 'ok') {
-                window.location.href='/w';
+                window.location.href='/';
             }
             else if(data.status == 'error'){
                 console.log('error');

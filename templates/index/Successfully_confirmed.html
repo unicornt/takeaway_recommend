@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css">
+    <link rel="icon" href="../../favicon.ico">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+    <title>注册</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/js/confirm.js"></script>
+</head>
+<body>
+
+<div class="container">
+    <form class="form-signin">
+        <h2 class="form-sigin-heading">注册</h2>
+        <input type="text" class="form-control" name="email" id="email" value={{email}} readonly="readonly"><br/>
+        <input type="text" class="form-control" name="usr" id="usr" placeholder="用户名"/><br/>
+        <input type="password" class="form-control" name="pwd" id="pwd" placeholder="密码"/><br/>
+        <input class="btn btn-lg btn-primary btn-block" type="button" value="注册" onclick="checkRegister()"/>
+    </form>
+</div>
+</body>
+</html>

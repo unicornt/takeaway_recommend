@@ -11,7 +11,7 @@ def register_index(request):
     return render(request, 'register.html', {})
 
 def confirm_index(request):
-    return render(request, 'confirm.html', {})
+    return render(request, 'Successfully_confirmed.html', {})
 
 def upload_pic(request):
     return render(request, 'upload_pic.html', {})

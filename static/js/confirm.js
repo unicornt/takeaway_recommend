@@ -2,11 +2,12 @@ function checkRegister() {
     var usr = $("#ecode").val()
     console.log(usr);
     $.ajax({
-        url:"/login/email_validate",
+        url:"/login/register",
         type:"POST",
         data: {
-            ecode:$("#ecode").val(),
-
+            usr:$("#usr").val(),
+            pwd: $("#pwd").val(),
+            email: $("#email").val()
         },
         dataType: "json",
         complete:function(data){
@@ -15,7 +16,7 @@ function checkRegister() {
         success:function(data){
             console.log("success");
             if(data.status == 'ok') {
-                window.location.href='/confirm';
+                window.location.href='/';
             }
             else if(data.status == 'error'){
                 console.log('error');

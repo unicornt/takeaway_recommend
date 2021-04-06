@@ -1,4 +1,32 @@
+function Logout() {
+    $.ajax({
+        url:"/login/log_out",
+        type:"POST",
+        data: {
+        },
+        dataType: "json",
+        complete:function(data){
+            console.log("complete");
+        },
+        success:function(data){
+            console.log("success");
+            if(data.status == 'ok') {
+                document.cookie = "username=; ";
+                window.location.href='/';
+            }
+            else if(data.status == 'error'){
+                console.log('error');
+                $('#badlogin').css({'visibility': 'visible'});
+            }
+        },
+        error:function(e){
+            console.log("error");
+        }
+    });
+}
+
 $(document).ready(function () {
+    console.log(document.cookie);
     var userName = getCookie("username");
     var doc = '';
     if (userName != "") {
@@ -11,7 +39,7 @@ $(document).ready(function () {
                         '<ul class="dropdown-menu">\n' +
                             '<li><a href="#">上传推荐</a></li>\n' +
                             '<li class="divider"></li>\n' +
-                            '<li><a href="#">登出</a></li>\n' +
+                            '<li><a onclick="Logout()">登出</a></li>\n' +
                         '</ul>' +
                     '</li>' +
                  '</ul>';
@@ -22,3 +50,4 @@ $(document).ready(function () {
     }
     $("#navbar").append(doc);
 });
+
