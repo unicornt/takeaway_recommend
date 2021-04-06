@@ -15,6 +15,7 @@ function checkLogin() {
         success:function(data){
             console.log("success");
             if(data.status == 'ok') {
+                document.cookie='username='+$("#usr").val();
                 window.location.href='/';
             }
             else if(data.status == 'error'){
