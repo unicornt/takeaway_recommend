@@ -61,32 +61,33 @@ def check_cookie_login(request):
 
 
 def log_in(request):
-    
-    #debug
-    #print(request.body)
+    # debug
+    # print(request.body)
     print(request.POST)
     print("i am here")
     global user
     reason = check_cookie_login(request)
+    print(reason)
     if reason != 'ok':
         return get_error_response(reason)
-    #request_data = json.loads(request.body)
+    # request_data = json.loads(request.body)
     request_data = request.POST
     print(request_data)
     usr, pwd = request_data['usr'], request_data['pwd']
-    if usr.isdigit():
-        try:
-            user = usr_info.objects.get(usr_id=usr)
-        except usr_info.DoesNotExist:
-            return get_error_response('Username not exist.')
-    elif validators.email('someone@example.com'):
+    if validators.email(usr):
         try:
             user = usr_info.objects.get(usr_email=usr)
         except usr_info.DoesNotExist:
+            print('Email not exist.')
             return get_error_response('Email not exist.')
     else:
-        return get_error_response('Invalid Account Format.')
+        try:
+            user = usr_info.objects.get(usr_id=usr)
+        except usr_info.DoesNotExist:
+            print('Username not exist.')
+            return get_error_response('Username not exist.')
     if user.usr_pwd != hash_code(pwd):
+        print('Wrong password.')
         print(pwd)
         print(hash_code(pwd))
         print(user.usr_pwd)
@@ -94,6 +95,7 @@ def log_in(request):
     request.session['is_login'] = True
     request.session['user_id'] = user.id
     request.session['user_name'] = user.usr_id
+    print("ok")
     return get_ok_response('login', {'usr': user.usr_id})
 
 
@@ -143,7 +145,7 @@ def email_validate(request):
     text_content = 'This is a registration confirmation.'
     url_part = 'localhost:8000'
     confirm_code = make_confirm_string(email)
-    url = f'http://{url_part}/login/confirm/?code={confirm_code}'
+    url = f'http://{url_part}/login/confirm?code={confirm_code}'
     html_content = f'<p>Click <a href="{url}" target="blank">this</a> to accomplish the confirmation.</p>'
     message = EmailMultiAlternatives(email_subject, text_content, settings.DEFAULT_FROM_EMAIL, [email])
     message.attach_alternative(html_content, 'text/html')
@@ -162,16 +164,15 @@ def user_confirm(request):
     created_time = confirm.created_time
     now = datetime.datetime.now()
     now = now.replace(tzinfo=pytz.timezone('UTC'))
-    cmp = created_time + datetime.timedelta(minutes=settings.CONFIRM_MINUTES)
+    cmp = created_time + datetime.timedelta(minutes=settings.CONFIRM_MINUTES, hours=settings.CONFIRM_UTC)
+    print(now)
+    print(cmp)
     if now > cmp:
-        confirm.user.delete()
         message = 'Your email expired. Please register again.'
         return render(request, 'login/email_expired.html', locals())
-    confirm.user.has_confirmed = True
-    confirm.user.save()
-    confirm.delete()
+    # confirm.delete()
     message = 'Successfully confirmed.'
-    return render(request, 'login/Successfully_confirmed.html', {"email":confirm.usr_email})
+    return render(request, 'Successfully_confirmed.html', {"email":confirm.usr_email})
 
 def log_out(request):
     if'is_login' not in request.session:
