@@ -1,49 +1,49 @@
-import json
-import random
 import datetime
+import json
 from hashlib import sha256
 
 import pytz
 import validators
-from django.core.exceptions import ObjectDoesNotExist
+from PIL import Image
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.views.decorators.csrf import csrf_exempt
 
 from login_module import models
 from login_module.models import usr_info, ConfirmString
-from login_module.utils.utils import generate_verification_code
 from takeaway_pj import settings
 from takeaway_pj.settings import EMAIL_HOST_USER
 
 
-
 def hash_code(s, salt='users_hash'):
-    h=sha256()
-    s+=salt
+    h = sha256()
+    s += salt
     h.update(s.encode())
     return h.hexdigest()
 
+
 def get_response(resp_dict, content):
     if content is not None:
-        resp_dict['content']=content
+        resp_dict['content'] = content
     resp_bytes = json.dumps(resp_dict, ensure_ascii=False).encode(encoding='utf-8')
     return HttpResponse(resp_bytes, content_type='application/json')
 
+
 def get_ok_response(reqeust_type, content=None):
-    resp_dict={
+    resp_dict = {
         'status': 'ok',
         'type': reqeust_type,
     }
     return get_response(resp_dict, content)
 
+
 def get_error_response(reason, content=None):
-    resp_dict={
-        'status':'error',
+    resp_dict = {
+        'status': 'error',
         'type': reason,
     }
-    return  get_response(resp_dict, content)
+    return get_response(resp_dict, content)
+
 
 def check_cookie_logout(request):
     if 'is_login' not in request.session:
@@ -51,6 +51,7 @@ def check_cookie_logout(request):
     if request.method != 'POST':
         return 'Request method is not POST.'
     return 'ok'
+
 
 def check_cookie_login(request):
     if 'is_login' in request.session:
@@ -104,12 +105,12 @@ def register(request):
     if reason != 'ok':
         return get_error_response(reason)
     print(request.POST)
-    #request_data = json.loads(request.body)
+    # request_data = json.loads(request.body)
     request_data = request.POST
     usr, pwd, email = request_data['usr'], request_data['pwd'], request_data['email']
-    if len(usr) >= 20 :
+    if len(usr) >= 20:
         return get_error_response('Invalid Username')
-    if not validators.email('someone@example.com') :
+    if not validators.email('someone@example.com'):
         return get_error_response('Invalid Email Address')
 
     same_name_user = usr_info.objects.filter(usr_id=usr)
@@ -172,27 +173,28 @@ def user_confirm(request):
         return render(request, 'login/email_expired.html', locals())
     # confirm.delete()
     message = 'Successfully confirmed.'
-    return render(request, 'Successfully_confirmed.html', {"email":confirm.usr_email})
+    return render(request, 'Successfully_confirmed.html', {"email": confirm.usr_email})
+
 
 def log_out(request):
-    if'is_login' not in request.session:
+    if 'is_login' not in request.session:
         return get_error_response('Already logout.')
     request.session.flush()
     return get_ok_response('log_out')
 
+
 def get_current_user(request):
     if 'is_login' not in request.session:
         return get_error_response('Already logout.')
-    return get_ok_response('ger_current_user', {'username':request.session['user_name']})
-
+    return get_ok_response('ger_current_user', {'username': request.session['user_name']})
 
 
 def change_pwd(request):
-    reason =check_cookie_logout(request)
+    reason = check_cookie_logout(request)
     if reason != 'ok':
         return get_error_response(reason)
     request_data = json.loads(request.body)
-    usr=request.session['user_name']
+    usr = request.session['user_name']
     old_pwd, new_pwd = request_data['old_pwd'], request_data['new_pwd']
     if old_pwd == '' or new_pwd == '':
         return get_error_response('Invalid old/new password')
@@ -234,35 +236,41 @@ def reset_pwd(request):
 
 
 def upload_pic(request):
-    global d
-    data_error = {
-        'Status Code': 404,
-        'Reason': 'account error'
-    }
-    data_ok = {
-        'Status Code': 200,
-        'Reason': '200 OK'
-    }
-    if request.method == 'POST':
-        try:
-            print(request.POST)
-            print(request.FILES)
-            usr = request.POST.get('usr')
-            pic_file = request.FILES['picture']
-            #print(pic_file)
-            if usr.isdigit():
-                try:
-                    d = usr_info.objects.get(usr_id=usr)
-                except usr_info.DoesNotExist:
-                    return HttpResponse(json.dumps(data_error), content_type="application/json")
-
-            d.usr_pic = pic_file
-            d.save()
-            return HttpResponse(json.dumps(data_ok), content_type='application/json')
-
-        except ObjectDoesNotExist:
-            data_error['Reason'] = 'format error'
-            return HttpResponse(json.dumps(data_error), content_type='application/json')
+    reason = check_cookie_logout(request)
+    if reason != 'ok':
+        # return get_error_response(reason)
+        usr = '1111111'
     else:
-        data_error['Reason'] = 'method error'
-        return HttpResponse(json.dumps(data_error), content_type='application/json')
+        usr = request.session['user_name']
+    pic_file = request.FILES['picture']
+
+    d = usr_info.objects.get(usr_id=usr)
+    d.usr_pic = pic_file
+    d.save()
+    return get_ok_response('upload_pic')
+
+
+def download_pic(request):
+    global response
+    reason = check_cookie_logout(request)
+    if reason != 'ok':
+        # return get_error_response(reason)
+        usr = '1111111'
+    else:
+        usr = request.session['user_name']
+    d = usr_info.objects.get(usr_id=usr)
+    im = Image.open(d.usr_pic)
+    type = d.usr_pic.name.split('.').pop()
+    # print(im)
+    # plt.imshow(im)
+    # return get_ok_response('download_pic')
+    if type in ['jpeg', 'jpg', 'jpe']:
+        response = HttpResponse(content_type='image/jpg')
+        im.save(response, "JPEG")
+    elif type == 'png':
+        response = HttpResponse(content_type='image/jpg')
+        im.save(response, "PNG")
+    elif type in ['mpeg', 'mpg', 'mpe']:
+        response = HttpResponse(content_type='image/jpg')
+        im.save(response, "PNG")
+    return response

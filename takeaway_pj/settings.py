@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'login_module', # log in application module
     'index',
+    'recommend_app',
 ]
 
 # SESSION_EXPIRE_AT_BROWSER_CLOSE=True

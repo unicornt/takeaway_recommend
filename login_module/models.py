@@ -2,10 +2,11 @@ import os
 
 from django.db import models
 
+
 def user_directory_path(instance, filename):
     ext = filename.split('.').pop()
     filename = '{0}_picture.{1}'.format(instance.usr_id, ext)
-    return os.path.join(instance.usr_nkname, filename) # 系统路径分隔符差异，增强代码重用性
+    return os.path.join(instance.usr_id, filename) # 系统路径分隔符差异，增强代码重用性
 
 # Create your models here.
 class usr_info(models.Model):
