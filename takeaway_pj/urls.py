@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 import login_module.views
+import recommend_app.views
 
 urlpatterns = [
     path('', include('index.urls')),
@@ -28,8 +29,18 @@ urlpatterns = [
     path('login/change_pwd', login_module.views.change_pwd),
     path('login/reset_pwd', login_module.views.reset_pwd),
     path('login/upload_pic', login_module.views.upload_pic),
+    path('login/download_pic', login_module.views.download_pic),
     path('login/confirm', login_module.views.user_confirm),
 
     path('get/user', login_module.views.get_current_user),
+    path('recommend/new_recommend', recommend_app.views.create_recommend),
+    path('recommend/recommend_addpic', recommend_app.views.recommend_addpic),
+    path('recommend/recommend_delpic', recommend_app.views.recommend_delpic),
+    path('recommend/upload_recommend', recommend_app.views.upload_recommend),
+    path('recommend/delete_recommend', recommend_app.views.delete_recommend),
+    path('recommend/download_pic', recommend_app.views.download_pic),
+    path('recommend/user_recommend', recommend_app.views.user_recommend),
+    path('recommend/all_recommend', recommend_app.views.all_recommend),
+
 
 ]
