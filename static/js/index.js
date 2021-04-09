@@ -37,7 +37,7 @@ $(document).ready(function () {
                         '<b class="caret"></b>\n' +
                         '</a>\n' +
                         '<ul class="dropdown-menu">\n' +
-                            '<li><a href="#">上传推荐</a></li>\n' +
+                            '<li><a href="/new_recommend">上传推荐</a></li>\n' +
                             '<li class="divider"></li>\n' +
                             '<li><a onclick="Logout()">登出</a></li>\n' +
                         '</ul>' +
