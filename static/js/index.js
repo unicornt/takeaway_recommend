@@ -10,6 +10,7 @@ function Logout() {
         },
         success:function(data){
             console.log("success");
+            console.log(data.status, data.type);
             if(data.status == 'ok') {
                 document.cookie = "username=; ";
                 window.location.href='/';
