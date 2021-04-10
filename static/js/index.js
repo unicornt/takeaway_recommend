@@ -31,24 +31,24 @@ $(document).ready(function () {
     var userName = getCookie("username");
     var doc = '';
     if (userName != "") {
-        doc += '<ul class="nav navbar-nav navbar-right">\n' +
-                    '<li class="dropdown">' +
-                        '<a href="#" class="dropdown-toggle" data-toggle="dropdown">\n' +
-                        userName +
-                        '<b class="caret"></b>\n' +
-                        '</a>\n' +
-                        '<ul class="dropdown-menu">\n' +
-                            '<li><a href="/new_recommend">上传推荐</a></li>\n' +
-                            '<li class="divider"></li>\n' +
-                            '<li><a onclick="Logout()">登出</a></li>\n' +
-                        '</ul>' +
-                    '</li>' +
-                 '</ul>';
+        console.log(userName);
+        doc += '<ul class="navbar-nav navbar-right">' +
+            '<li class="nav-item dropdown">\n' +
+            '<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" >\n' +
+            userName +
+            '</a>\n' +
+            '        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">\n' +
+            '          <a class="dropdown-item" href="/new_recommend">提交测评</a>\n' +
+            '          <div class="dropdown-divider"></div>\n' +
+            '          <a class="dropdown-item" onclick="Logout()">登出</a>\n' +
+            '        </div>\n' +
+            '      </li>' +
+            '</ul>';
     } else {
         doc += '<ul class="nav navbar-nav navbar-right">\n' +
             '<li><a href="login">登录</a></li>\n' +
             '</ul>';
     }
-    $("#navbar").append(doc);
+    $("#navbarSupportedContent").append(doc);
 });
 

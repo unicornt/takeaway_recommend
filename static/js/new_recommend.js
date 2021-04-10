@@ -16,10 +16,11 @@ function upload_recommend(textElement, url) {
         },
         success:function(data){
             console.log("success");
+            $('.toast').toast('show');
             if(data.status == 'ok') {
                 //console.log();
                 //document.cookie='username='+$("#usr").val();
-                window.location.href='/';
+                setTimeout(function (){window.location.href='/';}, 3000);
             }
             else if(data.status == 'error'){
                 console.log('error');
