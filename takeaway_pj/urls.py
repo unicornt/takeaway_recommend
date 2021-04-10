@@ -31,6 +31,7 @@ urlpatterns = [
     path('login/upload_pic', login_module.views.upload_pic),
     path('login/download_pic', login_module.views.download_pic),
     path('login/confirm', login_module.views.user_confirm),
+    path('login/upload_text', login_module.views.upload_text, name='upload_text'),
 
     path('get/user', login_module.views.get_current_user),
     path('recommend/new_recommend', recommend_app.views.create_recommend),

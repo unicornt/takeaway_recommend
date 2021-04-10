@@ -16,3 +16,8 @@ def confirm_index(request):
 def upload_pic(request):
     return render(request, 'upload_pic.html', {})
 
+def new_recommend(request):
+    return render(request, 'new_recommend.html', {})
+
+def login_fail(request):
+    return render(request, 'login_fail.html', {})

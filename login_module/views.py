@@ -242,11 +242,16 @@ def upload_pic(request):
         usr = '1111111'
     else:
         usr = request.session['user_name']
-    pic_file = request.FILES['picture']
+    #pic_file = request.FILES['picture']
+
+    pic_list = request.FILES.getlist('piclist')
+    print(pic_list)
 
     d = usr_info.objects.get(usr_id=usr)
-    d.usr_pic = pic_file
+    for pic_file in pic_list:
+        d.usr_pic = pic_file
     d.save()
+
     return get_ok_response('upload_pic')
 
 
@@ -274,3 +279,9 @@ def download_pic(request):
         response = HttpResponse(content_type='image/jpg')
         im.save(response, "PNG")
     return response
+
+def upload_text(request):
+    global response
+    print(request.POST)
+    print(request.POST['text'])
+    return get_ok_response('upload_text')
