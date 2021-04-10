@@ -109,16 +109,16 @@ def register(request):
     request_data = request.POST
     usr, pwd, email = request_data['usr'], request_data['pwd'], request_data['email']
     if len(usr) >= 20:
-        return get_error_response('Invalid Username')
-    if not validators.email('someone@example.com'):
-        return get_error_response('Invalid Email Address')
+        return get_error_response('Invalid Username.')
+    if not validators.email(email):
+        return get_error_response('Invalid Email Address.')
 
     same_name_user = usr_info.objects.filter(usr_id=usr)
     if same_name_user:
-        return get_error_response('Username already exist')
+        return get_error_response('Username already exist.')
     same_email_user = usr_info.objects.filter(usr_email=email)
     if same_email_user:
-        return get_error_response('Email address has been used')
+        return get_error_response('Email address has been used.')
     user = usr_info(usr_id=usr, usr_email=email, usr_pwd=hash_code(pwd))
     user.save()
     return get_ok_response('register')
@@ -140,8 +140,8 @@ def email_validate(request):
     request_data = request.POST
     email = request_data['email']
 
-    if not validators.email('someone@example.com'):
-        return get_error_response('Invalid Email Address')
+    if not validators.email(email):
+        return get_error_response('Invalid Email Address.')
     email_subject = 'Validate Code for Take Away Recommend System'
     text_content = 'This is a registration confirmation.'
     url_part = 'localhost:8000'
@@ -197,7 +197,7 @@ def change_pwd(request):
     usr = request.session['user_name']
     old_pwd, new_pwd = request_data['old_pwd'], request_data['new_pwd']
     if old_pwd == '' or new_pwd == '':
-        return get_error_response('Invalid old/new password')
+        return get_error_response('Invalid old/new password.')
     user = usr_info.objects.get(usr_id=usr)
     if user.usr_pwd != hash_code(old_pwd):
         return get_error_response('Wrong old password.')
@@ -219,7 +219,7 @@ def reset_pwd(request):
     except:
         return get_error_response('Username not exist.')
     if user.usr_email != email:
-        return get_error_response('Invalid Email Address')
+        return get_error_response('Invalid Email Address.')
 
     now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     new_pwd = hash_code(usr, now)[:16]

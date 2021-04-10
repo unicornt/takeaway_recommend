@@ -55,7 +55,8 @@ def create_recommend(request):
         return get_error_response(reason)
     key = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     dict = {}
-    recommend_info.objects.create(recommend_key=key, recommend_title="no title", recommend_user=request.session['user_name'],
+    recommend_info.objects.create(recommend_key=key, recommend_title="no title",
+                                  recommend_user=request.session['user_name'],
                                   recommend_text="no text", recommend_piclist=json.dumps(dict), recommend_flag=False)
     request.session['new_recommend'] = key
     print("ok")
@@ -79,12 +80,12 @@ def recommend_addpic(request):
     type = pic_file.name.split('.').pop()
     now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     pic_file.name = '{0}.{1}'.format(now, type)
-    # 更新cache
+    # 更新cookie
     num = request.session['pic_num'] + 1
     request.session['recommend_piclist'][str(num)] = pic_file.name
     request.session['pic_num'] = num
     # 保存图片对象
-    recommend_pic.objects.create(picture_id= pic_file.name, picture_key=key, picture=pic_file)
+    recommend_pic.objects.create(picture_id=pic_file.name, picture_key=key, picture=pic_file)
     print("ok")
     return get_ok_response('recommend_addpic', {'key': now})
 
@@ -102,9 +103,11 @@ def recommend_delpic(request):
 
     request_data = request.POST
     pic_id = request_data['pic_id']
-    path = os.path.join('upload', 'recommend', request.session['recommend_piclist'][str(pic_id)])
+    pic_name = request.session['recommend_piclist'][str(pic_id)]
+    path = os.path.join('upload', 'recommend', pic_name)
     if os.path.isfile(path):
         os.remove(path)
+    recommend_pic.objects.get(picture_id=pic_name).delete()
     request.session['recommend_piclist'][str(pic_id)] = request.session['recommend_piclist'][
         str(request.session['pic_num'])]
     request.session['pic_num'] = request.session['pic_num'] - 1
@@ -132,17 +135,18 @@ def upload_recommend(request):
 
     if title != "":
         recommend_atom.recommend_title = title
-    if text == "":
+    if text != "":
         recommend_atom.recommend_text = text
 
     recommend_atom.recommend_piclist = json.dumps(request.session['recommend_piclist'])
     recommend_atom.recommend_flag = True
-    recommend_atom.recommend_picnum=request.session['pic_num']
+    recommend_atom.recommend_picnum = request.session['pic_num']
     recommend_atom.save()
     del request.session['new_recommend']
     del request.session['recommend_piclist']
     del request.session['pic_num']
     return get_ok_response('upload_recommend')
+
 
 def delete_recommend(request):
     reason = check_cookie_logout(request)
@@ -151,14 +155,22 @@ def delete_recommend(request):
         return get_error_response(reason)
     request_data = request.POST
     print(request_data)
-    key= request_data['key']
+    key = request_data['key']
     try:
         recommend_atom = recommend_info.objects.get(recommend_key=key)
     except recommend_info.DoesNotExist:
         print('recommend_info not exist.')
         return get_error_response('recommend_info not exist.')
+    num = recommend_atom.recommend_picnum
+    dicts=json.loads(recommend_atom.recommend_piclist)
+    for x in range(num):
+        pic_name=dicts[str(x)]
+        path = os.path.join('upload', 'recommend', pic_name)
+        if os.path.isfile(path):
+            os.remove(path)
     recommend_atom.delete()
     return get_ok_response('delete_recommend')
+
 
 def download_pic(request):
     global response
@@ -197,18 +209,19 @@ def user_recommend(request):
     except recommend_info.DoesNotExist:
         print('recommends not exist.')
         return get_error_response('recommends not exist.')
-    ret_dict={}
+    ret_dict = {}
     for filt in recommend_atom:
-        now_dict={}
-        key=filt.recommend_key
-        now_dict['user']=filt.recommend_user
-        now_dict['title']=filt.recommend_title
+        now_dict = {}
+        key = filt.recommend_key
+        now_dict['user'] = filt.recommend_user
+        now_dict['title'] = filt.recommend_title
         now_dict['text'] = filt.recommend_text
         now_dict['piclist'] = filt.recommend_piclist
         now_dict['like'] = filt.recommend_like
-        ret_dict[key]=now_dict
+        ret_dict[key] = now_dict
 
-    return get_ok_response('user_recommend',ret_dict)
+    return get_ok_response('user_recommend', ret_dict)
+
 
 def all_recommend(request):
     reason = check_cookie_logout(request)
