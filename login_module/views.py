@@ -279,3 +279,9 @@ def download_pic(request):
         response = HttpResponse(content_type='image/jpg')
         im.save(response, "PNG")
     return response
+
+def upload_text(request):
+    global response
+    print(request.POST)
+    print(request.POST['text'])
+    return get_ok_response('upload_text')
