@@ -1,0 +1,19 @@
+.carousel .carousel-inner{
+    height: 20rem;
+    background-color: #faf2cc;
+}
+.carousel-inner > .carousel-item > .media > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    height: 20rem;
+}
+.carousel-inner > .carousel-item > .media > div {
+    position: relative;
+    top: 100%;
+}
+
+.img_text{
+    margin: 4rem;
+}
