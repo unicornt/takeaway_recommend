@@ -15,6 +15,9 @@ function checkRegister() {
                 window.location.href='/';
             }
             else if(data.status == 'error'){
+                alert(data.type);
+                $("#badregister").text(data.type);
+                $("#badregister").css({'visibility': 'visible'});
                 console.log('error');
             }
         },

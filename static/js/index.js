@@ -34,10 +34,10 @@ $(document).ready(function () {
         console.log(userName);
         doc += '<ul class="navbar-nav navbar-right">' +
             '<li class="nav-item dropdown">\n' +
-            '<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" >\n' +
+            '<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="true" >\n' +
             userName +
             '</a>\n' +
-            '        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">\n' +
+            '        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">\n' +
             '          <a class="dropdown-item" href="/new_recommend">提交测评</a>\n' +
             '          <div class="dropdown-divider"></div>\n' +
             '          <a class="dropdown-item" onclick="Logout()">登出</a>\n' +
@@ -46,7 +46,8 @@ $(document).ready(function () {
             '</ul>';
     } else {
         doc += '<ul class="nav navbar-nav navbar-right">\n' +
-            '<li><a href="login">登录</a></li>\n' +
+            '<li class="nav-item">' +
+                '<a class="nav-link" href="login">登录</a></li>\n' +
             '</ul>';
     }
     $("#navbarSupportedContent").append(doc);
