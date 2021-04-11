@@ -226,10 +226,6 @@ def user_recommend(request):
 def all_recommend(request):
     reason = check_cookie_logout(request)
     # print(reason)
-    if reason != 'ok':
-        return get_error_response(reason)
-    usr = request.session['user_name']
-
     try:
         recommend_atom = recommend_info.objects.all().order_by('-recommend_like')
     except recommend_info.DoesNotExist:
