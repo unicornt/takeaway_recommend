@@ -215,7 +215,7 @@ HTTP Response:
 
 **用户名已存在：**`reason='Username already exist.'`
 
-### login/log_email_validate
+### login/email_validate
 
 #### 接口信息
 
@@ -256,6 +256,10 @@ HTTP Response:
 ```
 
 **邮箱名格式错误：**`reason='Invalid Email Address.'`
+
+**邮箱已注册过：**`reason='Email Address exists.'`
+
+**验证邮件未过期：**`reason='Validation Email not outdated.'`
 
 ### login/change_pwd
 

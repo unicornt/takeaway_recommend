@@ -62,18 +62,15 @@ def check_cookie_login(request):
 
 
 def log_in(request):
-    # debug
-    # print(request.body)
-    print(request.POST)
-    print("i am here")
+    # print(request.POST)
     global user
     reason = check_cookie_login(request)
-    print(reason)
+    # print(reason)
     if reason != 'ok':
         return get_error_response(reason)
     # request_data = json.loads(request.body)
     request_data = request.POST
-    print(request_data)
+    # print(request_data)
     usr, pwd = request_data['usr'], request_data['pwd']
     if validators.email(usr):
         try:
@@ -125,11 +122,24 @@ def register(request):
 
 
 def make_confirm_string(email):
+    global confirm
     now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     code = hash_code(email, now)
-    models.ConfirmString.objects.create(usr_email=email, code=code, )
-    return code
+    now = datetime.datetime.now()
+    now = now.replace(tzinfo=pytz.timezone('UTC'))
+    try:
+        confirm = ConfirmString.objects.get(usr_email=email)
+        created_time = confirm.created_time
+        cmp = created_time + datetime.timedelta(minutes=settings.CONFIRM_MINUTES, hours=settings.CONFIRM_UTC)
+        if now > cmp:
+            confirm.delete()
+        else:
+            return 'Validation Email not outdated.', False
+    except:
+        pass
 
+    models.ConfirmString.objects.create(usr_email=email, code=code, )
+    return code, True
 
 def email_validate(request):
     reason = check_cookie_login(request)
@@ -142,10 +152,20 @@ def email_validate(request):
 
     if not validators.email(email):
         return get_error_response('Invalid Email Address.')
+    try:
+        usr = usr_info.objects.get(usr_email=email)
+        print('Email Address exists.')
+        return get_error_response('Email Address exists.')
+    except:
+        pass
+
     email_subject = 'Validate Code for Take Away Recommend System'
     text_content = 'This is a registration confirmation.'
     url_part = 'localhost:8000'
-    confirm_code = make_confirm_string(email)
+    confirm_code, status = make_confirm_string(email)
+    if status == False:
+        print(confirm_code)
+        return get_error_response(confirm_code)
     url = f'http://{url_part}/login/confirm?code={confirm_code}'
     html_content = f'<p>Click <a href="{url}" target="blank">this</a> to accomplish the confirmation.</p>'
     message = EmailMultiAlternatives(email_subject, text_content, settings.DEFAULT_FROM_EMAIL, [email])
@@ -171,6 +191,7 @@ def user_confirm(request):
     if now > cmp:
         message = 'Your email expired. Please register again.'
         return render(request, 'login/email_expired.html', locals())
+    # 下面这条语句结束后需要添加
     # confirm.delete()
     message = 'Successfully confirmed.'
     return render(request, 'Successfully_confirmed.html', {"email": confirm.usr_email})
