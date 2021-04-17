@@ -17,6 +17,7 @@
     <script src="/static/js/new_recommend.js"></script>
     <script src="/static/js/cookie.js"></script>
     <script src="/static/js/index.js"></script>
+    <script src="https://cdn.ckeditor.com/ckeditor5/27.0.0/classic/ckeditor.js"></script>
 </head>
 <body>
 <header>
@@ -40,12 +41,20 @@
     <!--button onclick="p()">ok</button><br/>
     <input type="text" id="usr" placeholder="用户名"/><br/>
     <input type="password" id="pwd" placeholder="密码"/><br/-->
-    <form role="form">
-        <div class="mb-3">
-            <textarea class="form-control" rows="6" style="resize:none" id="textinput"></textarea>
-        </div>
-        <input class="btn btn-lg btn-primary btn-block" type="button" class="login" id="login" value="提交" onclick="upload_recommend($('#textinput'), '/login/upload_text')"/>
+    <h1>Classic editor</h1>
+    <form action="[URL]" method="post">
+        <textarea name="content" id="editor">
+            &lt;p&gt;This is some sample content.&lt;/p&gt;
+        </textarea>
+        <p><input type="submit" value="Submit"></p>
     </form>
+    <script>
+        ClassicEditor
+            .create( document.querySelector( '#editor' ) )
+            .catch( error => {
+                console.error( error );
+            } );
+    </script>
 
     <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
         <!-- Then put toasts within -->
