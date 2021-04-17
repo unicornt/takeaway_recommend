@@ -476,7 +476,7 @@ HTTP Response:
 }
 ```
 
-### recommend/new_recommend
+### recommend/create_recommend
 
 #### 接口信息
 
