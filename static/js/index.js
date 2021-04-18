@@ -29,6 +29,7 @@ function Logout() {
 $(document).ready(function () {
     console.log(document.cookie);
     var userName = getCookie("username");
+    console.log(userName);
     var doc = '';
     if (userName != "") {
         console.log(userName);

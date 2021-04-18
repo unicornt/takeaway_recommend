@@ -57,9 +57,12 @@ def create_recommend(request):
     dict = {}
     recommend_info.objects.create(recommend_key=key, recommend_title="no title",
                                   recommend_user=request.session['user_name'],
+                                  recommend_picnum=0,
                                   recommend_text="no text", recommend_piclist=json.dumps(dict), recommend_flag=False)
     request.session['new_recommend'] = key
-    print("ok")
+    request.session['recommend_piclist'] = []
+    request.session['pic_num'] = 0
+    print("create_recommend ok")
     return get_ok_response('create_recommend', {'key': key})
 
 
@@ -86,7 +89,7 @@ def recommend_addpic(request):
     request.session['pic_num'] = num
     # 保存图片对象
     recommend_pic.objects.create(picture_id=pic_file.name, picture_key=key, picture=pic_file)
-    print("ok")
+    print("recommend_addpic ok")
     return get_ok_response('recommend_addpic', {'key': now})
 
 
