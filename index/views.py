@@ -24,3 +24,6 @@ def login_fail(request):
 
 def user_index(request):
     return render(request, 'user_index.html', {})
+
+def show_recommend(request):
+    return render(request, 'show_recommend.html', {})
