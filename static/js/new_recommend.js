@@ -1,40 +1,44 @@
-function upload_recommend(title, text, picdiv){
-    create_recommend("recommend/create_recommend");
-    upload_text(title, text, "recommend/upload_recommend");
-    upload_pic_indiv(picdiv, "");
-}
-
-function create_recommend(url){
+function create_recommend(title, text, picdiv){
+    //console.log(url);
     $.ajax({
-        url: url,
+        url: "recommend/new_recommend",
         type: "POST",
+        contentType: false,
+        processData: false,
+        async : false,
         success:function(data){
             console.log("create_recommend : " + data.key);
+            upload_text(title, text, picdiv);
+        },
+        error:function(data){
+            console.log("create_recommend error");
         }
     });
 }
 
-function upload_text(title, text, url){
+function upload_text(title, text, picdiv){
+    console.log(text);
+    var formData = new FormData();
+    formData.append('text', text);
+    formData.append('title', title);
     $.ajax({
-        url: url,
+        url: "recommend/upload_recommend",
         type: "POST",
         dataType: "json",
         contentType: false,
         processData: false,
-        data:{
-            title: title,
-            text: text,
-        },
+        async : false,
+        data: formData,
         success:function(data){
             console.log("upload title and text success");
+            upload_pic_indiv(picdiv);
         }
     });
 }
 
-function upload_pic_indiv(divname, url){
+function upload_pic_indiv(divname){
     var formData = new FormData();
     var piclist = $("div#"+divname).find("input");//piclist中包含所有divname下的input元素
-    formData.append("usr", "test");
     var check = true;
     for (var i = 0; i < piclist.length; ++i){
         var p = piclist[i];
@@ -43,17 +47,18 @@ function upload_pic_indiv(divname, url){
         pic = p.files[0];
         check = false;
         //var size = pic.size;
-        formData.append("piclist", pic);
+        formData.append("picture", pic);
     }
     if (check)
         alert("请选择文件！");
     
     $.ajax({
-        url:url,
+        url: "recommend/recommend_addpic",
         type:"POST",
         dataType:"json",
         contentType: false,
         processData: false,
+        async : false,
         data: formData,
         complete:function(data){
             console.log("complete");
@@ -64,7 +69,7 @@ function upload_pic_indiv(divname, url){
             if(data.status == 'ok') {
                 //console.log();
                 //document.cookie='username='+$("#usr").val();
-                setTimeout(function (){window.location.href='/';}, 3000);
+                //setTimeout(function (){window.location.href='/';}, 3000);
             }
             else if(data.status == 'error'){
                 console.log('error');
@@ -82,7 +87,7 @@ function loadImg(file, imgbox){
     var imgFile;
     reader.onload=function(e){
         imgFile = e.target.result;
-        console.log(imgFile);
+        //console.log(imgFile);
         imgbox.attr('src', imgFile);
     }
     reader.readAsDataURL(file);
