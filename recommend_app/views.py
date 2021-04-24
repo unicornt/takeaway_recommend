@@ -47,6 +47,31 @@ def check_cookie_recommend(request):
         return 'Request method is not POST.'
     return 'ok'
 
+def create_recommend_0(request):
+    reason = check_cookie_logout(request)
+    print(reason)
+    if reason != 'ok':
+        return get_error_response(reason)
+    key = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    print(key)
+    title = request.POST["title"]
+    text = request.POST["text"]
+    piclist = request.FILES.getlist("picture")
+    pic_num = len(piclist)
+    dict = {}
+    for i in range(pic_num):
+        pic_file = piclist[i]
+        type = pic_file.name.split('.').pop()
+        now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        pic_file.name = '{0}-{1}.{2}'.format(now, i, type)
+        dict[str(i)] = pic_file.name
+        recommend_pic.objects.create(picture_id=pic_file.name, picture_key=key, picture=pic_file)
+    #request.session['recommend_piclist'][str(num)] = pic_file.name
+    recommend_info.objects.create(recommend_key=key, recommend_title=title,
+                                  recommend_user=request.session['user_name'],
+                                  recommend_picnum=pic_num,
+                                  recommend_text=text, recommend_piclist=json.dumps(dict), recommend_flag=False)
+    return get_ok_response('create_recommend', {'key': str(key)})
 
 def create_recommend(request):
     reason = check_cookie_logout(request)
@@ -71,6 +96,7 @@ def recommend_addpic(request):
     if reason != 'ok':
         return get_error_response(reason)
     reason = check_cookie_recommend(request)
+    print(reason)
     if reason != 'ok':
         return get_error_response(reason)
     if 'recommend_piclist' not in request.session:
@@ -79,6 +105,8 @@ def recommend_addpic(request):
     # 获取推荐的编号，HTTP传来的图片
     key = request.session['new_recommend']
     pic_file = request.FILES['picture']
+    print(key)
+    print(pic_file)
     # 图片重命名
     type = pic_file.name.split('.').pop()
     now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -87,6 +115,11 @@ def recommend_addpic(request):
     num = request.session['pic_num'] + 1
     request.session['recommend_piclist'][str(num)] = pic_file.name
     request.session['pic_num'] = num
+    #更新数据库
+    recommend_atom = recommend_info.objects.get(recommend_key=key)
+    recommend_atom.recommend_picnum = num
+    recommend_atom.save()
+
     # 保存图片对象
     recommend_pic.objects.create(picture_id=pic_file.name, picture_key=key, picture=pic_file)
     print("recommend_addpic ok")
@@ -198,6 +231,16 @@ def download_pic(request):
         response = HttpResponse(content_type='image/jpg')
         im.save(response, "PNG")
     return response
+
+def show_recommend(request, id):
+    recommend = recommend_info.objects.get(recommend_key=id)
+    piclist = recommend_pic.objects.filter(picture_key=id)
+    title = recommend['title']
+    text = recommend['text']
+    pic_url = []
+    for pic in piclist:
+        pic_url.append(pic.photo_url())
+    print(pic_url)·
 
 
 def user_recommend(request):

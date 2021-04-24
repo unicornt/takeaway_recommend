@@ -13,8 +13,8 @@ def register_index(request):
 def confirm_index(request):
     return render(request, 'Successfully_confirmed.html', {})
 
-def upload_pic(request):
-    return render(request, 'upload_pic.html', {})
+def test(request):
+    return render(request, 'test.html', {})
 
 def new_recommend(request):
     return render(request, 'new_recommend.html', {})
