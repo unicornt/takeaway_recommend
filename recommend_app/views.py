@@ -240,7 +240,7 @@ def show_recommend(request, id):
     pic_url = []
     for pic in piclist:
         pic_url.append(pic.photo_url())
-    print(pic_url)·
+    print(pic_url)
 
 
 def user_recommend(request):
