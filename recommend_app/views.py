@@ -232,16 +232,23 @@ def download_pic(request):
         im.save(response, "PNG")
     return response
 
-def show_recommend(request, id):
-    recommend = recommend_info.objects.get(recommend_key=id)
-    piclist = recommend_pic.objects.filter(picture_key=id)
-    title = recommend['title']
-    text = recommend['text']
-    pic_url = []
-    for pic in piclist:
-        pic_url.append(pic.photo_url())
-    print(pic_url)
+def get_recommend(request, id):
+    try:
+        recommend = recommend_info.objects.get(recommend_key=id)    
+    except recommend_info.DoesNotExist:
+        print('recommend not exist.')
+        return get_error_response('recommend not exist.')
 
+    title = recommend.recommend_title
+    text = recommend.recommend_text
+
+    pic_url = []
+    if (recommend.recommend_picnum > 0):
+        piclist = recommend_pic.objects.filter(picture_key=id)
+        for pic in piclist:
+            pic_url.append(pic.photo_url())
+    ret_dict = {'text':text, 'title':title, 'pic_url':pic_url}
+    return get_ok_response('get_recommend', ret_dict)
 
 def user_recommend(request):
     reason = check_cookie_logout(request)

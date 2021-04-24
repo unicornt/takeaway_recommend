@@ -42,6 +42,6 @@ urlpatterns = [
     path('recommend/download_pic', recommend_app.views.download_pic),
     path('recommend/user_recommend', recommend_app.views.user_recommend),
     path('recommend/all_recommend', recommend_app.views.all_recommend),
-    path('recommend/show_recommend/?<id>', recommend_app.views.show_recommend)
+    path('recommend/get_recommend/?<id>', recommend_app.views.get_recommend)
 
 ]

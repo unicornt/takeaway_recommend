@@ -2,11 +2,17 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <script src="/static/js/upload_pic.js"></script>
+    <script src="/static/js/get_recommend.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/css/login.css">
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
 <body>
-    <p id="show"></p>
+    <h1 id="title"></h1><br/>
+    <p id="text"></p><br/>
+    <img id="img1" />
+    <form>
+        <input id="inputid" type="text"/><br/>
+        <input type="button" value="get" onclick="get_recommend($('#inputid')).value" />
+    </form>
 </body>
 </html>
