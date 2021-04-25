@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path,re_path,include
 import login_module.views
 import recommend_app.views
 
@@ -42,6 +42,6 @@ urlpatterns = [
     path('recommend/download_pic', recommend_app.views.download_pic),
     path('recommend/user_recommend', recommend_app.views.user_recommend),
     path('recommend/all_recommend', recommend_app.views.all_recommend),
-    path('recommend/get_recommend/?<id>', recommend_app.views.get_recommend)
+    re_path(r'^recommend/get_recommend/$', recommend_app.views.get_recommend)
 
 ]

@@ -232,7 +232,9 @@ def download_pic(request):
         im.save(response, "PNG")
     return response
 
-def get_recommend(request, id):
+def get_recommend(request):
+    id = request.GET.get('id')
+    print(id)
     try:
         recommend = recommend_info.objects.get(recommend_key=id)    
     except recommend_info.DoesNotExist:
