@@ -52,7 +52,7 @@ def create_recommend_0(request):
     print(reason)
     if reason != 'ok':
         return get_error_response(reason)
-    key = datetime.now().strftime('%Y-%m-%d-%H:%M:%S')
+    key = datetime.now().strftime('%Y-%m-%d-%H%M%S')
     print(key)
     title = request.POST["title"]
     text = request.POST["text"]
@@ -109,7 +109,7 @@ def recommend_addpic(request):
     print(pic_file)
     # 图片重命名
     type = pic_file.name.split('.').pop()
-    now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    now = datetime.now().strftime('%Y-%m-%d %H%M%S')
     pic_file.name = '{0}.{1}'.format(now, type)
     # 更新cookie
     num = request.session['pic_num'] + 1
