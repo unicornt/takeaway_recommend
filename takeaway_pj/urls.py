@@ -14,9 +14,11 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,include
+from django.urls import path,re_path,include
+import takeaway_pj.settings
 import login_module.views
 import recommend_app.views
+from django.views.static import serve
 
 urlpatterns = [
     path('', include('index.urls')),
@@ -34,7 +36,7 @@ urlpatterns = [
     path('login/upload_text', login_module.views.upload_text, name='upload_text'),
 
     path('get/user', login_module.views.get_current_user),
-    path('recommend/new_recommend', recommend_app.views.create_recommend),
+    path('recommend/new_recommend', recommend_app.views.create_recommend_0),
     path('recommend/recommend_addpic', recommend_app.views.recommend_addpic),
     path('recommend/recommend_delpic', recommend_app.views.recommend_delpic),
     path('recommend/upload_recommend', recommend_app.views.upload_recommend),
@@ -42,6 +44,7 @@ urlpatterns = [
     path('recommend/download_pic', recommend_app.views.download_pic),
     path('recommend/user_recommend', recommend_app.views.user_recommend),
     path('recommend/all_recommend', recommend_app.views.all_recommend),
-
+    re_path(r'^recommend/get_recommend/$', recommend_app.views.get_recommend),
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': takeaway_pj.settings.MEDIA_ROOT}),
 
 ]

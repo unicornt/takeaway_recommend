@@ -10,7 +10,26 @@ function loadImg(files, imgbox){
     reader.readAsDataURL(file);
 }
 
-function upload_pic(divname, url){
+function upload_recommend(title, text, picdiv){
+    var url = "recommend/upload_recommend";
+    $.ajax({
+        url: url,
+        type: "POST",
+        dataType: "json",
+        contentType: false,
+        processData: false,
+        data:{
+            title: title,
+            text: text,
+        },
+        success:function(data){
+            console.log("upload title and text success");
+        }
+    })
+    upload_pic_indiv(picdiv, url);
+}
+
+function upload_pic_indiv(divname, url){
     var formData = new FormData();
     var piclist = $("div#"+divname).find("input");//piclist中包含所有divname下的input元素
     formData.append("usr", "test");

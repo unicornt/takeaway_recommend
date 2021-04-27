@@ -29,6 +29,7 @@ function Logout() {
 $(document).ready(function () {
     console.log(document.cookie);
     var userName = getCookie("username");
+    console.log(userName);
     var doc = '';
     if (userName != "") {
         console.log(userName);
@@ -39,6 +40,7 @@ $(document).ready(function () {
             '</a>\n' +
             '        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">\n' +
             '          <a class="dropdown-item" href="/new_recommend">提交测评</a>\n' +
+            '          <a class="dropdown-item" href="/user_index">个人主页</a>\n' +
             '          <div class="dropdown-divider"></div>\n' +
             '          <a class="dropdown-item" onclick="Logout()">登出</a>\n' +
             '        </div>\n' +

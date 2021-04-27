@@ -47,6 +47,31 @@ def check_cookie_recommend(request):
         return 'Request method is not POST.'
     return 'ok'
 
+def create_recommend_0(request):
+    reason = check_cookie_logout(request)
+    print(reason)
+    if reason != 'ok':
+        return get_error_response(reason)
+    key = datetime.now().strftime('%Y-%m-%d-%H:%M:%S')
+    print(key)
+    title = request.POST["title"]
+    text = request.POST["text"]
+    piclist = request.FILES.getlist("picture")
+    pic_num = len(piclist)
+    dict = {}
+    for i in range(pic_num):
+        pic_file = piclist[i]
+        type = pic_file.name.split('.').pop()
+        #now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        pic_file.name = '{0}-{1}.{2}'.format(key, i, type)
+        dict[str(i)] = pic_file.name
+        recommend_pic.objects.create(picture_id=pic_file.name, picture_key=key, picture=pic_file)
+    #request.session['recommend_piclist'][str(num)] = pic_file.name
+    recommend_info.objects.create(recommend_key=key, recommend_title=title,
+                                  recommend_user=request.session['user_name'],
+                                  recommend_picnum=pic_num,
+                                  recommend_text=text, recommend_piclist=json.dumps(dict), recommend_flag=False)
+    return get_ok_response('create_recommend', {'key': str(key)})
 
 def create_recommend(request):
     reason = check_cookie_logout(request)
@@ -57,9 +82,12 @@ def create_recommend(request):
     dict = {}
     recommend_info.objects.create(recommend_key=key, recommend_title="no title",
                                   recommend_user=request.session['user_name'],
+                                  recommend_picnum=0,
                                   recommend_text="no text", recommend_piclist=json.dumps(dict), recommend_flag=False)
     request.session['new_recommend'] = key
-    print("ok")
+    request.session['recommend_piclist'] = []
+    request.session['pic_num'] = 0
+    print("create_recommend ok")
     return get_ok_response('create_recommend', {'key': key})
 
 
@@ -68,6 +96,7 @@ def recommend_addpic(request):
     if reason != 'ok':
         return get_error_response(reason)
     reason = check_cookie_recommend(request)
+    print(reason)
     if reason != 'ok':
         return get_error_response(reason)
     if 'recommend_piclist' not in request.session:
@@ -76,6 +105,8 @@ def recommend_addpic(request):
     # 获取推荐的编号，HTTP传来的图片
     key = request.session['new_recommend']
     pic_file = request.FILES['picture']
+    print(key)
+    print(pic_file)
     # 图片重命名
     type = pic_file.name.split('.').pop()
     now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -84,9 +115,14 @@ def recommend_addpic(request):
     num = request.session['pic_num'] + 1
     request.session['recommend_piclist'][str(num)] = pic_file.name
     request.session['pic_num'] = num
+    #更新数据库
+    recommend_atom = recommend_info.objects.get(recommend_key=key)
+    recommend_atom.recommend_picnum = num
+    recommend_atom.save()
+
     # 保存图片对象
     recommend_pic.objects.create(picture_id=pic_file.name, picture_key=key, picture=pic_file)
-    print("ok")
+    print("recommend_addpic ok")
     return get_ok_response('recommend_addpic', {'key': now})
 
 
@@ -196,14 +232,55 @@ def download_pic(request):
         im.save(response, "PNG")
     return response
 
+def get_recommend(request):
+    id = request.GET.get('id')
+    print(id)
+    try:
+        recommend = recommend_info.objects.get(recommend_key=id)    
+    except recommend_info.DoesNotExist:
+        print('recommend not exist.')
+        return get_error_response('recommend not exist.')
+
+    title = recommend.recommend_title
+    text = recommend.recommend_text
+    piclist = recommend.recommend_piclist
+    user = recommend.recommend_user
+    like = recommend.recommend_like
+    picnum = recommend.recommend_picnum
+    
+    #pic_url = []
+    if (recommend.recommend_picnum > 0):
+        pl = recommend_pic.objects.filter(picture_key=id)
+        for pic in pl:
+            #pic_url.append(pic.photo_url())
+            print(pic.photo_url())
+    #ret_dict = {'text':text, 'title':title, 'pic_url':pic_url}
+    
+    ret_dict = {'text': text, 
+                'title': title, 
+                'piclist': piclist,
+                'picnum': picnum,
+                'user': user,
+                'like': like,
+                }
+    return get_ok_response('get_recommend', ret_dict)
 
 def user_recommend(request):
+    '''
     reason = check_cookie_logout(request)
     # print(reason)
     if reason != 'ok':
         return get_error_response(reason)
     usr = request.session['user_name']
 
+    try:
+        recommend_atom = recommend_info.objects.filter(recommend_user=usr).order_by('-recommend_like')
+    except recommend_info.DoesNotExist:
+        print('recommends not exist.')
+        return get_error_response('recommends not exist.')
+    '''
+    usr = request.POST.get('username')
+    print(usr)
     try:
         recommend_atom = recommend_info.objects.filter(recommend_user=usr).order_by('-recommend_like')
     except recommend_info.DoesNotExist:
