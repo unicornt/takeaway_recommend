@@ -33,6 +33,7 @@ function get_recommend_by_usr(username){
     var formData = new FormData();
     formData.append("username", username);
     console.log(username);
+    var retdata;
     $.ajax({
         url: "/recommend/user_recommend",
         type: "POST",
@@ -43,10 +44,12 @@ function get_recommend_by_usr(username){
         success:function(data){
             console.log(data.content);
             console.log(typeof(data.content));
+            retdata = data.content;
             /*
                 自己上localhost:8000/test上跑一下就知道格式了
             */
         },
     });
+    return retdata;
 }
 
