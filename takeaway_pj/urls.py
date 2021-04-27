@@ -15,8 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,re_path,include
+import takeaway_pj.settings
 import login_module.views
 import recommend_app.views
+from django.views.static import serve
 
 urlpatterns = [
     path('', include('index.urls')),
@@ -42,6 +44,7 @@ urlpatterns = [
     path('recommend/download_pic', recommend_app.views.download_pic),
     path('recommend/user_recommend', recommend_app.views.user_recommend),
     path('recommend/all_recommend', recommend_app.views.all_recommend),
-    re_path(r'^recommend/get_recommend/$', recommend_app.views.get_recommend)
+    re_path(r'^recommend/get_recommend/$', recommend_app.views.get_recommend),
+    re_path(r'^media/(?P<path>.*)$', serve, {'document_root': takeaway_pj.settings.MEDIA_ROOT}),
 
 ]

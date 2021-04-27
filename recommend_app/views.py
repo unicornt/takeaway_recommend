@@ -52,7 +52,7 @@ def create_recommend_0(request):
     print(reason)
     if reason != 'ok':
         return get_error_response(reason)
-    key = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    key = datetime.now().strftime('%Y-%m-%d-%H:%M:%S')
     print(key)
     title = request.POST["title"]
     text = request.POST["text"]
@@ -62,8 +62,8 @@ def create_recommend_0(request):
     for i in range(pic_num):
         pic_file = piclist[i]
         type = pic_file.name.split('.').pop()
-        now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-        pic_file.name = '{0}-{1}.{2}'.format(now, i, type)
+        #now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        pic_file.name = '{0}-{1}.{2}'.format(key, i, type)
         dict[str(i)] = pic_file.name
         recommend_pic.objects.create(picture_id=pic_file.name, picture_key=key, picture=pic_file)
     #request.session['recommend_piclist'][str(num)] = pic_file.name
@@ -243,13 +243,26 @@ def get_recommend(request):
 
     title = recommend.recommend_title
     text = recommend.recommend_text
-
-    pic_url = []
+    piclist = recommend.recommend_piclist
+    user = recommend.recommend_user
+    like = recommend.recommend_like
+    picnum = recommend.recommend_picnum
+    
+    #pic_url = []
     if (recommend.recommend_picnum > 0):
-        piclist = recommend_pic.objects.filter(picture_key=id)
-        for pic in piclist:
-            pic_url.append(pic.photo_url())
-    ret_dict = {'text':text, 'title':title, 'pic_url':pic_url}
+        pl = recommend_pic.objects.filter(picture_key=id)
+        for pic in pl:
+            #pic_url.append(pic.photo_url())
+            print(pic.photo_url())
+    #ret_dict = {'text':text, 'title':title, 'pic_url':pic_url}
+    
+    ret_dict = {'text': text, 
+                'title': title, 
+                'piclist': piclist,
+                'picnum': picnum,
+                'user': user,
+                'like': like,
+                }
     return get_ok_response('get_recommend', ret_dict)
 
 def user_recommend(request):

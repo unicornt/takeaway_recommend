@@ -7,7 +7,8 @@ from django.db import models
 
 def recommend_path(instance, filename):
     ext = filename.split('.').pop()
-    filename = 'recommend_{0}_picture_{1}.{2}'.format(instance.picture_key, instance.picture_id, ext)
+    #filename = 'recommend_{0}_picture_{1}.{2}'.format(instance.picture_key, instance.picture_id, ext)
+    filename = instance.picture_id
     return os.path.join('recommend', filename)  # 系统路径分隔符差异，增强代码重用性
 
 
