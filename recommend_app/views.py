@@ -266,12 +266,21 @@ def get_recommend(request):
     return get_ok_response('get_recommend', ret_dict)
 
 def user_recommend(request):
+    '''
     reason = check_cookie_logout(request)
     # print(reason)
     if reason != 'ok':
         return get_error_response(reason)
     usr = request.session['user_name']
 
+    try:
+        recommend_atom = recommend_info.objects.filter(recommend_user=usr).order_by('-recommend_like')
+    except recommend_info.DoesNotExist:
+        print('recommends not exist.')
+        return get_error_response('recommends not exist.')
+    '''
+    usr = request.POST.get('username')
+    print(usr)
     try:
         recommend_atom = recommend_info.objects.filter(recommend_user=usr).order_by('-recommend_like')
     except recommend_info.DoesNotExist:
