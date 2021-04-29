@@ -27,3 +27,20 @@ function checkRegister() {
         }
     });
 }
+
+function validate() {
+
+    var pwd = $("#pwd").val();
+    var pwd1 = $("#pwd2").val();
+    <!-- 对比两次输入的密码 -->
+    if(pwd == pwd1)
+    {
+        $("#messg").html("两次密码相同");
+        $("#messg").css("color","green");
+    }
+    else {
+        $("#messg").html("两次密码不相同");
+        $("#messg").css("color","red")
+        $("button").attr("disabled","disabled");
+    }
+}
