@@ -29,11 +29,10 @@ function create_recommend1(title, text, picdiv){
         //var size = pic.size;
         formData.append("picture", pic);
     }
-    if (check)
-        alert("请选择文件！");
 
     formData.append('title', title);
     formData.append('text', text);
+console.log(text);
     $.ajax({
         url: "recommend/new_recommend",
         type: "POST",

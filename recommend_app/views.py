@@ -52,7 +52,7 @@ def create_recommend_0(request):
     print(reason)
     if reason != 'ok':
         return get_error_response(reason)
-    key = datetime.now().strftime('%Y-%m-%d-%H:%M:%S')
+    key = datetime.now().strftime('%Y-%m-%d-%H%M%S')
     print(key)
     title = request.POST["title"]
     text = request.POST["text"]
@@ -186,14 +186,13 @@ def upload_recommend(request):
 
 def delete_recommend(request):
     reason = check_cookie_logout(request)
+    username = request.session['user_name']
     # print(reason)
     if reason != 'ok':
         return get_error_response(reason)
-    request_data = request.POST
-    print(request_data)
-    key = request_data['key']
+    key = request.GET.get('key')
     try:
-        recommend_atom = recommend_info.objects.get(recommend_key=key)
+        recommend_atom = recommend_info.objects.filter(recommend_user=username).get(recommend_key=key)
     except recommend_info.DoesNotExist:
         print('recommend_info not exist.')
         return get_error_response('recommend_info not exist.')
