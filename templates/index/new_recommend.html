@@ -17,7 +17,6 @@
     <script src="/static/js/new_recommend.js"></script>
     <script src="/static/js/cookie.js"></script>
     <script src="/static/js/index.js"></script>
-    <script src="https://cdn.ckeditor.com/ckeditor5/27.0.0/classic/ckeditor.js"></script>
 </head>
 <body>
 <header>
@@ -41,20 +40,23 @@
     <!--button onclick="p()">ok</button><br/>
     <input type="text" id="usr" placeholder="用户名"/><br/>
     <input type="password" id="pwd" placeholder="密码"/><br/-->
-    <h1>Classic editor</h1>
+    <h1>新建推荐</h1>
     <form>
-        <textarea name="content" id="editor">
-            &lt;p&gt;This is some sample content.&lt;/p&gt;
-        </textarea>
-
-        <div id="pic_div">
-            <input type="file" onchange="loadImg(this.files[0], $('#imgContent1'))"><br/>
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" name="content" id="title" placeholder="标题"></input>
+        </div>
+        <div class="input-group mb-3">
+             <textarea type="text" class="form-control" aria-label="With textarea" name="content" id="editor" style="min-height: 20rem;" placeholder="正文"></textarea>
+        </div>
+        <div id="pic_div" class="input-group mb-3">
+            <input type="file" class="form-control" onchange="loadImg(this.files[0], $('#imgContent1'))"><br/>
         </div>
 
-        <p><input type="submit" value="Submit" onclick="create_recommend1('notitle', editorContent, 'pic_div')"></p>
+
+        <p><input class="btn btn-primary" type="submit" value="Submit" onclick="create_recommend1('notitle', editorContent, 'pic_div')"></p>
     </form>
 
-    <img id="imgContent1" width:100% height:100%/>
+    <img id="imgContent1" style="width:33%;height:33%"/>
 
     <script>
         let editorContent;
