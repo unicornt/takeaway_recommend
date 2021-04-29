@@ -1,4 +1,3 @@
-import json
 from hashlib import sha256
 
 import requests
@@ -6,11 +5,7 @@ import requests
 local_url = 'http://localhost:8000/'
 remote_url = 'http://45.134.171.215:8000/'
 internal_url = 'http://192.168.1.111:8000/'
-register_data1 = {
-    'usr': '1111111',
-    'pwd': '1234567',
-    'email': '18307130112@fudan.edu.cn',
-}
+
 register_data2 = {
     'usr': '1111111',
     'pwd': '12345678',
@@ -56,27 +51,32 @@ def hash_code(s, salt='users_hash'):
     h.update(s.encode())
     return h.hexdigest()
 
+
 def register_test(url, data):
     print('register_test:')
     resp = requests.post(url + 'login/register', json=data)
     print(resp.json())
 
-def login_test(url,data):
+
+def login_test(url, data):
     print('login_test:')
     resp = requests.post(url + 'login/log_in', json=data)
     print(resp.json())
 
-def email_validate_test(url,data):
+
+def email_validate_test(url, data):
     print('email_validate_test:')
     resp = requests.post(url + 'login/email_validate', json=data)
     print(resp.json())
 
-def reset_pwd_test(url,data):
+
+def reset_pwd_test(url, data):
     print('reset_pwd_test:')
     resp = requests.post(url + 'login/reset_pwd', json=data)
     print(resp.json())
 
-def change_pwd_test(url,data):
+
+def change_pwd_test(url, data):
     print('change_pwd_test:')
     resp = requests.post(url + 'login/log_in', json=data)
     print(resp.json())
@@ -90,7 +90,7 @@ def change_pwd_test(url,data):
     print(resp.json())
 
 
-def login_logout_test(url,data):
+def login_logout_test(url, data):
     print('login_logout_test:')
     resp = requests.post(url + 'login/log_in', json=data)
     cookie = resp.cookies
@@ -102,11 +102,31 @@ def login_logout_test(url,data):
     print(resp.json())
 
 
-
+# register_data1 = {
+#     "usr": "jinchenzhe",
+#     "pwd": "123",
+#     "email": "18307130112@fudan.edu.cn",
+# }
 if __name__ == '__main__':
-    pass
+    # login_logout_test(local_url,register_data1)
+    data = {
+        'type': '0',
+        'user': 'unicornt',
+        'upbound': '3',
+        'downbound': '2',
+        'order': '-',
+    }
+    print(data)
+    requests.post(local_url + 'recommend/get_recommends',
+                  {
+                      'type': '2',
+                      'user': 'unicornt',
+                      'upbound': '3',
+                      'downbound': '2',
+                      'order': '+',
+                  })
     # get_place_device_test(local_url)
-    # login_logout_test(local_url)
+
     # print(hash_code('1234567'))
     # asset_test(internal_url)
     # register_test(local_url, register_data1)
