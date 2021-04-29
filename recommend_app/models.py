@@ -33,3 +33,4 @@ class recommend_info(models.Model):
     recommend_flag=models.BooleanField('信息是否上传',default=False)
     recommend_picnum =models.IntegerField('图片数量')
     recommend_like=models.IntegerField('喜欢数量',default=0)
+    recommend_clicks = models.IntegerField('点击量', default=1)

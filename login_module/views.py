@@ -180,7 +180,7 @@ def user_confirm(request):
         confirm = ConfirmString.objects.get(code=confirm_code)
     except:
         message = 'Invalid confirm request.'
-        return render(request, 'login/Invalid_confirm_request.html', locals())
+        return render(request, 'Invalid_confirm_request.html', locals())
 
     created_time = confirm.created_time
     now = datetime.datetime.now()
@@ -190,7 +190,7 @@ def user_confirm(request):
     print(cmp)
     if now > cmp:
         message = 'Your email expired. Please register again.'
-        return render(request, 'login/email_expired.html', locals())
+        return render(request, 'email_expired.html', locals())
     # 下面这条语句结束后需要添加
     # confirm.delete()
     message = 'Successfully confirmed.'
