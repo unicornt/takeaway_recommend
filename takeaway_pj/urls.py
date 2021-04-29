@@ -1,5 +1,4 @@
 """takeaway_pj URL Configuration
-
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.1/topics/http/urls/
 Examples:
@@ -36,16 +35,14 @@ urlpatterns = [
     path('login/upload_text', login_module.views.upload_text, name='upload_text'),
 
     path('get/user', login_module.views.get_current_user),
-    path('recommend/new_recommend', recommend_app.views.create_recommend),
-    # path('recommend/recommend_addpic', recommend_app.views.recommend_addpic),
-    # path('recommend/recommend_delpic', recommend_app.views.recommend_delpic),
-    # path('recommend/upload_recommend', recommend_app.views.upload_recommend),
-    path('recommend/delete_recommend', recommend_app.views.delete_recommend),
+    path('recommend/new_recommend', recommend_app.views.create_recommend_0),
+    path('recommend/recommend_addpic', recommend_app.views.recommend_addpic),
+    path('recommend/recommend_delpic', recommend_app.views.recommend_delpic),
+    path('recommend/upload_recommend', recommend_app.views.upload_recommend),
     path('recommend/download_pic', recommend_app.views.download_pic),
-    path('recommend/get_recommends', recommend_app.views.get_recommend_for_range_and_order),
     path('recommend/user_recommend', recommend_app.views.user_recommend),
     path('recommend/all_recommend', recommend_app.views.all_recommend),
+
     re_path(r'^recommend/get_recommend/$', recommend_app.views.get_recommend),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': takeaway_pj.settings.MEDIA_ROOT}),
-
-]
+    re_path(r'^recommend/delete_recommend/$', recommend_app.views.delete_recommend),
