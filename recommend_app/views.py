@@ -35,8 +35,8 @@ def get_error_response(reason, content=None):
 def check_cookie_logout(request):
     if 'is_login' not in request.session:
         return 'Already logout.'
-    if request.method != 'POST':
-        return 'Request method is not POST.'
+    #if request.method != 'POST':
+        #return 'Request method is not POST.'
     return 'ok'
 
 
@@ -168,18 +168,19 @@ def get_recommend_in_range_and_order(request):
 def delete_recommend(request):
     print("program: delete_recommend")
     reason = check_cookie_logout(request)
-    # print(reason)
+    print(reason)
     if reason != 'ok':
         return get_error_response(reason)
     request_data = request.GET
     print(request_data)
     key = request_data['key']
+    print(key)
     try:
         recommend_atom = recommend_info.objects.get(recommend_key=key)
     except recommend_info.DoesNotExist:
         print('recommend_info not exist.')
         return get_error_response('recommend_info not exist.')
-    if (recommend_atom.user != request.session['user_name']):
+    if (recommend_atom.recommend_user != request.session['user_name']):
         return get_error_response('Invalid Operation!')
     num = recommend_atom.recommend_picnum
     dicts = json.loads(recommend_atom.recommend_piclist)

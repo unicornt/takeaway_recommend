@@ -53,35 +53,22 @@
         </div>
 
 
-        <p><input class="btn btn-primary" type="submit" value="Submit" onclick="create_recommend1('notitle', editorContent, 'pic_div')"></p>
+        <p><input class="btn btn-primary" type="button" value="Submit" onclick="create_recommend1($('#title').val(), $('#editor').val(), 'pic_div')"></p>
     </form>
 
     <img id="imgContent1" style="width:33%;height:33%"/>
 
-    <script>
-        let editorContent;
-        ClassicEditor
-            .create( document.querySelector( '#editor' ) )
-            .then( editor => {
-                editorContent = editor;
-            })
-            .catch( error => {
-                console.error( error );
-            } );
-    </script>
-
-    <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center" style="min-height: 200px;">
-        <!-- Then put toasts within -->
-        <div class="toast" role="alert" aria-live="assertive" aria-atomic="true" >
-            <div class="toast-header">
-                <strong class="mr-auto">提示</strong>
-                </button>
-            </div>
-            <div class="toast-body">
-                <h2>提交成功</h2>
-            </div>
-        </div>
-    </div>
+<!--    <script>-->
+<!--        let editorContent;-->
+<!--        ClassicEditor-->
+<!--            .create( document.querySelector( '#editor' ) )-->
+<!--            .then( editor => {-->
+<!--                editorContent = editor;-->
+<!--            })-->
+<!--            .catch( error => {-->
+<!--                console.error( error );-->
+<!--            } );-->
+<!--    </script>-->
 </div>
 </body>
 </html>
