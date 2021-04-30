@@ -54,3 +54,7 @@ function delete_recommend(recommend_id) {
         }
     });
 }
+
+function update_recommend(recommend_id, titie, text, picdiv){
+    
+}

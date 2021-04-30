@@ -75,6 +75,28 @@ def create_recommend(request):
                                   recommend_text=text, recommend_piclist=json.dumps(dict), recommend_flag=False)
     return get_ok_response('create_recommend', {'key': str(key)})
 
+def update_recommend(request):
+    reason = check_cookie_logout(request)
+    print(reason)
+    if reason != 'ok':
+        return get_error_response(reason)
+    key = request.POST["rid"]
+    print(key)
+    print(request.POST)
+    title = request.POST["title"]
+    text = request.POST["text"]
+    piclist = request.FILES.getlist("picture")
+    pic_num = len(piclist)
+    dict = {}
+    for i in range(pic_num):
+        pic_file = piclist[i]
+        type = pic_file.name.split('.').pop()
+        # now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        pic_file.name = '{0}-{1}.{2}'.format(key, i, type)
+        dict[str(i)] = pic_file.name
+        recommend_pic.objects.create(picture_id=pic_file.name, picture_key=key, picture=pic_file)
+    # request.session['recommend_piclist'][str(num)] = pic_file.name
+    return get_ok_response('create_recommend', {'key': str(key)})
 
 def get_recommend_for_range_and_order(request):
     POST_INFO = request.POST
