@@ -171,7 +171,7 @@ def delete_recommend(request):
     # print(reason)
     if reason != 'ok':
         return get_error_response(reason)
-    request_data = request.POST
+    request_data = request.GET
     print(request_data)
     key = request_data['key']
     try:
@@ -179,6 +179,8 @@ def delete_recommend(request):
     except recommend_info.DoesNotExist:
         print('recommend_info not exist.')
         return get_error_response('recommend_info not exist.')
+    if (recommend_atom.user != request.session['user_name']):
+        return get_error_response('Invalid Operation!')
     num = recommend_atom.recommend_picnum
     dicts = json.loads(recommend_atom.recommend_piclist)
     for x in range(num):
@@ -247,6 +249,7 @@ def get_recommend(request):
                 'picnum': picnum,
                 'user': user,
                 'like': like,
+                'id': id,
                 }
     return get_ok_response('get_recommend', ret_dict)
 
@@ -281,6 +284,7 @@ def user_recommend(request):
         now_dict['text'] = filt.recommend_text
         now_dict['piclist'] = filt.recommend_piclist
         now_dict['like'] = filt.recommend_like
+        now_dict['picnum'] = filt.recommend_picnum
         ret_dict[key] = now_dict
 
     return get_ok_response('user_recommend', ret_dict)
@@ -303,6 +307,7 @@ def all_recommend(request):
         now_dict['text'] = filt.recommend_text
         now_dict['piclist'] = filt.recommend_piclist
         now_dict['like'] = filt.recommend_like
+        now_dict['picnum'] = filt.recommend_picnum
         ret_dict[key] = now_dict
 
     return get_ok_response('user_recommend', ret_dict)
