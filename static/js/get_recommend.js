@@ -5,7 +5,7 @@
 function get_recommend_by_rid(rid){
     var url = "/recommend/get_recommend/?id=" + rid;
     console.log(url);
-    var retdata;
+    var retdata = null;
     $.ajax({
         url: url,
         type: "GET",
@@ -23,6 +23,7 @@ function get_recommend_by_rid(rid){
         },
         error:function(data){
             console.log("get_recommend error");
+            retdata = null;
         }
     });
     return retdata;

@@ -15,6 +15,7 @@
     <script type="text/javascript" src="/static/js/bootstrap.bundle.min.js"></script>
     <script src="/static/js/index.js"></script>
     <script src="/static/js/cookie.js"></script>
+    <script src="/static/js/get_recommend.js"></script>
 </head>
 <body>
 <header>
@@ -34,5 +35,33 @@
         </div>
     </nav>
 </header>
-<img src=""
+<div class="container">
+    <h1 class="mt-5" id="title"></h1>
+    <p id="text" style="width: 100%; word-break: break-all"></p>
+    <img src="" alt="img" id="img1" style="max-width: 100%">
+</div>
+<script>
+    $(document).ready(function (){
+        var para = window.location.search;
+        if(para != '') {
+            var vpara = para.substr(1);
+            var theRequest = new Object();
+            console.log(vpara);
+            vpara = vpara.split('&');
+            for(var i = 0; i < vpara.length; i++) {
+                theRequest[vpara[i].split("=")[0]] = unescape(vpara[i].split("=")[1]);
+            }
+            console.log(theRequest['rid']);
+            if(theRequest['rid'] != null) {
+                var retdata = get_recommend_by_rid(theRequest['rid']);
+                console.log('retdata', retdata.title);
+                if(retdata != null) {
+                    $('#title').text(retdata.title);
+                    $('#text').text(retdata.text);
+                    $('#img1').attr('src', '/media/recommend/' + JSON.parse(retdata.piclist)['0'])
+                }
+            }
+        }
+    });
+</script>
 </body>

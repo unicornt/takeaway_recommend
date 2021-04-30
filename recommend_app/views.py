@@ -272,7 +272,7 @@ def get_recommend(request):
                 'picnum': picnum,
                 'user': user,
                 'like': like,
-                'id': id,
+                'rid': id,
                 }
     return get_ok_response('get_recommend', ret_dict)
 
@@ -308,6 +308,7 @@ def user_recommend(request):
         now_dict['piclist'] = filt.recommend_piclist
         now_dict['like'] = filt.recommend_like
         now_dict['picnum'] = filt.recommend_picnum
+        now_dict['rid'] = filt.recommend_key
         ret_dict[key] = now_dict
 
     return get_ok_response('user_recommend', ret_dict)

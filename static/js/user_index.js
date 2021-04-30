@@ -24,7 +24,7 @@ $(document).ready(function () {
             '                            <p class="card-text limit-line">' + data[val].text + '</p>\n' +
             '                            <div class="d-flex justify-content-between align-items-center">\n' +
             '                                <div class="btn-group">\n' +
-            '                                    <a href="/show_recommend"><button type="button" class="btn btn-sm btn-outline-secondary">更多</button></a>\n' +
+            '                                    <a href="/show_recommend?rid=' + data[val].rid + '"><button type="button" class="btn btn-sm btn-outline-secondary">更多</button></a>\n' +
             '                                    <button type="button" class="btn btn-sm btn-outline-secondary">编辑</button>\n' +
             '                                    <button type="button" class="btn btn-sm btn-danger" onclick="delete_recommend(\'' + val +'\')">删除</button>\n' +
             '                                </div>\n' +
