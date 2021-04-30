@@ -2,6 +2,7 @@ $(document).ready(function () {
     var username = getCookie('username');
     var data = get_recommend_by_usr(username);
     for(var val in data) {
+        console.log(data);
         console.log(data[val].piclist);
         var num = 1
         var rown = 0
