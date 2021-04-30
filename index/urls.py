@@ -10,6 +10,8 @@ urlpatterns = [
     path('new_recommend', views.new_recommend, name='new_recommend'),
     path('login_fail', views.login_fail, name='login_fail'),
     path('user_index', views.user_index, name='user_index'),
-    path('show_recommend', views.show_recommend, name='show_recommend')
+    path('show_recommend', views.show_recommend, name='show_recommend'),
+    path('finish_register', views.finish_register, name='finish_register'),
+    path('email_sent', views.email_sent, name='email_sent')
 ]
 
