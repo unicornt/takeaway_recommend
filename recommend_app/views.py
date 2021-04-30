@@ -166,6 +166,7 @@ def get_recommend_in_range_and_order(request):
 
 
 def delete_recommend(request):
+    print("program: delete_recommend")
     reason = check_cookie_logout(request)
     # print(reason)
     if reason != 'ok':
@@ -182,9 +183,11 @@ def delete_recommend(request):
     dicts = json.loads(recommend_atom.recommend_piclist)
     for x in range(num):
         pic_name = dicts[str(x)]
+        print(pic_name)
         path = os.path.join('upload', 'recommend', pic_name)
         if os.path.isfile(path):
             os.remove(path)
+        recommend_pic.objects.get(picture_id=pic_name).delete()
     recommend_atom.delete()
     return get_ok_response('delete_recommend')
 

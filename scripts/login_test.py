@@ -102,29 +102,35 @@ def login_logout_test(url, data):
     print(resp.json())
 
 
-# register_data1 = {
-#     "usr": "jinchenzhe",
-#     "pwd": "123",
-#     "email": "18307130112@fudan.edu.cn",
-# }
+register_data1 = {
+    "usr": "jinchenzhe",
+    "pwd": "123",
+    "email": "18307130112@fudan.edu.cn",
+}
+delete_data = {
+    "key": "2021-04-30-124115",
+}
 if __name__ == '__main__':
+    resp = requests.post(local_url + 'login/log_in', register_data1)
+    cookie = resp.cookies
+    resp=requests.post(local_url+'recommend/delete_recommend/',delete_data,cookies=cookie)
     # login_logout_test(local_url,register_data1)
-    data = {
-        'type': '0',
-        'user': 'unicornt',
-        'upbound': '3',
-        'downbound': '2',
-        'order': '-',
-    }
-    print(data)
-    requests.post(local_url + 'recommend/get_recommends',
-                  {
-                      'type': '2',
-                      'user': 'unicornt',
-                      'upbound': '3',
-                      'downbound': '2',
-                      'order': '+',
-                  })
+    # data = {
+    #     'type': '0',
+    #     'user': 'unicornt',
+    #     'upbound': '3',
+    #     'downbound': '2',
+    #     'order': '-',
+    # }
+    # print(data)
+    # requests.post(local_url + 'recommend/get_recommends',
+    #               {
+    #                   'type': '2',
+    #                   'user': 'unicornt',
+    #                   'upbound': '3',
+    #                   'downbound': '2',
+    #                   'order': '+',
+    #               })
     # get_place_device_test(local_url)
 
     # print(hash_code('1234567'))
