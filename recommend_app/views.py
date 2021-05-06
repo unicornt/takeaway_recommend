@@ -35,8 +35,8 @@ def get_error_response(reason, content=None):
 def check_cookie_logout(request):
     if 'is_login' not in request.session:
         return 'Already logout.'
-    if request.method != 'POST':
-        return 'Request method is not POST.'
+    #if request.method != 'POST':
+        #return 'Request method is not POST.'
     return 'ok'
 
 
@@ -75,6 +75,28 @@ def create_recommend(request):
                                   recommend_text=text, recommend_piclist=json.dumps(dict), recommend_flag=False)
     return get_ok_response('create_recommend', {'key': str(key)})
 
+def update_recommend(request):
+    reason = check_cookie_logout(request)
+    print(reason)
+    if reason != 'ok':
+        return get_error_response(reason)
+    key = request.POST["rid"]
+    print(key)
+    print(request.POST)
+    title = request.POST["title"]
+    text = request.POST["text"]
+    piclist = request.FILES.getlist("picture")
+    pic_num = len(piclist)
+    dict = {}
+    for i in range(pic_num):
+        pic_file = piclist[i]
+        type = pic_file.name.split('.').pop()
+        # now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        pic_file.name = '{0}-{1}.{2}'.format(key, i, type)
+        dict[str(i)] = pic_file.name
+        recommend_pic.objects.create(picture_id=pic_file.name, picture_key=key, picture=pic_file)
+    # request.session['recommend_piclist'][str(num)] = pic_file.name
+    return get_ok_response('create_recommend', {'key': str(key)})
 
 def get_recommend_for_range_and_order(request):
     POST_INFO = request.POST
@@ -168,17 +190,20 @@ def get_recommend_in_range_and_order(request):
 def delete_recommend(request):
     print("program: delete_recommend")
     reason = check_cookie_logout(request)
-    # print(reason)
+    print(reason)
     if reason != 'ok':
         return get_error_response(reason)
-    request_data = request.POST
+    request_data = request.GET
     print(request_data)
     key = request_data['key']
+    print(key)
     try:
         recommend_atom = recommend_info.objects.get(recommend_key=key)
     except recommend_info.DoesNotExist:
         print('recommend_info not exist.')
         return get_error_response('recommend_info not exist.')
+    if (recommend_atom.recommend_user != request.session['user_name']):
+        return get_error_response('Invalid Operation!')
     num = recommend_atom.recommend_picnum
     dicts = json.loads(recommend_atom.recommend_piclist)
     for x in range(num):
@@ -247,6 +272,7 @@ def get_recommend(request):
                 'picnum': picnum,
                 'user': user,
                 'like': like,
+                'rid': id,
                 }
     return get_ok_response('get_recommend', ret_dict)
 
@@ -281,6 +307,8 @@ def user_recommend(request):
         now_dict['text'] = filt.recommend_text
         now_dict['piclist'] = filt.recommend_piclist
         now_dict['like'] = filt.recommend_like
+        now_dict['picnum'] = filt.recommend_picnum
+        now_dict['rid'] = filt.recommend_key
         ret_dict[key] = now_dict
 
     return get_ok_response('user_recommend', ret_dict)
@@ -303,6 +331,7 @@ def all_recommend(request):
         now_dict['text'] = filt.recommend_text
         now_dict['piclist'] = filt.recommend_piclist
         now_dict['like'] = filt.recommend_like
+        now_dict['picnum'] = filt.recommend_picnum
         ret_dict[key] = now_dict
 
     return get_ok_response('user_recommend', ret_dict)

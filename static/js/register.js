@@ -12,10 +12,10 @@ function checkRegister() {
         success:function(data){
             console.log("success");
             if(data.status == 'ok') {
-                window.location.href='/';
+                window.location.href='/email_sent';
             }
             else if(data.status == 'error'){
-                alert(data.type);
+                // alert(data.type);
                 $("#badregister").text(data.type);
                 $("#badregister").css({'visibility': 'visible'});
                 console.log('error');

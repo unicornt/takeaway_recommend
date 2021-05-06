@@ -1,4 +1,12 @@
 function checkRegister() {
+    if($("#usr").val() == "" || $("#pwd").val() == "") {
+        alert("用户名或密码不能为空");
+        return;
+    }
+    if($("#pwd").val() != $("#pwd2").val()) {
+        alert("请重新确认密码");
+        return;
+    }
     var usr = $("#ecode").val()
     console.log(usr);
     $.ajax({
@@ -16,7 +24,7 @@ function checkRegister() {
         success:function(data){
             console.log("success");
             if(data.status == 'ok') {
-                window.location.href='/';
+                window.location.href='/finish_register';
             }
             else if(data.status == 'error'){
                 console.log('error');
@@ -24,6 +32,7 @@ function checkRegister() {
         },
         error:function(e){
             console.log("error");
+            alert(data.type);
         }
     });
 }

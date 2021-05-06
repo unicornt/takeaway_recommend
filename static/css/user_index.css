@@ -2,3 +2,9 @@
     height: 15rem;
     object-fit: cover;
 }
+
+.limit-line{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}

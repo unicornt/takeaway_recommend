@@ -27,3 +27,9 @@ def user_index(request):
 
 def show_recommend(request):
     return render(request, 'show_recommend.html', {})
+
+def finish_register(request):
+    return render(request, 'finish_register.html', {})
+
+def email_sent(request):
+    return render(request, 'email_sent.html', {})

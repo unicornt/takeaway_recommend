@@ -5,6 +5,7 @@
 function get_recommend_by_rid(rid){
     var url = "/recommend/get_recommend/?id=" + rid;
     console.log(url);
+    var retdata = null;
     $.ajax({
         url: url,
         type: "GET",
@@ -18,15 +19,14 @@ function get_recommend_by_rid(rid){
             console.log(retData.piclist);
             var piclist = JSON.parse(retData.piclist);
             console.log(retData.picnum);
-            //var src = "\{\% static \"{" + url+ "}\" \%\}";
-            var src = "/media/recommend/2021-04-27-113302-0.bmp";
-            console.log(src);
-            $("#img1").attr('src',  src); 
+            retdata = data.content;
         },
         error:function(data){
             console.log("get_recommend error");
+            retdata = null;
         }
     });
+    return retdata;
 }
 
 function get_recommend_by_usr(username){
