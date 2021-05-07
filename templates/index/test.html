@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <script src="/static/js/get_recommend.js"></script>
+    <script src="/static/js/edit_recommend.js"></script>
     <link rel="stylesheet" type="text/css" href="/static/css/login.css">
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
 </head>
@@ -12,9 +13,10 @@
     <img id="img1" />
     <form>
         <input id="inputid" type="text"/><br/>
-        <input type="button" value="get by usr" onclick="get_recommend_by_usr($('#inputid').val())" />
-        <input type="button" value="get by rid" onclick="get_recommend_by_rid($('#inputid').val())" />
-        <input type="button" value="go" onclick="window.location.href='/user_index/'" />
+        <input type="button" value="get by usr" onclick="get_recommend_by_usr($('#inputid').val())" /><br/>
+        <input type="button" value="get by rid" onclick="get_recommend_by_rid($('#inputid').val())" /><br/>
+        <input type="button" value="go" onclick="window.location.href='/user_index/'" /><br/>
+        <input type="button" value="edit" onclick="get_edit_index($('#inputid').val())" /><br/>
     </form>
 </body>
 </html>

@@ -14,7 +14,8 @@ def confirm_index(request):
     return render(request, 'Successfully_confirmed.html', {})
 
 def test(request):
-    return render(request, 'invalid_confirm_request.html', {})
+    #return render(request, 'invalid_confirm_request.html', {})
+    return render(request, 'test.html', {})
 
 def new_recommend(request):
     return render(request, 'new_recommend.html', {})

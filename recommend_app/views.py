@@ -4,6 +4,7 @@ from datetime import datetime
 
 from PIL import Image
 from django.http import HttpResponse
+from django.shortcuts import render
 
 # Create your views here.
 from recommend_app.models import recommend_info, recommend_pic
@@ -75,23 +76,81 @@ def create_recommend(request):
                                   recommend_text=text, recommend_piclist=json.dumps(dict), recommend_flag=False)
     return get_ok_response('create_recommend', {'key': str(key)})
 
+def edit_index(request):
+    reason = check_cookie_logout(request)
+    print(reason)
+    if reason != 'ok':
+        return get_error_response(reason)
+    request_data = request.GET
+    print(request_data)
+    key = request_data['key']
+    print(key)
+    try:
+        recommend_atom = recommend_info.objects.get(recommend_key=key)
+    except recommend_info.DoesNotExist:
+        print('recommend_info not exist.')
+        return get_error_response('recommend_info not exist.')
+    if (recommend_atom.recommend_user != request.session['user_name']):
+        return get_error_response('Invalid Operation!')
+
+    title = recommend_atom.recommend_title
+    text = recommend_atom.recommend_text
+    picnum = recommend_atom.recommend_picnum
+    piclist = json.loads(recommend_atom.recommend_piclist)
+
+    render_dict = {
+        "title" : title,
+        "text" : text,
+        "piclist": piclist,
+    }
+    print(piclist)
+    return render(request, 'edit.html', render_dict)
+
 def update_recommend(request):
     reason = check_cookie_logout(request)
     print(reason)
     if reason != 'ok':
         return get_error_response(reason)
-    key = request.POST["rid"]
+    request_data = request.POST
+    print(request_data)
+    key = request_data['key']
     print(key)
-    print(request.POST)
+    try:
+        recommend_atom = recommend_info.objects.get(recommend_key=key)
+    except recommend_info.DoesNotExist:
+        print('recommend_info not exist.')
+        return get_error_response('recommend_info not exist.')
+    if (recommend_atom.recommend_user != request.session['user_name']):
+        return get_error_response('Invalid Operation!')
+    num = recommend_atom.recommend_picnum
+    dicts = json.loads(recommend_atom.recommend_piclist)
+    for x in range(num):
+        pic_name = dicts[str(x)]
+        print(pic_name)
+        path = os.path.join('upload', 'recommend', pic_name)
+        if os.path.isfile(path):
+            os.remove(path)
+        recommend_pic.objects.get(picture_id=pic_name).delete()
+
+    reason = check_cookie_logout(request)
+    print(reason)
+    if reason != 'ok':
+        return get_error_response(reason)
+
     title = request.POST["title"]
     text = request.POST["text"]
     piclist = request.FILES.getlist("picture")
     pic_num = len(piclist)
+
+    recommend_atom.recommend_title = titie
+    recommend_atom.recommend_text = text
+    recommend_atom.recommend_picnum = pic_num
+    recommend_atom.recommend_piclist = json.dumps(dict)
+
     dict = {}
     for i in range(pic_num):
         pic_file = piclist[i]
         type = pic_file.name.split('.').pop()
-        # now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         pic_file.name = '{0}-{1}.{2}'.format(key, i, type)
         dict[str(i)] = pic_file.name
         recommend_pic.objects.create(picture_id=pic_file.name, picture_key=key, picture=pic_file)
@@ -335,6 +394,24 @@ def all_recommend(request):
         ret_dict[key] = now_dict
 
     return get_ok_response('user_recommend', ret_dict)
+
+def like(request):
+    reason = check_cookie_logout(request)
+    # print(reason)
+    if reason != 'ok':
+        return get_error_response(reason)
+    user = request.session['user_name']
+    request_data = request.POST
+    recommend_id = request_data['rid']
+    otype = request_data['otype']
+    like_atom = recommend_like.objects.get(like_id=recommend_id, like_user=user)
+    if (otype == 'like'):
+        if (not like_atom.exists())
+            recommend_like.objects.create(like_id=recommend_id, like_user=user)
+    else:
+        if (like_atom.exists())
+            like_atom.delete()
+
 
 # def create_recommend_old(request):
 #     reason = check_cookie_logout(request)

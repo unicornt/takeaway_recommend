@@ -36,25 +36,3 @@ $(document).ready(function () {
         num += 1;
     }
 });
-
-function delete_recommend(recommend_id) {
-    console.log(recommend_id);
-    $.ajax({
-        url: "/recommend/delete_recommend/?key=" + recommend_id,
-        type: "GET",
-        contentType: false,
-        processData: false,
-        async : false,
-        success:function (data) {
-            alert("删除成功");
-            window.location.href='/user_index';
-        },
-        error:function(data){
-            console.log("get_recommend error");
-        }
-    });
-}
-
-function update_recommend(recommend_id, titie, text, picdiv){
-    
-}

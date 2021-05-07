@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <script src="/static/js/get_recommend.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/css/login.css">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+</head>
+<body>
+    <textarea id="title">{{title}}</textarea><br/>
+    <textarea id="text">{{text}}</textarea><br/>
+    {% for k,v in piclist.items %}
+        <img id="{{item}}" src="/media/recommend/{{v}}" />
+    {% endfor %}
+    <button onclick="">
+</body>
+</html>
