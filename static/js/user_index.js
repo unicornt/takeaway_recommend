@@ -1,6 +1,16 @@
 $(document).ready(function () {
     var username = getCookie('username');
     var data = get_recommend_by_usr(username);
+    myRender(data);
+});
+
+function sortByClicks(){
+    var username = getCookie('username');
+    $.ajax({
+    });
+}
+
+function myRender(data){
     for(var val in data) {
         console.log(val);
         console.log(data[val].piclist);
@@ -35,4 +45,4 @@ $(document).ready(function () {
             '                </div>');
         num += 1;
     }
-});
+}
