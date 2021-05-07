@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
-from recommend_app.models import recommend_info, recommend_pic, recommend_like
+from recommend_app.models import recommend_info, recommend_pic
 
 
 def get_response(resp_dict, content):
@@ -161,11 +161,15 @@ def get_recommend_for_range_and_order(request):
     POST_INFO = request.POST
     # POST_INFO = json.loads(request.body)
     type_id = POST_INFO['type']  # TYPE=0: LIKES, TYPE=1: UPLOAD TIME, TYPE=2: CLICKS
+    is_all = POST_INFO['is_all']
     user = POST_INFO['user']
     if user == 'admin' and 'is_login' in request.session:
         user = request.session['user_name']
-    upbound = int(POST_INFO['upbound']) + 1
-    downbound = int(POST_INFO['downbound'])
+    upbound = 0
+    downbound = recommend_info.filter(recommend_user=user).count()
+    if (is_all == '0'):
+        upbound = int(POST_INFO['upbound']) + 1
+        downbound = int(POST_INFO['downbound'])
     order = POST_INFO['order']
     ordertext = ''
     if POST_INFO['order'] == '-':
@@ -300,6 +304,7 @@ def download_pic(request):
         im.save(response, "PNG")
     return response
 
+
 def get_recommend(request):
     id = request.GET.get('id')
     print(id)
@@ -400,9 +405,11 @@ def like(request):
     if reason != 'ok':
         return get_error_response(reason)
     user = request.session['user_name']
+    request_data = request.POST
     request_data = request.GET
     recommend_id = request_data['rid']
     otype = request_data['otype']
+    like_atom = recommend_like.objects.get(like_id=recommend_id, like_user=user)
     print(recommend_id)
     print(otype)
     like_atom = recommend_like.objects.filter(like_id=recommend_id, like_user=user)
@@ -410,7 +417,6 @@ def like(request):
     cur_like = recommend_atom.recommend_like
     print(type(cur_like))
     if (otype == 'like'):
-        print(recommend_atom.recommend_user)
         if (like_atom.count() == 0):
             recommend_like.objects.create(like_id=recommend_id, like_user=user)
             recommend_atom.recommend_like=cur_like+1

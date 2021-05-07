@@ -4,10 +4,37 @@ $(document).ready(function () {
     myRender(data);
 });
 
-function sortByClicks(){
+function sortAndRender(sortkey, order){
     var username = getCookie('username');
+    var retdata;
     $.ajax({
+        url : '/recommend/sort',
+        type : 'POST',
+        data : {
+            'is_all': '1',
+            'type' : sortkey,
+            'user' : 'admin',
+            'order' : order,
+        },
+        dataType: "json",
+        contentType: false,
+        processData: false,
+        async: false,
+        success: function(data){
+            retdata = data.content;
+        },
     });
+    removeAllChild();
+    myRender(retdata);
+}
+
+function removeAllChild()
+{
+    var div = document.getElementById("show_container");
+    while(div.hasChildNodes()) //当div下还存在子节点时 循环继续
+    {
+        div.removeChild(div.firstChild);
+    }
 }
 
 function myRender(data){
