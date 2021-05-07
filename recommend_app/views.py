@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
-from recommend_app.models import recommend_info, recommend_pic
+from recommend_app.models import recommend_info, recommend_pic, recommend_like
 
 
 def get_response(resp_dict, content):
@@ -300,7 +300,6 @@ def download_pic(request):
         im.save(response, "PNG")
     return response
 
-
 def get_recommend(request):
     id = request.GET.get('id')
     print(id)
@@ -401,16 +400,35 @@ def like(request):
     if reason != 'ok':
         return get_error_response(reason)
     user = request.session['user_name']
-    request_data = request.POST
+    request_data = request.GET
     recommend_id = request_data['rid']
     otype = request_data['otype']
-    like_atom = recommend_like.objects.get(like_id=recommend_id, like_user=user)
+    print(recommend_id)
+    print(otype)
+    like_atom = recommend_like.objects.filter(like_id=recommend_id, like_user=user)
+    recommend_atom = recommend_info.objects.get(recommend_key=recommend_id)
+    cur_like = recommend_atom.recommend_like
+    print(type(cur_like))
     if (otype == 'like'):
-        if (not like_atom.exists())
+        print(recommend_atom.recommend_user)
+        if (like_atom.count() == 0):
             recommend_like.objects.create(like_id=recommend_id, like_user=user)
+            recommend_atom.recommend_like=cur_like+1
+            recommend_atom.save()
     else:
-        if (like_atom.exists())
+        if (like_atom.count() > 0):
             like_atom.delete()
+            recommend_atom.recommend_like=cur_like-1
+            recommend_atom.save()
+    return get_ok_response('like', {})
+
+def click(request):
+    recommend_id = request.GET['rid']
+    recommend_atom = recommend_info.objects.get(recommend_key=recommend_id)
+    cur_clicks = recommend_atom.recommend_clicks
+    recommend_atom.recommend_clicks=cur_clicks+1
+    recommend_atom.save()
+    return get_ok_response('click', {})
 
 
 # def create_recommend_old(request):

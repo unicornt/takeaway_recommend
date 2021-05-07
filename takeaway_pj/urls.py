@@ -44,10 +44,12 @@ urlpatterns = [
     path('recommend/user_recommend', recommend_app.views.user_recommend),
     path('recommend/all_recommend', recommend_app.views.all_recommend),
     path('recommend/update_recommend', recommend_app.views.update_recommend),
-    
+
+    re_path(r'^recommend/like/$', recommend_app.views.like),
     re_path(r'^recommend/edit_recommend/$', recommend_app.views.edit_index),
     re_path(r'^recommend/get_recommend/$', recommend_app.views.get_recommend),
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': takeaway_pj.settings.MEDIA_ROOT}),
     re_path(r'^recommend/delete_recommend/$', recommend_app.views.delete_recommend),
+    re_path(r'^recommend/click/$', recommend_app.views.click),
 
 ]
