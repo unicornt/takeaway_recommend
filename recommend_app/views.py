@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
-from recommend_app.models import recommend_info, recommend_pic
+from recommend_app.models import recommend_info, recommend_pic, recommend_like
 
 
 def get_response(resp_dict, content):
@@ -160,13 +160,14 @@ def update_recommend(request):
 def get_recommend_for_range_and_order(request):
     POST_INFO = request.POST
     # POST_INFO = json.loads(request.body)
+    print(POST_INFO)
     type_id = POST_INFO['type']  # TYPE=0: LIKES, TYPE=1: UPLOAD TIME, TYPE=2: CLICKS
     is_all = POST_INFO['is_all']
     user = POST_INFO['user']
     if user == 'admin' and 'is_login' in request.session:
         user = request.session['user_name']
-    upbound = 0
-    downbound = recommend_info.filter(recommend_user=user).count()
+    downbound = 0
+    upbound = recommend_info.objects.filter(recommend_user=user).count()
     if (is_all == '0'):
         upbound = int(POST_INFO['upbound']) + 1
         downbound = int(POST_INFO['downbound'])
@@ -195,12 +196,15 @@ def get_recommend_for_range_and_order(request):
         like = recommend_item.recommend_like
         clicks = recommend_item.recommend_clicks
         picnum = recommend_item.recommend_picnum
+        '''
         picdict = json.loads(recommend_item.recommend_piclist)
         print(picdict)
         piclist = []
         for value in picdict.values():
             piclist.append(value)
         print(piclist)
+        '''
+        piclist = recommend_item.recommend_piclist
         recommend_dict = {'user': user,
                           'title': title,
                           'text': text,
@@ -409,7 +413,7 @@ def like(request):
     request_data = request.GET
     recommend_id = request_data['rid']
     otype = request_data['otype']
-    like_atom = recommend_like.objects.get(like_id=recommend_id, like_user=user)
+    like_atom = recommend_like.objects.filter(like_id=recommend_id, like_user=user)
     print(recommend_id)
     print(otype)
     like_atom = recommend_like.objects.filter(like_id=recommend_id, like_user=user)
