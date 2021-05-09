@@ -34,3 +34,7 @@ class recommend_info(models.Model):
     recommend_picnum =models.IntegerField('图片数量')
     recommend_like=models.IntegerField('喜欢数量',default=0)
     recommend_clicks = models.IntegerField('点击数', default=1)
+
+class recommend_like(models.Model):
+    like_id = models.CharField('点赞推荐编号', max_length=20, null=False)
+    like_user = models.CharField('点赞的用户名', max_length=20, null=False)

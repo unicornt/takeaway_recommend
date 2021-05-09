@@ -1,6 +1,43 @@
 $(document).ready(function () {
     var username = getCookie('username');
     var data = get_recommend_by_usr(username);
+    myRender(data);
+});
+
+function sortAndRender(sortkey, order){
+    var username = getCookie('username');
+    var retdata;
+    $.ajax({
+        url : '/recommend/sort',
+        type : 'POST',
+        data : {
+            'is_all': '1',
+            'type' : sortkey,
+            'user' : 'admin',
+            'order' : order,
+        },
+        dataType: "json",
+        contentType: false,
+        processData: false,
+        async: false,
+        success: function(data){
+            retdata = data.content;
+        },
+    });
+    removeAllChild();
+    myRender(retdata);
+}
+
+function removeAllChild()
+{
+    var div = document.getElementById("show_container");
+    while(div.hasChildNodes()) //当div下还存在子节点时 循环继续
+    {
+        div.removeChild(div.firstChild);
+    }
+}
+
+function myRender(data){
     for(var val in data) {
         console.log(val);
         console.log(data[val].piclist);
@@ -35,26 +72,4 @@ $(document).ready(function () {
             '                </div>');
         num += 1;
     }
-});
-
-function delete_recommend(recommend_id) {
-    console.log(recommend_id);
-    $.ajax({
-        url: "/recommend/delete_recommend/?key=" + recommend_id,
-        type: "GET",
-        contentType: false,
-        processData: false,
-        async : false,
-        success:function (data) {
-            alert("删除成功");
-            window.location.href='/user_index';
-        },
-        error:function(data){
-            console.log("get_recommend error");
-        }
-    });
-}
-
-function update_recommend(recommend_id, titie, text, picdiv){
-    
 }
