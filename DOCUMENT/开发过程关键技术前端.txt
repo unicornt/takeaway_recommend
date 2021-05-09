@@ -1,0 +1,1 @@
+主要采用 HTML, CSS, Javascript 进行开发，使用了 bootstrap 5 框架，对于不同的浏览器，屏幕大小有比较好的适配能力。尽管 bootstrap 5 已经不再依赖 JQuery，但由于项目实际开发过程中仍然有很多地方需要 JQuery 的功能，因此项目仍然依赖 JQuery 进行开发。
