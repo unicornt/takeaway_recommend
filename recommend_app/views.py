@@ -7,7 +7,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
-from recommend_app.models import recommend_info, recommend_pic
+from recommend_app.models import recommend_info, recommend_pic, recommend_like
 
 
 def get_response(resp_dict, content):
@@ -141,13 +141,13 @@ def update_recommend(request):
     text = request.POST["text"]
     piclist = request.FILES.getlist("picture")
     pic_num = len(piclist)
-
-    recommend_atom.recommend_title = titie
+    dict = {}
+    recommend_atom.recommend_title = title
     recommend_atom.recommend_text = text
     recommend_atom.recommend_picnum = pic_num
     recommend_atom.recommend_piclist = json.dumps(dict)
 
-    dict = {}
+
     for i in range(pic_num):
         pic_file = piclist[i]
         type = pic_file.name.split('.').pop()
