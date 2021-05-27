@@ -7,15 +7,17 @@ $(document).ready(function () {
 function sortAndRender(sortkey, order){
     var username = getCookie('username');
     var retdata;
+    var formData = new FormData();
+    formData.append('is_all', '1');
+    formData.append('type', sortkey);
+    formData.append('user', 'admin');
+    formData.append('order', order);
+    console.log(typeof(sortkey));
+    console.log(sortkey);
     $.ajax({
-        url : '/recommend/sort',
-        type : 'POST',
-        data : {
-            'is_all': '1',
-            'type' : sortkey,
-            'user' : 'admin',
-            'order' : order,
-        },
+        url : "/recommend/sort",
+        type : "POST",
+        data : formData,
         dataType: "json",
         contentType: false,
         processData: false,
