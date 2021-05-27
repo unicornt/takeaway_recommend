@@ -62,15 +62,11 @@ def check_cookie_login(request):
 
 
 def log_in(request):
-    # print(request.POST)
     global user
     reason = check_cookie_login(request)
-    # print(reason)
     if reason != 'ok':
         return get_error_response(reason)
-    # request_data = json.loads(request.body)
     request_data = request.POST
-    # print(request_data)
     usr, pwd = request_data['usr'], request_data['pwd']
     if validators.email(usr):
         try:
@@ -86,9 +82,6 @@ def log_in(request):
             return get_error_response('Username not exist.')
     if user.usr_pwd != hash_code(pwd):
         print('Wrong password.')
-        print(pwd)
-        print(hash_code(pwd))
-        print(user.usr_pwd)
         return get_error_response('Wrong password.')
     request.session['is_login'] = True
     request.session['user_id'] = user.id
