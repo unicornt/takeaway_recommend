@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="483d23d7-9ef4-4d74-ab87-5e1ff1606638" name="默认的" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/takeaway_pj.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/takeaway_pj.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/recommend_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/recommend_app/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/recommend_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/recommend_app/views.py" afterDir="false" />
     </list>
@@ -149,6 +147,8 @@
       <workItem from="1620364340375" duration="1638000" />
       <workItem from="1620366516299" duration="3782000" />
       <workItem from="1620539214723" duration="3213000" />
+      <workItem from="1620551597672" duration="56000" />
+      <workItem from="1622079447742" duration="3834000" />
     </task>
     <servers />
   </component>
