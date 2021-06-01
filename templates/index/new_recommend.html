@@ -17,6 +17,8 @@
     <script src="/static/js/new_recommend.js"></script>
     <script src="/static/js/cookie.js"></script>
     <script src="/static/js/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link href="/static/css/bootstrap5-dropdown-ml-hack-hover.css" rel="stylesheet" />
 </head>
 <body>
 <header>
@@ -41,7 +43,27 @@
     <input type="text" id="usr" placeholder="用户名"/><br/>
     <input type="password" id="pwd" placeholder="密码"/><br/-->
     <h1>新建推荐</h1>
+    <div id="vue_div">
+        <div class="container mb-2">
+            <div class="dropdown mt-3">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    {% verbatim %}{{tag}}{% endverbatim %}
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <div class="dropdown dropend" v-for="tname in list1">
+                        <a class="dropdown-item dropdown-toggle" href="#" id="dropdown-layouts" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> {% verbatim %}{{tname.name}}{% endverbatim %}</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown-layouts">
+                            <div v-for="t2 in list2">
+                                <button class="dropdown-item" @click="ChangeTag(tname.name, t2.name)">{% verbatim %}{{t2.name}}{% endverbatim %}</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <form>
+
         <div class="input-group mb-3">
             <input type="text" class="form-control" name="content" id="title" placeholder="标题"></input>
         </div>
@@ -55,21 +77,25 @@
 
         <p><input class="btn btn-primary" type="button" value="Submit" onclick="create_recommend1($('#title').val(), $('#editor').val(), 'pic_div')"></p>
     </form>
-
+    </div>
     <img id="imgContent1" style="width:33%;height:33%"/>
-
-<!--    <script>-->
-<!--        let editorContent;-->
-<!--        ClassicEditor-->
-<!--            .create( document.querySelector( '#editor' ) )-->
-<!--            .then( editor => {-->
-<!--                editorContent = editor;-->
-<!--            })-->
-<!--            .catch( error => {-->
-<!--                console.error( error );-->
-<!--            } );-->
-<!--    </script>-->
-</div>
+<script>
+    let vm=new Vue({
+        el: '#vue_div',
+        data: {
+            list1: [{name: '早饭'}, {name: '正餐'}, {name: '下午茶'}, {name: '夜宵'}],
+            list2: [{name: '包子粥'}, {name: '炒饭菜'}, {name: '西式'}, {name: '甜点奶茶'},{name:  '火锅'}, {name: '烧烤'}],
+            tag: "选择标签"
+        },
+        methods: {
+            ChangeTag: function (a, b){
+                console.log(a, b);
+                vm.$data.tag = a.toString() + ' - ' + b.toString();
+            }
+        }
+    });
+</script>
+<script src="/static/js/bootstrap5-dropdown-ml-hack.js"></script>
 </body>
 </html>
 
