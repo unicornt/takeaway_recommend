@@ -65,6 +65,7 @@ def create_recommend(request):  # 创建推荐
     reason = check_cookie_logout(request)
     if reason != 'ok':
         return get_error_response(reason)
+    print(request.POST)
     key = datetime.now().strftime('%Y-%m-%d-%H%M%S')
     title = request.POST["title"]
     text = request.POST["text"]
@@ -73,19 +74,65 @@ def create_recommend(request):  # 创建推荐
     timeRange = request.POST["timeRange"]
     catalog = request.POST["catalog"]
     pic_num = len(piclist)
-    dict = {}
+    newdict = {}
+    print(piclist, pic_num)
     for i in range(pic_num):
         pic_file = piclist[i]
+        print(pic_file)
         type = pic_file.name.split('.').pop()
+        print(key, i, type)
         pic_file.name = '{0}-{1}.{2}'.format(key, i, type)
-        dict[str(i)] = pic_file.name
+        newdict[str(i)] = pic_file.name
+        print(pic_file.name)
         recommend_pic.objects.create(picture_id=pic_file.name, picture_key=key, picture=pic_file)
     # request.session['recommend_piclist'][str(num)] = pic_file.name
     recommend_info.objects.create(recommend_key=key, recommend_title=title,
                                   recommend_user=request.session['user_name'],
-                                  recommend_picnum=pic_num, recommend_time=timeRange, recommend_catalog=catalog,
-                                  recommend_text=text, recommend_piclist=json.dumps(dict), recommend_flag=False)
+                                  recommend_picnum=pic_num,
+                                  recommend_time=timeRange, recommend_catalog=catalog,
+                                  recommend_text=text, recommend_piclist=json.dumps(newdict), recommend_flag=False)
     return get_ok_response('create_recommend', {'key': str(key)})
+
+
+def input_recommend(request):  # 创建推荐
+    reason = check_cookie_logout(request)
+    if reason != 'ok':
+        return get_error_response(reason)
+    print(request.POST)
+    key = datetime.now().strftime('%Y-%m-%d-%H%M%S')
+    title = request.POST["title"]
+    text = request.POST["text"]
+    timeRange = request.POST["timeRange"]
+    catalog = request.POST["catalog"]
+    like = int(request.POST["like"])
+    clicks = int(request.POST["clicks"])
+    flag = int(request.POST["testflag"])
+    pic_dict = request.FILES
+    print(len(pic_dict))
+    newdict = {}
+    for pickey, value in pic_dict.items():
+        type = value.name.split('.').pop()
+        print(key, pickey, type)
+        value.name = '{0}-{1}.{2}'.format(key, pickey, type)
+        newdict[str(pickey)] = value.name
+        print(value.name)
+        recommend_pic.objects.create(picture_id=value.name, picture_key=key, picture=value)
+        # request.session['recommend_piclist'][str(num)] = pic_file.name
+    recommend_info.objects.create(recommend_key=key, recommend_title=title,
+                                  recommend_user=request.session['user_name'],
+                                  recommend_picnum=len(pic_dict),
+                                  recommend_time=timeRange, recommend_catalog=catalog,
+                                  recommend_like=like, recommend_clicks=clicks,
+                                  recommend_text=text, recommend_piclist=json.dumps(newdict), recommend_flag=False)
+    if flag == 1:
+        for i in range(like):
+            recommend_like.objects.create(like_id=key, like_user=request.session['user_name'],
+                                          like_time=timeRange, like_catalog=catalog)
+        for i in range(clicks):
+            recommend_click.objects.create(click_id=key, click_user=request.session['user_name'],
+                                           click_time=timeRange, click_catalog=catalog)
+    return get_ok_response('input_recommend', {'key': str(key)})
+
 
 
 def edit_index(request):  # 编辑推荐
