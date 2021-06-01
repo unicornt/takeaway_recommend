@@ -1,6 +1,8 @@
+from collections import defaultdict
 from hashlib import sha256
 
 import requests
+import xlrd
 
 local_url = 'http://localhost:8000/'
 remote_url = 'http://45.134.171.215:8000/'
@@ -110,10 +112,56 @@ register_data1 = {
 delete_data = {
     "key": "2021-04-30-124115",
 }
+
+
+def readCommentPos(filename):
+    file = xlrd.open_workbook(filename).sheet_by_name('Sheet1')
+    information = []
+    for i in range(1, file.nrows):
+        information.append(file.row_values(i))
+    return information
+
+
+def posts(cookie, file, head):
+    resp = requests.post(local_url + 'recommend/new_recommend', head, cookies=cookie, files=file)
+    print(resp)
+    return resp
+
+
+def doinputrecommend(cookie):
+    readInfo = readCommentPos('./menu.xlsx')
+    for i, atom in enumerate(readInfo):
+        # print(i)
+        if atom[0] == 0:
+            break
+        if i < 0:
+            continue
+        print(atom)
+        head = {
+            "title": atom[3],
+            "text": (atom[4] + "\n" + atom[11]),
+            "timeRange": atom[9],
+            "catalog": atom[10],
+            "like": int(atom[7]),
+            "clicks": int(atom[8]),
+            "testflag": 0
+        }
+        lens = int(atom[6]) + 1
+        files = defaultdict()
+        print("A", lens, range(1, lens))
+        for i in range(1, lens):
+            path = "./picture/{0}-{1}.jpg".format(int(atom[0]), i)
+            files[str(i)] = open(path, "rb")
+        print(files)
+        resp = requests.post(local_url + 'recommend/input_recommend', head, cookies=cookie, files=files)
+        print(resp)
+
+
 if __name__ == '__main__':
     resp = requests.post(local_url + 'login/log_in', register_data1)
     cookie = resp.cookies
-    resp=requests.post(local_url+'recommend/delete_recommend/',delete_data,cookies=cookie)
+    doinputrecommend(cookie)
+
     # login_logout_test(local_url,register_data1)
     # data = {
     #     'type': '0',

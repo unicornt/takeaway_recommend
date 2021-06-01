@@ -53,5 +53,5 @@ urlpatterns = [
     re_path(r'^recommend/delete_recommend/$', recommend_app.views.delete_recommend),
     re_path(r'^recommend/click/$', recommend_app.views.click),
     path('recommend/type_recommend', recommend_app.views.get_recommend_for_type),
-
+    path('recommend/input_recommend', recommend_app.views.input_recommend),
 ]
