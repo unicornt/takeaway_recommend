@@ -3,10 +3,9 @@ $(document).ready(function () {
     var data = get_recommend_by_usr(username);
     myRender(data);
 });
-
+var retdata;
 function sortAndRender(sortkey, order){
     var username = getCookie('username');
-    var retdata;
     var formData = new FormData();
     formData.append('is_all', '1');
     formData.append('type', sortkey);
@@ -26,17 +25,33 @@ function sortAndRender(sortkey, order){
             retdata = data.content;
         },
     });
-    removeAllChild();
     myRender(retdata);
 }
 
-function removeAllChild()
-{
-    var div = document.getElementById("show_container");
-    while(div.hasChildNodes()) //当div下还存在子节点时 循环继续
-    {
-        div.removeChild(div.firstChild);
-    }
+function mySort(type){
+    $('show_container').empty();
+    if(type == 0) {
+        // sort with upload time
+        for(var val in retdata){
+            for(var val2 in retdata){
+                if(val2 > val && retdata[val].timeRange > retdata[val2].timeRange) {
+                    var tmp = retdata[val];
+                    retdata[val] = retdata[val2];
+                    retdata[val2] = tmp;
+                }
+            }
+        }
+    }
+    else {
+        for(var val2 in retdata){
+            if(val2 > val && retdata[val].like > retdata[val2].like) {
+                var tmp = retdata[val];
+                retdata[val] = retdata[val2];
+                retdata[val2] = tmp;
+            }
+        }
+    }
+    myRender(retdata);
 }
 
 function myRender(data){
