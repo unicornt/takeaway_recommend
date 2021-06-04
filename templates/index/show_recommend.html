@@ -19,6 +19,7 @@
     <script src="/static/js/cookie.js"></script>
     <script src="/static/js/get_recommend.js"></script>
     <script src="/static/js/like.min.js"></script>
+    <script src="/static/js/like.js"></script>
 </head>
 <body>
 <header>
@@ -45,6 +46,28 @@
 </div>
 <script>
     var textrid = null;
+    function stateUnlike(){
+        return {
+                    state: 'Unliked',
+                    usedKeyboard: false,
+                    async updateState(to) {
+                        this.state = 'Saving'
+                        await new Promise(resolve => setTimeout(resolve, 1000))
+                        this.state = to
+                    }
+                }
+    }
+    function stateLike(){
+        return {
+                    state: 'Liked',
+                    usedKeyboard: false,
+                    async updateState(to) {
+                        this.state = 'Saving'
+                        await new Promise(resolve => setTimeout(resolve, 1000))
+                        this.state = to
+                    }
+                }
+    }
     $(document).ready(function (){
         var para = window.location.search;
         if(para != '') {
@@ -63,7 +86,12 @@
                 if(retdata != null) {
                     $('#title').text(retdata.title);
                     $('#text').text(retdata.text);
-                    $('#img1').attr('src', '/media/recommend/' + JSON.parse(retdata.piclist)['0'])
+                    $('#img1').attr('src', '/media/recommend/' + JSON.parse(retdata.piclist)['0']);
+                }
+                console.log('ok1234');
+                if (is_like(theRequest['rid'])){
+                    console.log('he likes the recommend');
+                    $('#like_button').attr('x-data', 'stateLike()');
                 }
             }
         }
@@ -73,19 +101,26 @@
         return new bootstrap.Tooltip(tooltipTriggerEl)
     });
     function LikeIt(){
-        // TODO: like upload
-        console.log(rid);
-        $.ajax({
-            url : "/recommend/like?",
-            type : "GET",
-            dataType: "json",
-            contentType: false,
-            processData: false,
-            async: false,
-            success: function(data){
-                retdata = data.content;
-            },
-        });
+        var theRequest = new Object();
+        var para = window.location.search;
+        var vpara = para.substr(1);
+        vpara = vpara.split('&');
+        for(var i = 0; i < vpara.length; i++) {
+                theRequest[vpara[i].split("=")[0]] = unescape(vpara[i].split("=")[1]);
+            }
+        var rid = theRequest['rid'];
+        like(rid);
+    }
+    function CancelLikeIt(){
+        var theRequest = new Object();
+        var para = window.location.search;
+        var vpara = para.substr(1);
+        vpara = vpara.split('&');
+        for(var i = 0; i < vpara.length; i++) {
+                theRequest[vpara[i].split("=")[0]] = unescape(vpara[i].split("=")[1]);
+            }
+        var rid = theRequest['rid'];
+        cancel_like(rid);
     }
 </script>
 <footer class="footer mt-auto bg-light">
@@ -94,22 +129,15 @@
     </div>
     <div class="float-end">
         <!--Like Button -->
-        <button x-data="{
-                      state: 'Unliked',
-                      usedKeyboard: false,
-                      async updateState(to) {
-                          this.state = 'Saving'
-                          await new Promise(resolve => setTimeout(resolve, 1000))
-                          this.state = to
-                      }
-                    }"
+        <button id="like_button"
+                x-data="stateUnlike()"
                 :class="{
                       'like unliked': state === 'Unliked',
                       'like saving': state === 'Saving',
                       'like liked': state === 'Liked',
                       'focus:outline-none': !usedKeyboard
                     }"
-                @click="updateState(state === 'Unliked' ? 'Liked' : 'Unliked');LikeIt()"
+                @click="if (state==='Unliked') LikeIt(); else CancelLikeIt(); updateState(state === 'Unliked' ? 'Liked' : 'Unliked');"
                 @keydown.window.tab="usedKeyboard = true">
             <span class="like-icon like-icon-state" aria-label="state" x-text="state" aria-live="polite">Unliked</span>
         </button>

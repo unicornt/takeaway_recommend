@@ -52,6 +52,7 @@ urlpatterns = [
     re_path(r'^media/(?P<path>.*)$', serve, {'document_root': takeaway_pj.settings.MEDIA_ROOT}),
     re_path(r'^recommend/delete_recommend/$', recommend_app.views.delete_recommend),
     re_path(r'^recommend/click/$', recommend_app.views.click),
+    re_path(r'^recommend/check_like/$', recommend_app.views.check_like),
     path('recommend/type_recommend', recommend_app.views.get_recommend_for_type),
     path('recommend/input_recommend', recommend_app.views.input_recommend),
 ]

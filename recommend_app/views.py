@@ -397,6 +397,18 @@ def like(request):  # 记录点赞
         recommend_atom.save()
     return get_ok_response('like', {})
 
+def check_like(request):
+    user = request.session['user_name']
+    print(user)
+    rid = request.GET['rid']
+    print(rid)
+    like_atom = recommend_like.objects.filter(like_id=rid, like_user=user)
+    ret_dict = {}
+    if like_atom.count() > 0:
+        ret_dict['result'] = 'YES'
+    else:
+        ret_dict['result'] = 'NO'
+    return get_ok_response('like', ret_dict)
 
 def click(request):
     '''新增'''
