@@ -44,6 +44,7 @@
     <img src="" alt="img" id="img1" style="max-width: 100%">
 </div>
 <script>
+    var textrid = null;
     $(document).ready(function (){
         var para = window.location.search;
         if(para != '') {
@@ -55,6 +56,7 @@
                 theRequest[vpara[i].split("=")[0]] = unescape(vpara[i].split("=")[1]);
             }
             console.log(theRequest['rid']);
+            textrid = theRequest['rid'];
             if(theRequest['rid'] != null) {
                 var retdata = get_recommend_by_rid(theRequest['rid']);
                 console.log('retdata', retdata.title);
@@ -70,6 +72,21 @@
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl)
     });
+    function LikeIt(){
+        // TODO: like upload
+        console.log(rid);
+        $.ajax({
+            url : "/recommend/like?",
+            type : "GET",
+            dataType: "json",
+            contentType: false,
+            processData: false,
+            async: false,
+            success: function(data){
+                retdata = data.content;
+            },
+        });
+    }
 </script>
 <footer class="footer mt-auto bg-light">
     <div class="float-start">
@@ -92,7 +109,7 @@
                       'like liked': state === 'Liked',
                       'focus:outline-none': !usedKeyboard
                     }"
-                @click="updateState(state === 'Unliked' ? 'Liked' : 'Unliked')"
+                @click="updateState(state === 'Unliked' ? 'Liked' : 'Unliked');LikeIt()"
                 @keydown.window.tab="usedKeyboard = true">
             <span class="like-icon like-icon-state" aria-label="state" x-text="state" aria-live="polite">Unliked</span>
         </button>

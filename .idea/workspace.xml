@@ -1,277 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="483d23d7-9ef4-4d74-ab87-5e1ff1606638" name="默认的" comment="">
-      <change afterPath="$PROJECT_DIR$/scripts/menu.xlsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/1-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/1-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/1-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/10-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/10-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/10-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/11-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/11-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/11-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/11-4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/12-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/12-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/13-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/13-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/14-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/14-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/14-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/15-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/15-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/15-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/16-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/16-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/16-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/16-4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/17-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/17-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/17-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/17-4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/17-5.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/18-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/18-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/18-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/19-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/19-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/19-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/19-4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/19-5.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/2-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/2-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/20-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/20-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/20-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/20-4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/21-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/22-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/22-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/23-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/24-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/24-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/25-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/26-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/26-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/26-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/27-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/27-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/28-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/28-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/29-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/29-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/3-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/3-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/3-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/3-4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/30-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/30-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/31-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/31-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/32-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/32-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/32-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/33-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/33-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/33-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/34-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/34-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/35-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/35-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/35-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/36-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/37-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/38-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/38-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/39-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/39-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/39-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/4-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/4-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/4-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/40-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/40-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/40-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/41-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/41-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/42-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/42-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/43-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/43-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/43-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/44-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/45-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/45-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/45-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/46-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/46-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/46-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/47-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/47-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/47-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/48-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/48-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/48-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/48-4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/49-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/49-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/49-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/49-4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/5-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/5-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/50-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/6-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/6-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/6-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/7-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/7-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/7-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/8-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/8-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/8-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/9-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/9-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/9-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/picture/9-4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scripts/readme.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-230946-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-230946-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-230946-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-230949-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-230949-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-230951-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-230951-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-230951-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-230953-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-230953-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-230953-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-230956-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-230956-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-230958-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-230958-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-230958-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231000-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231000-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231000-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231003-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231003-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231003-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231005-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231005-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231005-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231005-4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231008-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231008-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231008-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231011-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231011-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231011-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231011-4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231014-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231014-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231016-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231016-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231019-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231019-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231019-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231021-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231021-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231021-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231024-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231024-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231024-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231024-4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231028-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231028-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231028-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231028-4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231028-5.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231031-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231031-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231031-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231034-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231034-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231034-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231034-4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231034-5.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231037-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231037-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231037-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231037-4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231039-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231041-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231041-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231043-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231046-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231046-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231048-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231050-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231050-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231050-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231052-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231052-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231055-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231055-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231057-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231100-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231100-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231102-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231102-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231105-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231105-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231105-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231107-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231107-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231107-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231109-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231109-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231111-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231111-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231111-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231114-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231116-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231119-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231119-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231121-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231121-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231121-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231124-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231124-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231124-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231126-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231126-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231128-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231128-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231130-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231130-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231130-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231133-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231135-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231135-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231135-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231137-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231137-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231137-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231139-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231139-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231139-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231142-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231142-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231142-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231142-4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231144-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231144-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231144-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231144-4.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-01-231148-1.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ce8af031-b4f4-4f56-ac09-d5f3b7844983.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ce8af031-b4f4-4f56-ac09-d5f3b7844983.xml" afterDir="false" />
+    <list default="true" id="483d23d7-9ef4-4d74-ab87-5e1ff1606638" name="默认的" comment="默认的">
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/recommend_app/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/recommend_app/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/login_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/login_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/takeaway_pj/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/takeaway_pj/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/js/user_index.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/user_index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index/new_recommend.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index/new_recommend.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index/show_recommend.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index/show_recommend.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -314,6 +50,8 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="database.data.extractors.current.export.id" value="SQL-Insert-Statements.sql.groovy" />
+    <property name="database.data.extractors.current.id" value="SQL-Insert-Statements.sql.groovy" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="node.js.detected.package.eslint" value="true" />
@@ -324,7 +62,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager" selected="Python.login_test">
+  <component name="RunManager">
     <configuration name="cut" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="takeaway_pj" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -458,15 +196,6 @@
       <option name="customRunCommand" value="" />
       <method v="2" />
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Python.login_test" />
-        <item itemvalue="Python.views" />
-        <item itemvalue="Python.test" />
-        <item itemvalue="Python.cut" />
-        <item itemvalue="Python.novel_text" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -501,6 +230,9 @@
       <workItem from="1622368358404" duration="239000" />
       <workItem from="1622368614393" duration="5361000" />
       <workItem from="1622550528699" duration="6267000" />
+      <workItem from="1622774213250" duration="161000" />
+      <workItem from="1622774464292" duration="367000" />
+      <workItem from="1622774885021" duration="519000" />
     </task>
     <servers />
   </component>
@@ -521,13 +253,5 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/index_html$cut.coverage" NAME="cut 覆盖结果" MODIFIED="1622110075114" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="D:/my university/computer vision" />
-    <SUITE FILE_PATH="coverage/index_html$views.coverage" NAME="views 覆盖结果" MODIFIED="1622555491588" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/recommend_app" />
-    <SUITE FILE_PATH="coverage/index_html$novel_text.coverage" NAME="novel_text 覆盖结果" MODIFIED="1622090728551" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="D:/my university/数据挖掘技术/PJ" />
-    <SUITE FILE_PATH="coverage/index_html$test.coverage" NAME="test 覆盖结果" MODIFIED="1622121564880" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="D:/my university/软件工程/pj2021" />
-    <SUITE FILE_PATH="coverage/index_html$login_test.coverage" NAME="login_test 覆盖结果" MODIFIED="1622560181295" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
-    <SUITE FILE_PATH="coverage/index_html$spyder_.coverage" NAME="spyder_骂人宝典 覆盖结果" MODIFIED="1622090257251" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="D:/my university/数据挖掘技术/PJ" />
   </component>
 </project>

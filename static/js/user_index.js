@@ -79,7 +79,6 @@ function myRender(data){
             '                            <div class="d-flex justify-content-between align-items-center">\n' +
             '                                <div class="btn-group">\n' +
             '                                    <a href="/show_recommend?rid=' + data[val].rid + '"><button type="button" class="btn btn-sm btn-outline-secondary">更多</button></a>\n' +
-            '                                    <button type="button" class="btn btn-sm btn-outline-secondary">编辑</button>\n' +
             '                                    <button type="button" class="btn btn-sm btn-danger" onclick="delete_recommend(\'' + val +'\')">删除</button>\n' +
             '                                </div>\n' +
             '                                <small class="text-muted" id="click_number">'+ data[val].like.toString() +'</small>\n' +
