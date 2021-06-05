@@ -23,12 +23,15 @@ class recommend_pic(models.Model):
         else:
             return '/media/default/user.jpg'
 
+
 '''新增'''
+
+
 class recommend_info(models.Model):
     recommend_key = models.CharField('推荐对应id', max_length=20, unique=True, null=False)
     recommend_user = models.CharField('推荐用户', max_length=20, null=False)
     recommend_title = models.TextField('推荐标题', max_length=200, null=False)
-    recommend_time = models.CharField('推荐时段',max_length=20,null=False,default="正餐")
+    recommend_time = models.CharField('推荐时段', max_length=20, null=False, default="正餐")
     recommend_catalog = models.CharField('推荐类别', max_length=20, null=False, default="炒菜饭")
     recommend_text = models.TextField('推荐文本', max_length=10000, null=False)
     recommend_piclist = models.CharField('存储图片列表', max_length=1000)
@@ -37,12 +40,15 @@ class recommend_info(models.Model):
     recommend_like = models.IntegerField('喜欢数量', default=0)
     recommend_clicks = models.IntegerField('点击数', default=1)
 
+
 '''新增'''
 class recommend_like(models.Model):
     like_id = models.CharField('点赞推荐编号', max_length=20, null=False)
     like_user = models.CharField('点赞的用户名', max_length=20, null=False)
     like_time = models.CharField('推荐时段', max_length=20, null=False, default="正餐")
     like_catalog = models.CharField('推荐类别', max_length=20, null=False, default="炒菜饭")
+
+
 '''新增'''
 class recommend_click(models.Model):
     click_id = models.CharField('点击推荐编号', max_length=20, null=False)
