@@ -369,7 +369,7 @@ def all_recommend(request):  # 获得所有用户的推荐
         now_dict['timeRange'] = recommend_atom.recommend_time
         now_dict['catalog'] = recommend_atom.recommend_catalog
         ret_dict[key] = now_dict
-    return get_ok_response('user_recommend', ret_dict)
+    return get_ok_response('all_recommend', ret_dict)
 
 
 def like(request):  # 记录点赞

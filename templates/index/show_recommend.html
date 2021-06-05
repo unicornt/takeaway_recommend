@@ -122,6 +122,16 @@
         var rid = theRequest['rid'];
         cancel_like(rid);
     }
+    function click(){
+        var userName = getCookie("username");
+        if (userName == ""){
+            window.location.href = "/login";
+            return;
+        }
+        if (state==='Unliked') LikeIt(); 
+                          else CancelLikeIt(); 
+        updateState(state === 'Unliked' ? 'Liked' : 'Unliked');
+    }
 </script>
 <footer class="footer mt-auto bg-light">
     <div class="float-start">
@@ -137,7 +147,7 @@
                       'like liked': state === 'Liked',
                       'focus:outline-none': !usedKeyboard
                     }"
-                @click="if (state==='Unliked') LikeIt(); else CancelLikeIt(); updateState(state === 'Unliked' ? 'Liked' : 'Unliked');"
+                @click="click()"
                 @keydown.window.tab="usedKeyboard = true">
             <span class="like-icon like-icon-state" aria-label="state" x-text="state" aria-live="polite">Unliked</span>
         </button>

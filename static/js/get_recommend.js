@@ -53,3 +53,20 @@ function get_recommend_by_usr(username){
     return retdata;
 }
 
+function get_all_recommend(){
+    var retdata;
+    $.ajax({
+        url: "/recommend/all_recommend",
+        type: "POST",
+        contentType: false,
+        processData: false,
+        async: false,
+        success:function(data){
+            console.log(data.content);
+            console.log(typeof(data.content));
+            retdata = data.content;
+        },
+    });
+    return retdata;
+}
+
