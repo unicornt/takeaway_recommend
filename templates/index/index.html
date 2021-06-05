@@ -18,6 +18,7 @@
     <script type="text/javascript" src="/static/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript" src="/static/js/cookie.js"></script>
     <script type="text/javascript" src="/static/js/index.js"></script>
+    <script type="text/javascript" src="/static/js/get_recommend.js"></script>
 </head>
 <body>
 <header>
@@ -33,6 +34,10 @@
                         <a class="nav-link active" aria-current="page" href="/">主页</a>
                     </li>
                 </ul>
+                <div class="input-group" style="width: 25%">
+                    <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+                    <button class="btn btn-light btn-outline-secondary">搜索</button>
+                </div>
             </div>
         </div>
     </nav>
@@ -86,6 +91,13 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
+</div>
+<div class="album py-5 bg-light">
+    <div class="col">
+        <div class="container" id="show_container">
+
+        </div>
+    </div>
 </div>
 </body>
 </html>

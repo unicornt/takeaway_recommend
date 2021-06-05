@@ -1,52 +1,76 @@
 $(document).ready(function () {
     var username = getCookie('username');
-    var data = get_recommend_by_usr(username);
-    myRender(data);
+    retdata = get_recommend_by_usr(username);
+    N = 0;
+    list = Array();
+    for(var r in retdata) {
+        list.push(r);
+        N++;
+    }
+    myRender(list);
 });
+var retdata;
+var list;
+var N;
 
-function sortAndRender(sortkey, order){
-    var username = getCookie('username');
-    var retdata;
-    var formData = new FormData();
-    formData.append('is_all', '1');
-    formData.append('type', sortkey);
-    formData.append('user', 'admin');
-    formData.append('order', order);
-    console.log(typeof(sortkey));
-    console.log(sortkey);
-    $.ajax({
-        url : "/recommend/sort",
-        type : "POST",
-        data : formData,
-        dataType: "json",
-        contentType: false,
-        processData: false,
-        async: false,
-        success: function(data){
-            retdata = data.content;
-        },
-    });
-    removeAllChild();
-    myRender(retdata);
+function cmp(a, b){
+    aS = a.split('-')
+    bS = b.split('-')
+    for(var i=0; i < aS.length; i++) {
+        if(parseInt(aS[i]) < parseInt(bS[i])){
+            console.log('compare s', parseInt(aS[i]), parseInt(bS[i]));
+            return 1
+        }
+        else if(parseInt(aS[i]) > parseInt(bS[i])){
+            console.log('compare', parseInt(aS[i]), parseInt(bS[i]));
+            return 0
+        }
+    }
+    return 0
 }
 
-function removeAllChild()
-{
-    var div = document.getElementById("show_container");
-    while(div.hasChildNodes()) //当div下还存在子节点时 循环继续
-    {
-        div.removeChild(div.firstChild);
-    }
+function mySort(type){
+    $('#show_container').empty();
+    if(type == 0) {
+        // sort with upload time
+        console.log("sort with time");
+        for(var i = 0; i < N; i++){
+            for(var j = i + 1; j < N; j++){
+                if(cmp(retdata[list[j]].rid, retdata[list[i]].rid)) {
+                    console.log("exchange");
+                    var tmp = list[i];
+                    list[i] = list[j];
+                    list[j] = tmp;
+                }
+            }
+        }
+    }
+    else {
+        console.log("sort with like");
+        for(var i = 0; i < N; i++){
+            for(var j = i + 1; j < N; j++){
+                if(retdata[list[j]].like > retdata[list[i]].like) {
+                    console.log("exchange");
+                    var tmp = list[i];
+                    list[i] = list[j];
+                    list[j] = tmp;
+                }
+            }
+        }
+    }
+    console.log("sort part finish")
+    myRender(list);
 }
 
-function myRender(data){
-    for(var val in data) {
-        console.log(val);
-        console.log(data[val].piclist);
+function myRender(){
+    for(var i = 0; i < N; i++) {
+        console.log(list[i], typeof(list[i]), retdata[list[i]]);
+        var val = list[i];
+        console.log(retdata[val].piclist);
         var num = 1
         var rown = 0
-        var piclist = JSON.parse(data[val].piclist);
-        var picsrc = piclist['0'];
+        var piclist = JSON.parse(retdata[val].piclist);
+        var picsrc = piclist['1'];
         console.log(picsrc);
         if(num % 3 === 1) {
             rown += 1;
@@ -59,15 +83,14 @@ function myRender(data){
             '                        <img src="'+ '/media/recommend/' + picsrc+'" class="card-img-top" alt="Header">\n' +
             '\n' +
             '                        <div class="card-body">\n' +
-            '                            <h3 class="card-text">' + data[val].title + '</h3>\n' +
-            '                            <p class="card-text limit-line">' + data[val].text + '</p>\n' +
+            '                            <h3 class="card-text">' + retdata[val].title + '</h3>\n' +
+            '                            <p class="card-text limit-line">' + retdata[val].text + '</p>\n' +
             '                            <div class="d-flex justify-content-between align-items-center">\n' +
             '                                <div class="btn-group">\n' +
-            '                                    <a href="/show_recommend?rid=' + data[val].rid + '"><button type="button" class="btn btn-sm btn-outline-secondary">更多</button></a>\n' +
-            '                                    <button type="button" class="btn btn-sm btn-outline-secondary">编辑</button>\n' +
+            '                                    <a href="/show_recommend?rid=' + retdata[val].rid + '"><button type="button" class="btn btn-sm btn-outline-secondary">更多</button></a>\n' +
             '                                    <button type="button" class="btn btn-sm btn-danger" onclick="delete_recommend(\'' + val +'\')">删除</button>\n' +
             '                                </div>\n' +
-            '                                <small class="text-muted" id="click_number">'+ data[val].like.toString() +'</small>\n' +
+            '                                <small class="text-muted" id="click_number">'+ retdata[val].like.toString() +'</small>\n' +
             '                            </div>\n' +
             '                        </div>\n' +
             '                    </div>\n' +

@@ -53,3 +53,54 @@ function get_recommend_by_usr(username){
     return retdata;
 }
 
+function get_all_recommend(){
+    var retdata;
+    $.ajax({
+        url: "/recommend/all_recommend",
+        type: "POST",
+        contentType: false,
+        processData: false,
+        async: false,
+        success:function(data){
+            console.log(data.content);
+            console.log(typeof(data.content));
+            retdata = data.content;
+        },
+    });
+    return retdata;
+}
+
+function do_recommended(){
+    var retdata;
+    var formData = new FormData();
+    var mytime=new Date();
+    var hour=mytime.getHours();
+    var time;
+    if (hour<=10)
+        time="早餐";
+    else if (hour<=13)
+        time="正餐";
+    else if (hour<=16)
+        time="下午茶";
+    else if (hour<=21)
+        time="正餐";
+    else
+        time="夜宵";
+    formData.append('type', "timeRange");
+    formData.append('time', time);
+    formData.append('refresh', '0');
+    formData.append('downbound', 1);
+    formData.append('upbound', 3);
+    $.ajax({
+        url: "/recommend/type_recommend",
+        type: "POST",
+        contentType: false,
+        processData: false,
+        async: false,
+        data: formData,
+        success:function(data){
+            retData = data.content;
+        }
+    });
+    return retdata;
+}

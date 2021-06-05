@@ -1,4 +1,4 @@
-function create_recommend1(title, text, picdiv) {
+function create_recommend1(title, text, picdiv, tag) {
     var formData = new FormData();
     var piclist = $("div#" + picdiv).find("input");//piclist中包含所有divname下的input元素
     var check = true;
@@ -14,7 +14,10 @@ function create_recommend1(title, text, picdiv) {
 
     formData.append('title', title);
     formData.append('text', text);
-    console.log(text);
+    tag = tag.toString();
+    console.log(tag.split(" - "));
+    formData.append('timeRange', tag.split(" - ")[0].toString());
+    formData.append('catalog', tag.split(" - ")[1].toString());
     $.ajax({
         url: "recommend/new_recommend",
         type: "POST",

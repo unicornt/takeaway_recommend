@@ -75,11 +75,12 @@
         </div>
 
 
-        <p><input class="btn btn-primary" type="button" value="Submit" onclick="create_recommend1($('#title').val(), $('#editor').val(), 'pic_div')"></p>
+        <p><input class="btn btn-primary" type="button" value="Submit" onclick="create_recommend1($('#title').val(), $('#editor').val(), 'pic_div', vm.$data.tag)"></p>
     </form>
     </div>
     <img id="imgContent1" style="width:33%;height:33%"/>
 <script>
+    // TODO: upload tags
     let vm=new Vue({
         el: '#vue_div',
         data: {

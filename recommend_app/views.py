@@ -347,6 +347,26 @@ def user_recommend(request):  # 获得某个用户的所有推荐
         ret_dict[key] = now_dict
     return get_ok_response('user_recommend', ret_dict)
 
+def like_recommend(request):
+    user = request.session['user_name']
+    like_atom = recommend_like.objects.filter(like_user=user)
+    ret_dict = {}
+    for recommend in like_atom:
+        now_dict = {}
+        rid = recommend.like_id
+        recommend_atom = recommend_info.objects.get(recommend_key=rid)
+        now_dict['user'] = recommend_atom.recommend_user
+        now_dict['title'] = recommend_atom.recommend_title
+        now_dict['text'] = recommend_atom.recommend_text
+        now_dict['piclist'] = recommend_atom.recommend_piclist
+        now_dict['like'] = recommend_atom.recommend_like
+        now_dict['picnum'] = recommend_atom.recommend_picnum
+        now_dict['rid'] = rid
+        '''新增'''
+        now_dict['timeRange'] = recommend_atom.recommend_time
+        now_dict['catalog'] = recommend_atom.recommend_catalog
+        ret_dict[rid] = now_dict
+    return get_ok_response('like_recommend', ret_dict)
 
 def all_recommend(request):  # 获得所有用户的推荐
     try:
@@ -369,7 +389,7 @@ def all_recommend(request):  # 获得所有用户的推荐
         now_dict['timeRange'] = recommend_atom.recommend_time
         now_dict['catalog'] = recommend_atom.recommend_catalog
         ret_dict[key] = now_dict
-    return get_ok_response('user_recommend', ret_dict)
+    return get_ok_response('all_recommend', ret_dict)
 
 
 def like(request):  # 记录点赞
@@ -397,6 +417,18 @@ def like(request):  # 记录点赞
         recommend_atom.save()
     return get_ok_response('like', {})
 
+def check_like(request):
+    user = request.session['user_name']
+    print(user)
+    rid = request.GET['rid']
+    print(rid)
+    like_atom = recommend_like.objects.filter(like_id=rid, like_user=user)
+    ret_dict = {}
+    if like_atom.count() > 0:
+        ret_dict['result'] = 'YES'
+    else:
+        ret_dict['result'] = 'NO'
+    return get_ok_response('like', ret_dict)
 
 def click(request):
     '''新增'''
@@ -454,7 +486,7 @@ def getRecommend(user, clock, type):
     for like_item in like_recommend:  # 检索用户点赞数据（与点击数据重复，相当于加权）
         time_dict[like_item.like_time] += 1
         catalog_dict[like_item.like_catalog] += 1
-    now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     for click_item in click_recommend:  # 检索十五天内数据点击
         cmp = click_item.click_date + datetime.timedelta(days=15)
         if now < cmp:
@@ -463,8 +495,9 @@ def getRecommend(user, clock, type):
     time_dict = sorted(time_dict.items(), key=lambda x: (x[1], x[0]))
     catalog_dict = sorted(catalog_dict.items(), key=lambda x: (x[1], x[0]))
     # 根据 时间4:1-种类3:1:1 或种类4:1-时间3:1:1
-    catalog_key = list(catalog_dict.keys())[0:1]
-    time_key = [clock, time_dict[0].key() if clock != time_dict[0].key() else time_dict[1].key()]
+    #catalog_key = list(catalog_dict.keys())[0:1]
+    catalog_key = [catalog_dict[0][0], catalog_dict[1][0]]
+    time_key = [clock, time_dict[0][0] if clock != time_dict[0][0] else time_dict[1][0]]
     if type == "timeRange":
         recommend_notnow = recommend_info.objects.filter(~Q(recommend_time=clock)).order_by("-recommend_like")
         recommend_now = recommend_info.objects.filter(recommend_time=clock).order_by("-recommend_like")
@@ -523,6 +556,18 @@ def get_recommend_for_type(request):  # 获得排序的推荐
     # 返回合法的上下界之间的所有推荐
     ret_dict = {}
     for i, recommend_atom in enumerate(recommend[downbound:upbound]):
-        ret_dict[i] = recommend_atom
+        now_dict = {}
+        key = recommend_atom.recommend_key
+        now_dict['user'] = recommend_atom.recommend_user
+        now_dict['title'] = recommend_atom.recommend_title
+        now_dict['text'] = recommend_atom.recommend_text
+        now_dict['piclist'] = recommend_atom.recommend_piclist
+        now_dict['like'] = recommend_atom.recommend_like
+        now_dict['picnum'] = recommend_atom.recommend_picnum
+        now_dict['rid'] = key
+        '''新增'''
+        now_dict['timeRange'] = recommend_atom.recommend_time
+        now_dict['catalog'] = recommend_atom.recommend_catalog
+        ret_dict[key] = now_dict
     print(ret_dict)
     return get_ok_response('get_recommend', ret_dict)
