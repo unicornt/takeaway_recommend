@@ -2,9 +2,9 @@ import datetime
 import json
 import os
 from collections import defaultdict
-from datetime import datetime
 from random import random
 
+import pytz
 from PIL import Image
 from django.db.models import Q
 from django.http import HttpResponse
@@ -46,9 +46,17 @@ def check_cookie_logout(request):
 
 
 def cookie_to_dict(string):
-    liststr = string.replace("[", "").replace("]", "").replace("\'", "\"").split(",")
+    liststr = string.replace("[", "").replace("]", "").replace("\"", "\\\"").replace("\'", "\"").split("{\"user\": ")
     ans = []
-    for x in liststr:
+    # print(string)
+    # print("------------------")
+    # print(liststr)
+    # print("------------------")
+    length = len(liststr)
+    # print(length)
+    for i in range(1, length):
+        x = "{\"user\": " + liststr[i].strip(' ').strip(']').strip(',')
+        # print(json.loads(x))
         ans.append(json.loads(x))
     return ans
 
@@ -66,7 +74,7 @@ def create_recommend(request):  # 创建推荐
     if reason != 'ok':
         return get_error_response(reason)
     print(request.POST)
-    key = datetime.now().strftime('%Y-%m-%d-%H%M%S')
+    key = datetime.datetime.now().strftime('%Y-%m-%d-%H%M%S')
     title = request.POST["title"]
     text = request.POST["text"]
     piclist = request.FILES.getlist("picture")
@@ -99,7 +107,7 @@ def input_recommend(request):  # 创建推荐
     if reason != 'ok':
         return get_error_response(reason)
     print(request.POST)
-    key = datetime.now().strftime('%Y-%m-%d-%H%M%S')
+    key = datetime.datetime.now().strftime('%Y-%m-%d-%H%M%S')
     title = request.POST["title"]
     text = request.POST["text"]
     timeRange = request.POST["timeRange"]
@@ -132,7 +140,6 @@ def input_recommend(request):  # 创建推荐
             recommend_click.objects.create(click_id=key, click_user=request.session['user_name'],
                                            click_time=timeRange, click_catalog=catalog)
     return get_ok_response('input_recommend', {'key': str(key)})
-
 
 
 def edit_index(request):  # 编辑推荐
@@ -347,6 +354,7 @@ def user_recommend(request):  # 获得某个用户的所有推荐
         ret_dict[key] = now_dict
     return get_ok_response('user_recommend', ret_dict)
 
+
 def like_recommend(request):
     user = request.session['user_name']
     like_atom = recommend_like.objects.filter(like_user=user)
@@ -367,6 +375,7 @@ def like_recommend(request):
         now_dict['catalog'] = recommend_atom.recommend_catalog
         ret_dict[rid] = now_dict
     return get_ok_response('like_recommend', ret_dict)
+
 
 def all_recommend(request):  # 获得所有用户的推荐
     try:
@@ -417,6 +426,7 @@ def like(request):  # 记录点赞
         recommend_atom.save()
     return get_ok_response('like', {})
 
+
 def check_like(request):
     user = request.session['user_name']
     print(user)
@@ -429,6 +439,7 @@ def check_like(request):
     else:
         ret_dict['result'] = 'NO'
     return get_ok_response('like', ret_dict)
+
 
 def click(request):
     '''新增'''
@@ -458,6 +469,7 @@ def getCatalog(recommend, rank):
     now_dict = {}
     for id, recommend_atom in enumerate(recommend):
         now_dict[id] = {'user': recommend_atom.recommend_user,
+                        'rid': recommend_atom.recommend_key,
                         'title': recommend_atom.recommend_title,
                         'text': recommend_atom.recommend_text,
                         'like': recommend_atom.recommend_like,
@@ -480,22 +492,28 @@ def getCatalog(recommend, rank):
 
 def getRecommend(user, clock, type):
     # 设置权重，判断偏好
+    print(user, clock, type)
     time_dict, catalog_dict = defaultdict(int), defaultdict(int)
     like_recommend = recommend_like.objects.filter(like_user=user)
     click_recommend = recommend_click.objects.filter(click_user=user)
+    # print(len(like_recommend))
     for like_item in like_recommend:  # 检索用户点赞数据（与点击数据重复，相当于加权）
+        # print(like_item.like_id, like_item.like_user, like_item.like_catalog, like_item.like_time)
         time_dict[like_item.like_time] += 1
         catalog_dict[like_item.like_catalog] += 1
-    now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    now = datetime.datetime.now()
+    now = now.replace(tzinfo=pytz.timezone('UTC'))
     for click_item in click_recommend:  # 检索十五天内数据点击
         cmp = click_item.click_date + datetime.timedelta(days=15)
         if now < cmp:
             time_dict[click_item.click_time] += 1
             catalog_dict[click_item.click_catalog] += 1
-    time_dict = sorted(time_dict.items(), key=lambda x: (x[1], x[0]))
-    catalog_dict = sorted(catalog_dict.items(), key=lambda x: (x[1], x[0]))
+    time_dict = sorted(time_dict.items(), key=lambda x: (x[1], x[0]), reverse=True)
+    catalog_dict = sorted(catalog_dict.items(), key=lambda x: (x[1], x[0]), reverse=True)
+    # print(time_dict)
+    # print(catalog_dict)
     # 根据 时间4:1-种类3:1:1 或种类4:1-时间3:1:1
-    #catalog_key = list(catalog_dict.keys())[0:1]
+    # catalog_key = list(catalog_dict.keys())[0:1]
     catalog_key = [catalog_dict[0][0], catalog_dict[1][0]]
     time_key = [clock, time_dict[0][0] if clock != time_dict[0][0] else time_dict[1][0]]
     if type == "timeRange":
@@ -509,13 +527,13 @@ def getRecommend(user, clock, type):
             "-recommend_catalog")
         rank = time_key
     # 规整数据为列表，并按照比例随机排序
+    # print(len(recommend_now), len(recommend_notnow))
     list0, len0 = getCatalog(recommend_now, rank)
     list1, len1 = getCatalog(recommend_notnow, rank)
     rawlist, lenlist, anslist = list0 + list1, len0 + len1, []
-    print(list0[0], rawlist[0])
     length0, lenght1 = len0[0] + len0[1] + len0[2], len1[0] + len1[1] + len1[2]
     index, indexi, indexij = 0, 0, [0, 0, 0, 0, 0, 0]
-    for _ in range(length0 + lenght1):
+    for ii in range(length0 + lenght1):
         x, y = random(), random()
         index = 0 if x < 0.8 else 1
         if y < 0.6:
@@ -524,11 +542,15 @@ def getRecommend(user, clock, type):
             indexi = index * 3 + 1
         else:
             indexi = index * 3 + 2
-        while indexi < 6 and indexij[indexi] < lenlist[indexi]:
+        while indexi < 6 and indexij[indexi] >= lenlist[indexi]:
             indexi += 1
+
         if indexi < 6:
             anslist.append(rawlist[indexi][indexij[indexi]])
-            indexij[indexi] += 1
+            # print(index, indexi, indexij[indexi])
+            # print(ii,rawlist[indexi][indexij[indexi]])
+        indexij[indexi] += 1
+        # print(indexij)
     # 返回排序后的值
     return anslist
 
@@ -543,31 +565,25 @@ def get_recommend_for_type(request):  # 获得排序的推荐
     clock = POST_INFO['time']  # 当前时间
     user = request.session['user_name']  # 用户名
     # 未筛选过/ 筛选另一种类/ 刷新
+    # print('typeRange' not in request.session, POST_INFO['refresh'] == '1')
     if 'typeRange' not in request.session or type != request.session["rangeType"] or POST_INFO['refresh'] == '1':
         request.session['typeRange'] = str(getRecommend(user, clock, type))
         request.session["rangeType"] = type
+    # print(request.session['typeRange'])
     # 读取cookie中保存的之前排好序的推荐
     recommend = cookie_to_dict(request.session['typeRange'])
-    if POST_INFO['downbound'] >= len(recommend):
+    # for xxxxxx in recommend:
+    #     print(xxxxxx)
+    # print(int(POST_INFO['downbound']), int(POST_INFO['upbound']), len(recommend))
+    if int(POST_INFO['downbound']) >= len(recommend):
         reason = "out of index"
         print(reason)
         return get_error_response(reason)
-    downbound, upbound = POST_INFO['downbound'], min(len(recommend), POST_INFO['upbound'] + 1)
+    downbound, upbound = int(POST_INFO['downbound']), min(len(recommend), int(POST_INFO['upbound']) + 1)
     # 返回合法的上下界之间的所有推荐
     ret_dict = {}
     for i, recommend_atom in enumerate(recommend[downbound:upbound]):
-        now_dict = {}
-        key = recommend_atom.recommend_key
-        now_dict['user'] = recommend_atom.recommend_user
-        now_dict['title'] = recommend_atom.recommend_title
-        now_dict['text'] = recommend_atom.recommend_text
-        now_dict['piclist'] = recommend_atom.recommend_piclist
-        now_dict['like'] = recommend_atom.recommend_like
-        now_dict['picnum'] = recommend_atom.recommend_picnum
-        now_dict['rid'] = key
-        '''新增'''
-        now_dict['timeRange'] = recommend_atom.recommend_time
-        now_dict['catalog'] = recommend_atom.recommend_catalog
-        ret_dict[key] = now_dict
-    print(ret_dict)
+        now_dict = recommend_atom
+        ret_dict[now_dict['rid']] = now_dict
+        # print(now_dict)
     return get_ok_response('get_recommend', ret_dict)

@@ -144,7 +144,7 @@ def doinputrecommend(cookie):
             "catalog": atom[10],
             "like": int(atom[7]),
             "clicks": int(atom[8]),
-            "testflag": 0
+            "testflag": 1,
         }
         lens = int(atom[6]) + 1
         files = defaultdict()
@@ -160,8 +160,16 @@ def doinputrecommend(cookie):
 if __name__ == '__main__':
     resp = requests.post(local_url + 'login/log_in', register_data1)
     cookie = resp.cookies
-    doinputrecommend(cookie)
-
+    # doinputrecommend(cookie)
+    datax = {
+        "type":"timeRange",
+        "time":"正餐",
+        "refresh":1,
+        "downbound":49,
+        "upbound":55
+    }
+    resp = requests.post(local_url + 'recommend/type_recommend', datax, cookies=cookie)
+    print(resp)
     # login_logout_test(local_url,register_data1)
     # data = {
     #     'type': '0',
