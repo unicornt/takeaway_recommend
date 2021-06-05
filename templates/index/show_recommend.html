@@ -20,6 +20,7 @@
     <script src="/static/js/get_recommend.js"></script>
     <script src="/static/js/like.min.js"></script>
     <script src="/static/js/like.js"></script>
+    <script src="/static/js/click.js"></script>
 </head>
 <body>
 <header>
@@ -79,6 +80,10 @@
                 theRequest[vpara[i].split("=")[0]] = unescape(vpara[i].split("=")[1]);
             }
             console.log(theRequest['rid']);
+            var userName = getCookie("username");
+            if (userName != ""){
+                clickplus();
+            }
             textrid = theRequest['rid'];
             if(theRequest['rid'] != null) {
                 var retdata = get_recommend_by_rid(theRequest['rid']);

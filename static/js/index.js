@@ -41,6 +41,7 @@ $(document).ready(function () {
             '        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">\n' +
             '          <a class="dropdown-item" href="/new_recommend">提交测评</a>\n' +
             '          <a class="dropdown-item" href="/user_index">个人主页</a>\n' +
+            '          <a class="dropdown-item" href="/like_index">我的赞</a>\n' +
             '          <div class="dropdown-divider"></div>\n' +
             '          <a class="dropdown-item" onclick="Logout()">登出</a>\n' +
             '        </div>\n' +
@@ -71,19 +72,27 @@ $(document).ready(function () {
         }, 200);
     });
 
-    retdata = get_all_recommend();
-    N = 0;
-    list = Array();
-    for(var r in retdata) {
-        list.push(r);
-        N++;
+    var recommend_data = do_recommended();
+    console.log('recommend_data');
+    console.log(recommend_data);
+    for (var r in recommend_data){
+
     }
-    myRender(list);
+
+    retdata_index = get_all_recommend();
+    console.log(retdata_index);
+    N_index = 0;
+    list_index = Array();
+    for(var r in retdata_index) {
+        list_index.push(r);
+        N_index++;
+    }
+    myRender();
 });
 
-var retdata;
-var list;
-var N;
+var retdata_index;
+var list_index;
+var N_index;
 
 function cmp(a, b){
     aS = a.split('-')
@@ -102,6 +111,9 @@ function cmp(a, b){
 }
 
 function mySort(type){
+    var list = list_index;
+    var retdata = retdata_index;
+    var N = N_index;
     $('#show_container').empty();
     if(type == 0) {
         // sort with upload time
@@ -135,15 +147,18 @@ function mySort(type){
 }
 
 function myRender(){
-    console.log("recommend number:", N);
+    var list = list_index;
+    var retdata = retdata_index;
+    var N = N_index;
+    //console.log("recommend number:", N);
     for(var i = 0; i < N; i++) {
         var val = list[i];
-        console.log(retdata[val].piclist);
+        //console.log(retdata[val].piclist);
         var num = 1
         var rown = 0
         var piclist = JSON.parse(retdata[val].piclist);
         var picsrc = piclist['1'];
-        console.log(picsrc);
+        //console.log(picsrc);
         if(num % 3 === 1) {
             rown += 1;
             $('#show_container').append('<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="show_row' + rown.toString() + '">\n' +
