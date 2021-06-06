@@ -161,13 +161,13 @@ function myRender(){
         //console.log(picsrc);
         if(num % 3 === 1) {
             rown += 1;
-            $('#show_container').append('<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="show_row' + rown.toString() + '">\n' +
+            $('#show_container').append('<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3" id="show_row' + rown.toString() + '">\n' +
                 '\n' +
                 '</div>');
         }
         $('#show_row'+rown.toString()).append('<div class="col">\n' +
             '                    <div class="card shadow-sm">\n' +
-            '                        <img src="'+ '/media/recommend/' + picsrc+'" class="card-img-top" alt="Header">\n' +
+            '                        <img src="'+ '/media/recommend/' + picsrc+'" aria-hidden="true" class="card-img-top top-img" alt="Header">\n' +
             '\n' +
             '                        <div class="card-body">\n' +
             '                            <h3 class="card-text">' + retdata[val].title + '</h3>\n' +
