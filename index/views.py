@@ -34,3 +34,6 @@ def finish_register(request):
 
 def email_sent(request):
     return render(request, 'email_sent.html', {})
+
+def like_index(request):
+    return render(request, 'like_index.html', {})

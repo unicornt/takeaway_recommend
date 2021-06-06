@@ -89,8 +89,8 @@ def create_recommend(request):  # 创建推荐
         print(pic_file)
         type = pic_file.name.split('.').pop()
         print(key, i, type)
-        pic_file.name = '{0}-{1}.{2}'.format(key, i, type)
-        newdict[str(i)] = pic_file.name
+        pic_file.name = '{0}-{1}.{2}'.format(key, i + 1, type)
+        newdict[str(i+1)] = pic_file.name
         print(pic_file.name)
         recommend_pic.objects.create(picture_id=pic_file.name, picture_key=key, picture=pic_file)
     # request.session['recommend_piclist'][str(num)] = pic_file.name
@@ -557,12 +557,20 @@ def getRecommend(user, clock, type):
 
 def get_recommend_for_type(request):  # 获得排序的推荐
     print("programme: get_recommend_for_type")
-    reason = check_cookie_logout(request)
-    if reason != 'ok':
-        return get_error_response(reason)
     POST_INFO = request.POST
     type = POST_INFO['type']  # 时间范围或者种类
     clock = POST_INFO['time']  # 当前时间
+    downbound, upbound = int(POST_INFO['downbound']), int(POST_INFO['upbound']) + 1
+
+    reason = check_cookie_logout(request)
+    if reason != 'ok':
+        recommends = recommend_info.objects.filter(recommend_time=clock).order_by("-recommend_like")
+        ret_dict = {}
+        for i, recommend_atom in enumerate(recommends[downbound:upbound]):
+            now_dict = recommend_atom
+            ret_dict[str(i + 1)] = now_dict
+        return get_ok_response('get_recommend', ret_dict)
+
     user = request.session['user_name']  # 用户名
     # 未筛选过/ 筛选另一种类/ 刷新
     # print('typeRange' not in request.session, POST_INFO['refresh'] == '1')
@@ -579,11 +587,41 @@ def get_recommend_for_type(request):  # 获得排序的推荐
         reason = "out of index"
         print(reason)
         return get_error_response(reason)
+
     downbound, upbound = int(POST_INFO['downbound']), min(len(recommend), int(POST_INFO['upbound']) + 1)
+    
     # 返回合法的上下界之间的所有推荐
     ret_dict = {}
     for i, recommend_atom in enumerate(recommend[downbound:upbound]):
         now_dict = recommend_atom
-        ret_dict[now_dict['rid']] = now_dict
+        ret_dict[str(i+1)] = now_dict
         # print(now_dict)
+
     return get_ok_response('get_recommend', ret_dict)
+
+def get_liked_recommend(request):
+    reason = check_cookie_logout(request)
+    if (reason != 'ok'):
+        return get_error_response(reason)
+    user = request.session['user_name']
+    liked_recommends = recommend_like.objects.filter(like_user=user)
+    ret_dict = {}
+    for i,lr in enumerate(liked_recommends):
+        rid = lr.like_id
+        recommends = recommend_info.objects.filter(recommend_key=rid)
+        for recommend_atom in recommends:
+            now_dict = {}
+            now_dict['user'] = recommend_atom.recommend_user
+            now_dict['title'] = recommend_atom.recommend_title
+            now_dict['text'] = recommend_atom.recommend_text
+            now_dict['piclist'] = recommend_atom.recommend_piclist
+            now_dict['like'] = recommend_atom.recommend_like
+            now_dict['picnum'] = recommend_atom.recommend_picnum
+            now_dict['rid'] = recommend_atom.recommend_key
+            '''新增'''
+            now_dict['timeRange'] = recommend_atom.recommend_time
+            now_dict['catalog'] = recommend_atom.recommend_catalog
+            ret_dict[str(i+1)] = now_dict
+    print(ret_dict)
+    return get_ok_response('get_recommend', ret_dict)
+

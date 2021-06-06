@@ -1,3 +1,7 @@
+.bd-placeholder-img{
+    object-fit: cover;
+}
+
 .top-img{
     height: 25rem;
     object-fit:cover;

@@ -55,4 +55,5 @@ urlpatterns = [
     re_path(r'^recommend/check_like/$', recommend_app.views.check_like),
     path('recommend/type_recommend', recommend_app.views.get_recommend_for_type),
     path('recommend/input_recommend', recommend_app.views.input_recommend),
+    path('recommend/get_liked_recommend', recommend_app.views.get_liked_recommend),
 ]

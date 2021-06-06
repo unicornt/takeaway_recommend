@@ -12,6 +12,7 @@ urlpatterns = [
     path('user_index', views.user_index, name='user_index'),
     path('show_recommend', views.show_recommend, name='show_recommend'),
     path('finish_register', views.finish_register, name='finish_register'),
-    path('email_sent', views.email_sent, name='email_sent')
+    path('email_sent', views.email_sent, name='email_sent'),
+    path('like_index', views.like_index, name='like_index'),
 ]
 

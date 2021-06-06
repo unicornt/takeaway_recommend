@@ -76,6 +76,7 @@ function do_recommended(){
     var mytime=new Date();
     var hour=mytime.getHours();
     var time;
+    var is_ok = false;
     if (hour<=10)
         time="早餐";
     else if (hour<=13)
@@ -86,9 +87,10 @@ function do_recommended(){
         time="正餐";
     else
         time="夜宵";
+    time="正餐";
     formData.append('type', "timeRange");
     formData.append('time', time);
-    formData.append('refresh', '0');
+    formData.append('refresh', '1');
     formData.append('downbound', 1);
     formData.append('upbound', 3);
     $.ajax({
@@ -99,8 +101,30 @@ function do_recommended(){
         async: false,
         data: formData,
         success:function(data){
-            retData = data.content;
+            console.log(data.content);
+            console.log(typeof(data.content));
+            retdata = data.content;
+            is_ok = true;
         }
     });
+    if (is_ok)
+        return retdata;
+    else
+        return 'Wrong Answer!!!!';
+}
+
+function get_liked_recommend_by_usr(){
+    var retdata;
+    $.ajax({
+        url: "/recommend/get_liked_recommend",
+        type: "GET",
+        contentType: false,
+        processData: false,
+        async: false,
+        success:function(data){
+            retdata = data.content;
+        }
+    });
+    console.log(retdata);
     return retdata;
 }

@@ -1,17 +1,17 @@
 $(document).ready(function () {
     var username = getCookie('username');
-    retdata = get_recommend_by_usr(username);
-    N = 0;
-    list = Array();
-    for(var r in retdata) {
-        list.push(r);
-        N++;
+    retdata_user = get_recommend_by_usr(username);
+    N_user = 0;
+    list_user = Array();
+    for(var r in retdata_user) {
+        list_user.push(r);
+        N_user++;
     }
-    myRender(list);
+    myRender();
 });
-var retdata;
-var list;
-var N;
+var retdata_user;
+var list_user;
+var N_user;
 
 function cmp(a, b){
     aS = a.split('-')
@@ -30,6 +30,9 @@ function cmp(a, b){
 }
 
 function mySort(type){
+    var N = N_user;
+    var list = list_user;
+    var retdata = retdata_user;
     $('#show_container').empty();
     if(type == 0) {
         // sort with upload time
@@ -58,11 +61,15 @@ function mySort(type){
             }
         }
     }
-    console.log("sort part finish")
-    myRender(list);
+    console.log("sort part finish");
+    list_user = list;
+    myRender();
 }
 
 function myRender(){
+    var list = list_user;
+    var N = N_user;
+    var retdata = retdata_user;
     for(var i = 0; i < N; i++) {
         console.log(list[i], typeof(list[i]), retdata[list[i]]);
         var val = list[i];
@@ -70,7 +77,7 @@ function myRender(){
         var num = 1
         var rown = 0
         var piclist = JSON.parse(retdata[val].piclist);
-        var picsrc = piclist['0'];
+        var picsrc = piclist['1'];
         console.log(picsrc);
         if(num % 3 === 1) {
             rown += 1;
@@ -88,7 +95,7 @@ function myRender(){
             '                            <div class="d-flex justify-content-between align-items-center">\n' +
             '                                <div class="btn-group">\n' +
             '                                    <a href="/show_recommend?rid=' + retdata[val].rid + '"><button type="button" class="btn btn-sm btn-outline-secondary">更多</button></a>\n' +
-            '                                    <button type="button" class="btn btn-sm btn-danger" onclick="delete_recommend(\'' + val +'\')">删除</button>\n' +
+            '                                    <button type="button" class="btn btn-sm btn-danger" onclick="delete_recommend(\'' + retdata[val].rid +'\')">删除</button>\n' +
             '                                </div>\n' +
             '                                <small class="text-muted" id="click_number">'+ retdata[val].like.toString() +'</small>\n' +
             '                            </div>\n' +
