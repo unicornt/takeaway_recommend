@@ -41,9 +41,11 @@
     </nav>
 </header>
 <div class="container">
-    <h1 class="mt-5" id="title"></h1>
-    <p id="text" style="width: 100%; word-break: break-all"></p>
-    <img src="" alt="img" id="img1" style="max-width: 100%">
+    <div class="col-lg-6 mx-auto">
+        <h1 class="mt-5 display-5 fw-bold" id="title"></h1>
+        <p id="text" class="lead" style="width: 100%; word-break: break-all"></p>
+    </div>
+    <img class="d-block mx-lg-auto img-fluid" src="" alt="img" id="img1" style="max-width: 100%">
 </div>
 <script>
     var textrid = null;
@@ -82,16 +84,16 @@
             console.log(theRequest['rid']);
             var userName = getCookie("username");
             if (userName != ""){
-                clickplus();
+                clickplus(theRequest['rid']);
             }
             textrid = theRequest['rid'];
             if(theRequest['rid'] != null) {
                 var retdata = get_recommend_by_rid(theRequest['rid']);
-                console.log('retdata', retdata.title);
+                console.log('retdata', retdata);
                 if(retdata != null) {
                     $('#title').text(retdata.title);
                     $('#text').text(retdata.text);
-                    $('#img1').attr('src', '/media/recommend/' + JSON.parse(retdata.piclist)['0']);
+                    $('#img1').attr('src', '/media/recommend/' + JSON.parse(retdata.piclist)['1']);
                 }
                 console.log('ok1234');
                 if (is_like(theRequest['rid'])){
@@ -127,15 +129,13 @@
         var rid = theRequest['rid'];
         cancel_like(rid);
     }
-    function click(){
+    function checklogin(){
         var userName = getCookie("username");
         if (userName == ""){
             window.location.href = "/login";
-            return;
+            return false;
         }
-        if (state==='Unliked') LikeIt(); 
-                          else CancelLikeIt(); 
-        updateState(state === 'Unliked' ? 'Liked' : 'Unliked');
+        return true;
     }
 </script>
 <footer class="footer mt-auto bg-light">
@@ -152,7 +152,7 @@
                       'like liked': state === 'Liked',
                       'focus:outline-none': !usedKeyboard
                     }"
-                @click="click()"
+                @click="if (checklogin()) { if (state==='Unliked') LikeIt(); else CancelLikeIt(); updateState(state === 'Unliked' ? 'Liked' : 'Unliked'); }"
                 @keydown.window.tab="usedKeyboard = true">
             <span class="like-icon like-icon-state" aria-label="state" x-text="state" aria-live="polite">Unliked</span>
         </button>

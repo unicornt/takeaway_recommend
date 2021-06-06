@@ -71,14 +71,7 @@ $(document).ready(function () {
             scrollTop: 0
         }, 200);
     });
-
-    var recommend_data = do_recommended();
-    console.log('recommend_data');
-    console.log(recommend_data);
-    for (var r in recommend_data){
-
-    }
-
+    
     retdata_index = get_all_recommend();
     console.log(retdata_index);
     N_index = 0;
@@ -88,6 +81,20 @@ $(document).ready(function () {
         N_index++;
     }
     myRender();
+
+    var recommend_data = do_recommended();
+    console.log('recommend_data');
+    console.log(recommend_data);
+    for (var i = 1; i <= 3; ++i){
+        var si = String(i);
+        var item = recommend_data[si];
+        var piclist = JSON.parse(item.piclist);
+        var picsrc = piclist['1'];
+        $('#recommend_img_'+si).attr('src', '/media/recommend/'+ picsrc);
+        $('#recommend_title_'+si).html(item['title']);
+        $('#recommend_text_'+si).html(item['text']);
+        $('#recommend_href_'+si).attr('href', '/show_recommend?rid='+item['rid']);
+    }
 });
 
 var retdata_index;
@@ -143,6 +150,8 @@ function mySort(type){
         }
     }
     console.log("sort part finish")
+    list_index = list;
+    N_index = N;
     myRender();
 }
 
@@ -161,13 +170,13 @@ function myRender(){
         //console.log(picsrc);
         if(num % 3 === 1) {
             rown += 1;
-            $('#show_container').append('<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" id="show_row' + rown.toString() + '">\n' +
+            $('#show_container').append('<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3" id="show_row' + rown.toString() + '">\n' +
                 '\n' +
                 '</div>');
         }
         $('#show_row'+rown.toString()).append('<div class="col">\n' +
             '                    <div class="card shadow-sm">\n' +
-            '                        <img src="'+ '/media/recommend/' + picsrc+'" class="card-img-top" alt="Header">\n' +
+            '                        <img src="'+ '/media/recommend/' + picsrc+'" aria-hidden="true" class="card-img-top top-img" alt="Header">\n' +
             '\n' +
             '                        <div class="card-body">\n' +
             '                            <h3 class="card-text">' + retdata[val].title + '</h3>\n' +

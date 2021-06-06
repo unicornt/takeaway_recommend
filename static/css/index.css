@@ -1,9 +1,28 @@
+.bd-placeholder-img{
+    object-fit: cover;
+}
+
+.top-img{
+    height: 25rem;
+    object-fit:cover;
+}
+
+.limit-line{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.col{
+    margin-bottom: 1rem;
+}
 
 /* GLOBAL STYLES
 -------------------------------------------------- */
 /* Padding below the footer and lighter body text */
 
 body {
+    height: 33%;
     padding-bottom: 3rem;
     color: #5a5a5a;
 }
