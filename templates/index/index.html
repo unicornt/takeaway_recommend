@@ -92,6 +92,22 @@
         <span class="visually-hidden">Next</span>
     </button>
 </div>
+<div class="float-end">
+    <div class="dropdown">
+        <button
+                class="btn btn-primary dropdown-toggle"
+                type="button"
+                id="dropdownMenuButton"
+                data-bs-toggle="dropdown"
+                aria-expanded="false">
+            排序
+        </button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <li><a class="dropdown-item" href="#" onclick="mySort(0)">上传时间</a></li>
+            <li><a class="dropdown-item" href="#" onclick="mySort(1)">被赞数</a></li>
+        </ul>
+    </div>
+</div>
 <div class="album py-5 bg-light">
     <div class="col">
         <div class="container" id="show_container">

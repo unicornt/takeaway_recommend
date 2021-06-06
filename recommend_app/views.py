@@ -567,8 +567,18 @@ def get_recommend_for_type(request):  # 获得排序的推荐
         recommends = recommend_info.objects.filter(recommend_time=clock).order_by("-recommend_like")
         ret_dict = {}
         for i, recommend_atom in enumerate(recommends[downbound:upbound]):
-            now_dict = recommend_atom
-            ret_dict[str(i + 1)] = now_dict
+            now_dict = {}
+            now_dict['user'] = recommend_atom.recommend_user
+            now_dict['title'] = recommend_atom.recommend_title
+            now_dict['text'] = recommend_atom.recommend_text
+            now_dict['piclist'] = recommend_atom.recommend_piclist
+            now_dict['like'] = recommend_atom.recommend_like
+            now_dict['picnum'] = recommend_atom.recommend_picnum
+            now_dict['rid'] = recommend_atom.recommend_key
+            '''新增'''
+            now_dict['timeRange'] = recommend_atom.recommend_time
+            now_dict['catalog'] = recommend_atom.recommend_catalog
+            ret_dict[str(i+1)] = now_dict
         return get_ok_response('get_recommend', ret_dict)
 
     user = request.session['user_name']  # 用户名
