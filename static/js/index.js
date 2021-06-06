@@ -71,13 +71,14 @@ $(document).ready(function () {
             scrollTop: 0
         }, 200);
     });
-
+    /*
     var recommend_data = do_recommended();
     console.log('recommend_data');
     console.log(recommend_data);
     for (var r in recommend_data){
 
     }
+    */
 
     retdata_index = get_all_recommend();
     console.log(retdata_index);

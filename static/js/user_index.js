@@ -70,7 +70,7 @@ function myRender(){
         var num = 1
         var rown = 0
         var piclist = JSON.parse(retdata[val].piclist);
-        var picsrc = piclist['1'];
+        var picsrc = piclist['0'];
         console.log(picsrc);
         if(num % 3 === 1) {
             rown += 1;

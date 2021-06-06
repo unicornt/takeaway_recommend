@@ -84,7 +84,7 @@
             console.log(theRequest['rid']);
             var userName = getCookie("username");
             if (userName != ""){
-                clickplus();
+                clickplus(theRequest['rid']);
             }
             textrid = theRequest['rid'];
             if(theRequest['rid'] != null) {
@@ -129,15 +129,13 @@
         var rid = theRequest['rid'];
         cancel_like(rid);
     }
-    function click(){
+    function checklogin(){
         var userName = getCookie("username");
         if (userName == ""){
             window.location.href = "/login";
-            return;
+            return false;
         }
-        if (state==='Unliked') LikeIt(); 
-                          else CancelLikeIt(); 
-        updateState(state === 'Unliked' ? 'Liked' : 'Unliked');
+        return true;
     }
 </script>
 <footer class="footer mt-auto bg-light">
@@ -154,7 +152,7 @@
                       'like liked': state === 'Liked',
                       'focus:outline-none': !usedKeyboard
                     }"
-                @click="click()"
+                @click="if (checklogin()) { if (state==='Unliked') LikeIt(); else CancelLikeIt(); updateState(state === 'Unliked' ? 'Liked' : 'Unliked'); }"
                 @keydown.window.tab="usedKeyboard = true">
             <span class="like-icon like-icon-state" aria-label="state" x-text="state" aria-live="polite">Unliked</span>
         </button>
