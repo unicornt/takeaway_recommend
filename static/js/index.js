@@ -50,7 +50,7 @@ $(document).ready(function () {
     } else {
         doc += '<ul class="nav navbar-nav navbar-right">\n' +
             '<li class="nav-item">' +
-                '<a class="nav-link" href="login">登录</a></li>\n' +
+                '<a class="nav-link" href="login" id="login-button">登录</a></li>\n' +
             '</ul>';
     }
     $("#navbarSupportedContent").append(doc);

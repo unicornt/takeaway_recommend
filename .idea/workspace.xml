@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="483d23d7-9ef4-4d74-ab87-5e1ff1606638" name="默认的" comment="默认的">
+      <change afterPath="$PROJECT_DIR$/test_html/login_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/index.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/static/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/index.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index/show_recommend.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index/show_recommend.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,7 +232,8 @@
       <workItem from="1622774885021" duration="519000" />
       <workItem from="1622792551731" duration="3317000" />
       <workItem from="1622909371442" duration="5100000" />
-      <workItem from="1622949503238" duration="1232000" />
+      <workItem from="1622949503238" duration="1538000" />
+      <workItem from="1623165042158" duration="598000" />
     </task>
     <servers />
   </component>
