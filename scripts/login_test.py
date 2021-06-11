@@ -94,11 +94,11 @@ def change_pwd_test(url, data):
 
 def login_logout_test(url, data):
     print('login_logout_test:')
-    resp = requests.post(url + 'login/log_in', json=data)
+    resp = requests.post(url + 'login/log_in', data)
     cookie = resp.cookies
     print(cookie.items())
     print(resp.json())
-    resp = requests.post(url + 'login/log_in', json=data, cookies=cookie)
+    resp = requests.post(url + 'login/log_in', data, cookies=cookie)
     print(resp.json())
     resp = requests.post(url + 'login/log_out', cookies=cookie)
     print(resp.json())
@@ -158,62 +158,5 @@ def doinputrecommend(cookie):
 
 
 if __name__ == '__main__':
-    resp = requests.post(local_url + 'login/log_in', register_data1)
-    cookie = resp.cookies
-    # doinputrecommend(cookie)
-    datax = {
-        "type":"timeRange",
-        "time":"正餐",
-        "refresh":1,
-        "downbound":49,
-        "upbound":55
-    }
-    resp = requests.post(local_url + 'recommend/type_recommend', datax, cookies=cookie)
-    print(resp)
-    # login_logout_test(local_url,register_data1)
-    # data = {
-    #     'type': '0',
-    #     'user': 'unicornt',
-    #     'upbound': '3',
-    #     'downbound': '2',
-    #     'order': '-',
-    # }
-    # print(data)
-    # requests.post(local_url + 'recommend/get_recommends',
-    #               {
-    #                   'type': '2',
-    #                   'user': 'unicornt',
-    #                   'upbound': '3',
-    #                   'downbound': '2',
-    #                   'order': '+',
-    #               })
-    # get_place_device_test(local_url)
+    login_logout_test(local_url,register_data1)
 
-    # print(hash_code('1234567'))
-    # asset_test(internal_url)
-    # register_test(local_url, register_data1)
-    # register_test(local_url, register_data2)
-    # register_test(local_url, register_data3)
-    # login_logout_test(local_url,login_data2)
-    # email_validate_test(local_url, register_data1)
-    # change_pwd_test(local_url,register_data2)
-    # reset_pwd_test(local_url, register_data1)
-
-    # register_test(local_url, register_data1)
-    # reset_pwd_test(local_url, register_data1)
-    # login_data3 = {
-    #     'usr': '18307130112@fudan.edu.cn',
-    #     'pwd': 'f5c9b48194669179',
-    # }
-    # change_data4 = {
-    #     'usr': '1111111',
-    #     'old_pwd': 'f5c9b48194669179',
-    #     'new_pwd': '1234567',
-    #     'email': '18307130112@fudan.edu.cn'
-    # }
-    # resp = requests.post(local_url + 'login/log_in', json=login_data3)
-    # print(resp.json())
-    # cookie = resp.cookies
-    # print(cookie.items())
-    # resp = requests.post(local_url + 'login/change_pwd', json=change_data4, cookies=cookie)
-    # print(resp.json())

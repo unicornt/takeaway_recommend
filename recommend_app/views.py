@@ -40,8 +40,6 @@ def get_error_response(reason, content=None):
 def check_cookie_logout(request):
     if 'is_login' not in request.session:
         return 'Already logout.'
-    # if request.method != 'POST':
-    # return 'Request method is not POST.'
     return 'ok'
 
 
@@ -494,11 +492,14 @@ def getRecommend(user, clock, type):
     # 设置权重，判断偏好
     print(user, clock, type)
     time_dict, catalog_dict = defaultdict(int), defaultdict(int)
+    for item in time_list:
+        time_dict[item]=0
+    for item in catalog_list:
+        catalog_dict[item]=0
     like_recommend = recommend_like.objects.filter(like_user=user)
     click_recommend = recommend_click.objects.filter(click_user=user)
-    # print(len(like_recommend))
+    #print(len(like_recommend),len(click_recommend))
     for like_item in like_recommend:  # 检索用户点赞数据（与点击数据重复，相当于加权）
-        # print(like_item.like_id, like_item.like_user, like_item.like_catalog, like_item.like_time)
         time_dict[like_item.like_time] += 1
         catalog_dict[like_item.like_catalog] += 1
     now = datetime.datetime.now()
@@ -510,8 +511,8 @@ def getRecommend(user, clock, type):
             catalog_dict[click_item.click_catalog] += 1
     time_dict = sorted(time_dict.items(), key=lambda x: (x[1], x[0]), reverse=True)
     catalog_dict = sorted(catalog_dict.items(), key=lambda x: (x[1], x[0]), reverse=True)
-    # print(time_dict)
-    # print(catalog_dict)
+    print(time_dict)
+    print(catalog_dict)
     # 根据 时间4:1-种类3:1:1 或种类4:1-时间3:1:1
     # catalog_key = list(catalog_dict.keys())[0:1]
     catalog_key = [catalog_dict[0][0], catalog_dict[1][0]]
@@ -561,8 +562,8 @@ def get_recommend_for_type(request):  # 获得排序的推荐
     type = POST_INFO['type']  # 时间范围或者种类
     clock = POST_INFO['time']  # 当前时间
     downbound, upbound = int(POST_INFO['downbound']), int(POST_INFO['upbound']) + 1
-
     reason = check_cookie_logout(request)
+    print(POST_INFO,reason)
     if reason != 'ok':
         recommends = recommend_info.objects.filter(recommend_time=clock).order_by("-recommend_like")
         ret_dict = {}
@@ -583,16 +584,11 @@ def get_recommend_for_type(request):  # 获得排序的推荐
 
     user = request.session['user_name']  # 用户名
     # 未筛选过/ 筛选另一种类/ 刷新
-    # print('typeRange' not in request.session, POST_INFO['refresh'] == '1')
     if 'typeRange' not in request.session or type != request.session["rangeType"] or POST_INFO['refresh'] == '1':
         request.session['typeRange'] = str(getRecommend(user, clock, type))
         request.session["rangeType"] = type
-    # print(request.session['typeRange'])
     # 读取cookie中保存的之前排好序的推荐
     recommend = cookie_to_dict(request.session['typeRange'])
-    # for xxxxxx in recommend:
-    #     print(xxxxxx)
-    # print(int(POST_INFO['downbound']), int(POST_INFO['upbound']), len(recommend))
     if int(POST_INFO['downbound']) >= len(recommend):
         reason = "out of index"
         print(reason)
