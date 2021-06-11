@@ -10,6 +10,8 @@ from django.db.models import Q
 from django.http import HttpResponse
 from django.shortcuts import render
 
+import jieba
+
 # Create your views here.
 from recommend_app.models import recommend_info, recommend_pic, recommend_like, recommend_click
 
@@ -624,3 +626,8 @@ def get_liked_recommend(request):
             ret_dict[str(i+1)] = now_dict
     return get_ok_response('get_recommend', ret_dict)
 
+def word_separate(request):
+    sentense = request.GET('sentense')
+    word_list = jieba.cut(sentense, cut_all=False, HMM=True)
+    ret_dict = {'word_list':word_list}
+    return get_ok_response('word_separate', ret_dict)
