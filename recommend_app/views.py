@@ -419,7 +419,7 @@ def like(request):  # 记录点赞
         like_atom.delete()
         recommend_atom.recommend_like = cur_like - 1
         recommend_atom.save()
-    return get_ok_response('like', {})
+    return get_ok_response('like', {"likes": recommend_atom.recommend_like})
 
 
 def check_like(request):
@@ -434,6 +434,7 @@ def check_like(request):
     else:
         ret_dict['result'] = 'NO'
     return get_ok_response('like', ret_dict)
+
 
 
 def click(request):
@@ -452,12 +453,13 @@ def click(request):
     recommend_click.objects.create(click_id=recommend_id, click_user=user,
                                    click_time=recommend_atom.recommend_time,
                                    click_catalog=recommend_atom.recommend_catalog)
-    return get_ok_response('click', {})
+    return get_ok_response('click', {"likes": recommend_atom.recommend_clicks})
+
 
 
 '''新增'''
 time_list = ["早餐", "中餐", "下午茶", "晚餐", "夜宵"]
-catalog_list = ["包子粥", "炒菜饭", "西式餐饮", "甜点奶茶", "火锅", "烧烤"]
+catalog_list = ["包子粥", "快餐", "轻食", "麻辣烫", "西式餐饮", "甜点奶茶", "火锅", "烧烤"]
 
 
 def getCatalog(recommend, rank):
@@ -490,12 +492,12 @@ def getRecommend(user, clock, type):
     print(user, clock, type)
     time_dict, catalog_dict = defaultdict(int), defaultdict(int)
     for item in time_list:
-        time_dict[item]=0
+        time_dict[item] = 0
     for item in catalog_list:
-        catalog_dict[item]=0
+        catalog_dict[item] = 0
     like_recommend = recommend_like.objects.filter(like_user=user)
     click_recommend = recommend_click.objects.filter(click_user=user)
-    #print(len(like_recommend),len(click_recommend))
+    # print(len(like_recommend),len(click_recommend))
     for like_item in like_recommend:  # 检索用户点赞数据（与点击数据重复，相当于加权）
         time_dict[like_item.like_time] += 1
         catalog_dict[like_item.like_catalog] += 1
@@ -519,9 +521,9 @@ def getRecommend(user, clock, type):
         recommend_now = recommend_info.objects.filter(recommend_time=clock).order_by("-recommend_like")
         rank = catalog_key
     else:
-        recommend_notnow = recommend_info.objects.filter(~Q(recommend_catalog=catalog_dict[0].key())).order_by(
+        recommend_notnow = recommend_info.objects.filter(~Q(recommend_catalog=catalog_dict[0][0])).order_by(
             "-recommend_catalog")
-        recommend_now = recommend_info.objects.filter(recommend_catalog=catalog_dict[0].key()).order_by(
+        recommend_now = recommend_info.objects.filter(recommend_catalog=catalog_dict[0][0]).order_by(
             "-recommend_catalog")
         rank = time_key
     # 规整数据为列表，并按照比例随机排序
@@ -558,10 +560,10 @@ def get_recommend_for_type(request):  # 获得排序的推荐
     POST_INFO = request.POST
     type = POST_INFO['type']  # 时间范围或者种类
     clock = POST_INFO['time']  # 当前时间
-    downbound, upbound = int(POST_INFO['downbound']), int(POST_INFO['upbound']) + 1
     reason = check_cookie_logout(request)
     if reason != 'ok':
         recommends = recommend_info.objects.filter(recommend_time=clock).order_by("-recommend_like")
+        downbound, upbound = max(0,int(POST_INFO['downbound'])), min(len(recommends), int(POST_INFO['upbound']) + 1)
         ret_dict = {}
         for i, recommend_atom in enumerate(recommends[downbound:upbound]):
             now_dict = {}
@@ -575,7 +577,7 @@ def get_recommend_for_type(request):  # 获得排序的推荐
             '''新增'''
             now_dict['timeRange'] = recommend_atom.recommend_time
             now_dict['catalog'] = recommend_atom.recommend_catalog
-            ret_dict[str(i+1)] = now_dict
+            ret_dict[str(i + 1)] = now_dict
         return get_ok_response('get_recommend', ret_dict)
 
     user = request.session['user_name']  # 用户名
@@ -590,13 +592,13 @@ def get_recommend_for_type(request):  # 获得排序的推荐
         print(reason)
         return get_error_response(reason)
 
-    downbound, upbound = int(POST_INFO['downbound']), min(len(recommend), int(POST_INFO['upbound']) + 1)
-    
+    downbound, upbound = max(0,int(POST_INFO['downbound'])), min(len(recommend), int(POST_INFO['upbound']) + 1)
+
     # 返回合法的上下界之间的所有推荐
     ret_dict = {}
     for i, recommend_atom in enumerate(recommend[downbound:upbound]):
         now_dict = recommend_atom
-        ret_dict[str(i+1)] = now_dict
+        ret_dict[str(i + 1)] = now_dict
         # print(now_dict)
 
     return get_ok_response('get_recommend', ret_dict)
