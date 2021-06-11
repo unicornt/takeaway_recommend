@@ -223,20 +223,50 @@ def logintest():
     print("branch11: ")
     branch11()
 
-def recommend1():
-    data3 = {
-        "usr": "jinchenzhetest",
-        'pwd': '123',
+def recommend1(cookie):
+    head = {
+        "title": "测试创建推荐01",
+        "text":  "测试创建推荐01 测试创建推荐01 测试创建推荐01 测试创建推荐01 测试创建推荐01",
+        "timeRange": "早餐",
+        "catalog": "火锅",
+        "like": 0,
+        "clicks": 0,
+        "testflag": 1,
     }
-    resp = requests.post(local_url + 'login/log_in', data3)
-    cookie=resp.cookies
-    print(resp.text,cookie.items())
+    files = defaultdict()
+    path = "./testpic.jpg"
+    files['1'] = open(path, "rb")
+    resp = requests.post(local_url + 'recommend/input_recommend', head, cookies=cookie, files=files)
+    print(resp.text)
+
+def recommend2(cookie):
+    head = {
+        "title": "测试创建推荐01",
+        "text":  "测试创建推荐01 测试创建推荐01 测试创建推荐01 测试创建推荐01 测试创建推荐01",
+        "timeRange": "早餐",
+        "catalog": "火锅",
+        "like": 0,
+        "clicks": 0,
+        "testflag": 1,
+    }
+    files = defaultdict()
+    path = "./testpic.jpg"
+    files['1'] = open(path, "rb")
+    resp = requests.post(local_url + 'recommend/input_recommend', head, cookies=cookie, files=files)
+    print(resp.text)
 
 def recommendtest():
     print("---------------------recommendtest---------------------")
+    data3 = {
+        "usr": "jincz2000@126.com",
+        'pwd': '123',
+    }
+    resp = requests.post(local_url + 'login/log_in', data=data3)
+    print(resp.text)
+    cookie = resp.cookies
     print("recommend1: ")
-    recommend1()
+    recommend1(cookie)
 
 if __name__ == '__main__':
-    logintest()
-    #recommendtest()
+    #logintest()
+    recommendtest()

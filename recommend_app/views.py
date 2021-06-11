@@ -46,15 +46,9 @@ def check_cookie_logout(request):
 def cookie_to_dict(string):
     liststr = string.replace("[", "").replace("]", "").replace("\"", "\\\"").replace("\'", "\"").split("{\"user\": ")
     ans = []
-    # print(string)
-    # print("------------------")
-    # print(liststr)
-    # print("------------------")
     length = len(liststr)
-    # print(length)
     for i in range(1, length):
         x = "{\"user\": " + liststr[i].strip(' ').strip(']').strip(',')
-        # print(json.loads(x))
         ans.append(json.loads(x))
     return ans
 
@@ -100,7 +94,7 @@ def create_recommend(request):  # 创建推荐
     return get_ok_response('create_recommend', {'key': str(key)})
 
 
-def input_recommend(request):  # 创建推荐
+def input_recommend(request):  # 创建原始推荐数据库
     reason = check_cookie_logout(request)
     if reason != 'ok':
         return get_error_response(reason)
@@ -140,115 +134,115 @@ def input_recommend(request):  # 创建推荐
     return get_ok_response('input_recommend', {'key': str(key)})
 
 
-def edit_index(request):  # 编辑推荐
-    reason = check_cookie_logout(request)
-    if reason != 'ok':
-        return get_error_response(reason)
-    request_data = request.GET
-    key = request_data['key']
-    try:
-        recommend_atom = recommend_info.objects.get(recommend_key=key)
-    except recommend_info.DoesNotExist:
-        print('recommend_info not exist.')
-        return get_error_response('recommend_info not exist.')
-    if (recommend_atom.recommend_user != request.session['user_name']):
-        return get_error_response('Invalid Operation!')
+# def edit_index(request):  # 编辑推荐
+#     reason = check_cookie_logout(request)
+#     if reason != 'ok':
+#         return get_error_response(reason)
+#     request_data = request.GET
+#     key = request_data['key']
+#     try:
+#         recommend_atom = recommend_info.objects.get(recommend_key=key)
+#     except recommend_info.DoesNotExist:
+#         print('recommend_info not exist.')
+#         return get_error_response('recommend_info not exist.')
+#     if (recommend_atom.recommend_user != request.session['user_name']):
+#         return get_error_response('Invalid Operation!')
+#
+#     '''新增'''
+#     render_dict = {
+#         "title": recommend_atom.recommend_title,
+#         "text": recommend_atom.recommend_text,
+#         "piclist": json.loads(recommend_atom.recommend_piclist),
+#         "timeRange": recommend_atom.recommend_time,
+#         "catalog": recommend_atom.recommend_catalog,
+#     }
+#     return render(request, 'edit.html', render_dict)
 
-    '''新增'''
-    render_dict = {
-        "title": recommend_atom.recommend_title,
-        "text": recommend_atom.recommend_text,
-        "piclist": json.loads(recommend_atom.recommend_piclist),
-        "timeRange": recommend_atom.recommend_time,
-        "catalog": recommend_atom.recommend_catalog,
-    }
-    return render(request, 'edit.html', render_dict)
 
-
-def update_recommend(request):  # 完全的更新推荐，先删除原推荐的全部信息，再覆盖
-    reason = check_cookie_logout(request)
-    if reason != 'ok':
-        return get_error_response(reason)
-    request_data = request.POST
-    key = request_data['key']
-    try:
-        recommend_atom = recommend_info.objects.get(recommend_key=key)
-    except recommend_info.DoesNotExist:
-        print('recommend_info not exist.')
-        return get_error_response('recommend_info not exist.')
-    if recommend_atom.recommend_user != request.session['user_name']:
-        return get_error_response('Invalid Operation!')
-    num = recommend_atom.recommend_picnum
-    dicts = json.loads(recommend_atom.recommend_piclist)
-    for x in range(num):
-        pic_name = dicts[str(x)]
-        print(pic_name)
-        path = os.path.join('upload', 'recommend', pic_name)
-        if os.path.isfile(path):
-            os.remove(path)
-        recommend_pic.objects.get(picture_id=pic_name).delete()
-
-    '''新增'''
-    piclist = request.FILES.getlist("picture")
-    pic_num = len(piclist)
-    dict = {}
-    recommend_atom.recommend_title = request.POST["title"]
-    recommend_atom.recommend_text = request.POST["text"]
-    recommend_atom.recommend_picnum = pic_num
-    recommend_atom.recommend_time = request.POST["timeRange"]
-    recommend_atom.recommend_catalog = request.POST["catalog"]
-    recommend_atom.recommend_piclist = json.dumps(dict)
-
-    for i in range(pic_num):
-        pic_file = piclist[i]
-        type = pic_file.name.split('.').pop()
-        pic_file.name = '{0}-{1}.{2}'.format(key, i, type)
-        dict[str(i)] = pic_file.name
-        recommend_pic.objects.create(picture_id=pic_file.name, picture_key=key, picture=pic_file)
-    return get_ok_response('create_recommend', {'key': str(key)})
+# def update_recommend(request):  # 完全的更新推荐，先删除原推荐的全部信息，再覆盖
+#     reason = check_cookie_logout(request)
+#     if reason != 'ok':
+#         return get_error_response(reason)
+#     request_data = request.POST
+#     key = request_data['key']
+#     try:
+#         recommend_atom = recommend_info.objects.get(recommend_key=key)
+#     except recommend_info.DoesNotExist:
+#         print('recommend_info not exist.')
+#         return get_error_response('recommend_info not exist.')
+#     if recommend_atom.recommend_user != request.session['user_name']:
+#         return get_error_response('Invalid Operation!')
+#     num = recommend_atom.recommend_picnum
+#     dicts = json.loads(recommend_atom.recommend_piclist)
+#     for x in range(num):
+#         pic_name = dicts[str(x)]
+#         print(pic_name)
+#         path = os.path.join('upload', 'recommend', pic_name)
+#         if os.path.isfile(path):
+#             os.remove(path)
+#         recommend_pic.objects.get(picture_id=pic_name).delete()
+#
+#     '''新增'''
+#     piclist = request.FILES.getlist("picture")
+#     pic_num = len(piclist)
+#     dict = {}
+#     recommend_atom.recommend_title = request.POST["title"]
+#     recommend_atom.recommend_text = request.POST["text"]
+#     recommend_atom.recommend_picnum = pic_num
+#     recommend_atom.recommend_time = request.POST["timeRange"]
+#     recommend_atom.recommend_catalog = request.POST["catalog"]
+#     recommend_atom.recommend_piclist = json.dumps(dict)
+#
+#     for i in range(pic_num):
+#         pic_file = piclist[i]
+#         type = pic_file.name.split('.').pop()
+#         pic_file.name = '{0}-{1}.{2}'.format(key, i, type)
+#         dict[str(i)] = pic_file.name
+#         recommend_pic.objects.create(picture_id=pic_file.name, picture_key=key, picture=pic_file)
+#     return get_ok_response('create_recommend', {'key': str(key)})
 
 
 order_choose = ['recommend_like', 'recommend_key', 'recommend_clicks']
 
 
-def get_recommend_for_range_and_order(request):  # 获得排序的推荐
-    POST_INFO = request.POST
-    # POST_INFO = json.loads(request.body)
-    type_id = POST_INFO['type']  # TYPE=0: LIKES, TYPE=1: UPLOAD TIME, TYPE=2: CLICKS
-    is_all = POST_INFO['is_all']
-    user = POST_INFO['user']
-    if user == 'admin' and 'is_login' in request.session:
-        user = request.session['user_name']
-    downbound = 0
-    upbound = recommend_info.objects.filter(recommend_user=user).count()
-    if is_all == '0':
-        upbound = int(POST_INFO['upbound']) + 1
-        downbound = int(POST_INFO['downbound'])
-    ordertext = ''
-    if POST_INFO['order'] == '-':
-        ordertext += '-'
-    ordertext += order_choose[int(type_id)]
-    try:
-        recommend = recommend_info.objects.filter(recommend_user=user).order_by(ordertext)
-    except recommend_info.DoesNotExist:
-        print('recommend not exist.')
-        return get_error_response('recommend not exist.')
-    ret_dict = {}
-    for i, recommend_atom in enumerate(recommend[downbound:upbound]):
-        '''新增'''
-        recommend_dict = {'user': recommend_atom.recommend_user,
-                          'title': recommend_atom.recommend_title,
-                          'text': recommend_atom.recommend_text,
-                          'like': recommend_atom.recommend_like,
-                          'clicks': recommend_atom.recommend_clicks,
-                          'picnum': recommend_atom.recommend_picnum,
-                          'piclist': recommend_atom.recommend_piclist,
-                          "timeRange": recommend_atom.recommend_time,
-                          "catalog": recommend_atom.recommend_catalog,
-                          }
-        ret_dict[i] = recommend_dict
-    print(ret_dict)
-    return get_ok_response('get_recommend', ret_dict)
+# def get_recommend_for_range_and_order(request):  # 获得排序的推荐
+#     POST_INFO = request.POST
+#     # POST_INFO = json.loads(request.body)
+#     type_id = POST_INFO['type']  # TYPE=0: LIKES, TYPE=1: UPLOAD TIME, TYPE=2: CLICKS
+#     is_all = POST_INFO['is_all']
+#     user = POST_INFO['user']
+#     if user == 'admin' and 'is_login' in request.session:
+#         user = request.session['user_name']
+#     downbound = 0
+#     upbound = recommend_info.objects.filter(recommend_user=user).count()
+#     if is_all == '0':
+#         upbound = int(POST_INFO['upbound']) + 1
+#         downbound = int(POST_INFO['downbound'])
+#     ordertext = ''
+#     if POST_INFO['order'] == '-':
+#         ordertext += '-'
+#     ordertext += order_choose[int(type_id)]
+#     try:
+#         recommend = recommend_info.objects.filter(recommend_user=user).order_by(ordertext)
+#     except recommend_info.DoesNotExist:
+#         print('recommend not exist.')
+#         return get_error_response('recommend not exist.')
+#     ret_dict = {}
+#     for i, recommend_atom in enumerate(recommend[downbound:upbound]):
+#         '''新增'''
+#         recommend_dict = {'user': recommend_atom.recommend_user,
+#                           'title': recommend_atom.recommend_title,
+#                           'text': recommend_atom.recommend_text,
+#                           'like': recommend_atom.recommend_like,
+#                           'clicks': recommend_atom.recommend_clicks,
+#                           'picnum': recommend_atom.recommend_picnum,
+#                           'piclist': recommend_atom.recommend_piclist,
+#                           "timeRange": recommend_atom.recommend_time,
+#                           "catalog": recommend_atom.recommend_catalog,
+#                           }
+#         ret_dict[i] = recommend_dict
+#     print(ret_dict)
+#     return get_ok_response('get_recommend', ret_dict)
 
 
 def delete_recommend(request):  # 删除推荐
@@ -267,9 +261,8 @@ def delete_recommend(request):  # 删除推荐
         return get_error_response('Invalid Operation!')
     num = recommend_atom.recommend_picnum
     dicts = json.loads(recommend_atom.recommend_piclist)
-    for x in range(num):
+    for x in range(1,1+num):
         pic_name = dicts[str(x)]
-        print(pic_name)
         path = os.path.join('upload', 'recommend', pic_name)
         if os.path.isfile(path):
             os.remove(path)
@@ -278,29 +271,29 @@ def delete_recommend(request):  # 删除推荐
     return get_ok_response('delete_recommend')
 
 
-def download_pic(request):  # 下载图片
-    global response
-    reason = check_cookie_logout(request)
-
-    if reason != 'ok':
-        pic_path = '1111111.jpg'
-    else:
-        request_data = request.POST
-        pic_path = request_data['path']
-
-    pic = recommend_pic.objects.get(picture_id=pic_path)
-    im = Image.open(pic.picture)
-    type = pic.picture.name.split('.').pop()
-    if type in ['jpeg', 'jpg', 'jpe']:
-        response = HttpResponse(content_type='image/jpg')
-        im.save(response, "JPEG")
-    elif type == 'png':
-        response = HttpResponse(content_type='image/jpg')
-        im.save(response, "PNG")
-    elif type in ['mpeg', 'mpg', 'mpe']:
-        response = HttpResponse(content_type='image/jpg')
-        im.save(response, "PNG")
-    return response
+# def download_pic(request):  # 下载图片
+#     global response
+#     reason = check_cookie_logout(request)
+#
+#     if reason != 'ok':
+#         pic_path = '1111111.jpg'
+#     else:
+#         request_data = request.POST
+#         pic_path = request_data['path']
+#
+#     pic = recommend_pic.objects.get(picture_id=pic_path)
+#     im = Image.open(pic.picture)
+#     type = pic.picture.name.split('.').pop()
+#     if type in ['jpeg', 'jpg', 'jpe']:
+#         response = HttpResponse(content_type='image/jpg')
+#         im.save(response, "JPEG")
+#     elif type == 'png':
+#         response = HttpResponse(content_type='image/jpg')
+#         im.save(response, "PNG")
+#     elif type in ['mpeg', 'mpg', 'mpe']:
+#         response = HttpResponse(content_type='image/jpg')
+#         im.save(response, "PNG")
+#     return response
 
 
 def get_recommend(request):  # 根据推荐的id获得单条推荐详细信息
@@ -330,6 +323,7 @@ def get_recommend(request):  # 根据推荐的id获得单条推荐详细信息
 
 def user_recommend(request):  # 获得某个用户的所有推荐
     usr = request.POST.get('username')
+    print(usr)
     try:
         recommend = recommend_info.objects.filter(recommend_user=usr).order_by('-recommend_like')
     except recommend_info.DoesNotExist:
@@ -350,6 +344,7 @@ def user_recommend(request):  # 获得某个用户的所有推荐
         now_dict['timeRange'] = recommend_atom.recommend_time
         now_dict['catalog'] = recommend_atom.recommend_catalog
         ret_dict[key] = now_dict
+    print(ret_dict)
     return get_ok_response('user_recommend', ret_dict)
 
 
@@ -563,7 +558,6 @@ def get_recommend_for_type(request):  # 获得排序的推荐
     clock = POST_INFO['time']  # 当前时间
     downbound, upbound = int(POST_INFO['downbound']), int(POST_INFO['upbound']) + 1
     reason = check_cookie_logout(request)
-    print(POST_INFO,reason)
     if reason != 'ok':
         recommends = recommend_info.objects.filter(recommend_time=clock).order_by("-recommend_like")
         ret_dict = {}
@@ -628,6 +622,5 @@ def get_liked_recommend(request):
             now_dict['timeRange'] = recommend_atom.recommend_time
             now_dict['catalog'] = recommend_atom.recommend_catalog
             ret_dict[str(i+1)] = now_dict
-    print(ret_dict)
     return get_ok_response('get_recommend', ret_dict)
 
