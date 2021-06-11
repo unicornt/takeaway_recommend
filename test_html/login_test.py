@@ -1,11 +1,13 @@
 from selenium import webdriver
 from selenium.webdriver import ActionChains
+import time
 browser = webdriver.Chrome()
 browser.implicitly_wait(10)
 browser.get('http://127.0.0.1:8000')
+browser.maximize_window()
+time.sleep(2)
 elem = browser.find_element_by_id("login-button")
-url=elem.get_attribute('href')
-browser.get(url)
+ActionChains(browser).move_to_element(elem).click(elem).perform()
 username_input = browser.find_element_by_name("usr")
 username_input.send_keys('unicornt')
 password_input = browser.find_element_by_name("pwd")
