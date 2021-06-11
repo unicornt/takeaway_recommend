@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="483d23d7-9ef4-4d74-ab87-5e1ff1606638" name="默认的" comment="默认的">
-      <change afterPath="$PROJECT_DIR$/test_html/login_test.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scripts/whiteBoxTest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ce8af031-b4f4-4f56-ac09-d5f3b7844983.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ce8af031-b4f4-4f56-ac09-d5f3b7844983.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/js/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/static/js/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/login_module/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/login_module/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/login_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/login_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,8 +20,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Python Script" />
         <option value="CSS File" />
+        <option value="Python Script" />
       </list>
     </option>
   </component>
@@ -59,7 +62,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Django 服务器.takeaway_pj">
     <configuration name="cut" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="takeaway_pj" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -234,6 +237,7 @@
       <workItem from="1622909371442" duration="5100000" />
       <workItem from="1622949503238" duration="1538000" />
       <workItem from="1623165042158" duration="598000" />
+      <workItem from="1623400033999" duration="1229000" />
     </task>
     <servers />
   </component>

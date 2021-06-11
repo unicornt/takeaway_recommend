@@ -100,15 +100,10 @@ def register(request):
     usr, pwd, email = request_data['usr'], request_data['pwd'], request_data['email']
     if len(usr) >= 20:
         return get_error_response('Invalid Username.')
-    if not validators.email(email):
-        return get_error_response('Invalid Email Address.')
 
     same_name_user = usr_info.objects.filter(usr_id=usr)
     if same_name_user:
         return get_error_response('Username already exist.')
-    same_email_user = usr_info.objects.filter(usr_email=email)
-    if same_email_user:
-        return get_error_response('Email address has been used.')
     user = usr_info(usr_id=usr, usr_email=email, usr_pwd=hash_code(pwd))
     user.save()
     return get_ok_response('register')
@@ -130,7 +125,6 @@ def make_confirm_string(email):
             return 'Validation Email not outdated.', False
     except:
         pass
-
     models.ConfirmString.objects.create(usr_email=email, code=code, )
     return code, True
 
@@ -173,7 +167,7 @@ def user_confirm(request):
         confirm = ConfirmString.objects.get(code=confirm_code)
     except:
         message = 'Invalid confirm request.'
-        return render(request, 'Invalid_confirm_request.html', locals())
+        return render(request, 'invalid_confirm_request.html', locals())
 
     created_time = confirm.created_time
     now = datetime.datetime.now()
@@ -185,7 +179,7 @@ def user_confirm(request):
         message = 'Your email expired. Please register again.'
         return render(request, 'email_expired.html', locals())
     # 下面这条语句结束后需要添加
-    # confirm.delete()
+    confirm.delete()
     message = 'Successfully confirmed.'
     return render(request, 'Successfully_confirmed.html', {"email": confirm.usr_email})
 
