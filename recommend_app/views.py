@@ -453,7 +453,7 @@ def click(request):
     recommend_click.objects.create(click_id=recommend_id, click_user=user,
                                    click_time=recommend_atom.recommend_time,
                                    click_catalog=recommend_atom.recommend_catalog)
-    return get_ok_response('click', {"likes": recommend_atom.recommend_clicks})
+    return get_ok_response('click', {"click": recommend_atom.recommend_clicks})
 
 
 

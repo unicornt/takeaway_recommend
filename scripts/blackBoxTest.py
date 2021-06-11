@@ -129,13 +129,13 @@ def branch3():
     }
     resp = requests.post(local_url + 'recommend/type_recommend', data=body, cookies=cookie)
     dicts = json.loads(resp.text)['content']
-    print("返回0数目推荐\n")
+    print("返回1010数目推荐\n")
     for key, value in dicts.items():
         print(key, value['rid'], value['user'], value['title'], value['timeRange'], value['catalog'])
     resp = requests.post(local_url + 'login/log_out', cookies=cookie)
     print("登出\n",resp.text)
 
 if __name__ == '__main__':
-    # branch1()
-    # branch2()
+    branch1()
+    branch2()
     branch3()
