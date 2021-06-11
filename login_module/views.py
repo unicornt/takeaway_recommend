@@ -138,9 +138,10 @@ def email_validate(request):
     email = request_data['email']
 
     if not validators.email(email):
+        print('Invalid Email Address.')
         return get_error_response('Invalid Email Address.')
     try:
-        usr = usr_info.objects.get(usr_email=email)
+        _ = usr_info.objects.get(usr_email=email)
         print('Email Address exists.')
         return get_error_response('Email Address exists.')
     except:
@@ -167,20 +168,21 @@ def user_confirm(request):
         confirm = ConfirmString.objects.get(code=confirm_code)
     except:
         message = 'Invalid confirm request.'
+        print(message)
         return render(request, 'invalid_confirm_request.html', locals())
-
     created_time = confirm.created_time
     now = datetime.datetime.now()
     now = now.replace(tzinfo=pytz.timezone('UTC'))
     cmp = created_time + datetime.timedelta(minutes=settings.CONFIRM_MINUTES, hours=settings.CONFIRM_UTC)
-    print(now)
-    print(cmp)
+    #cmp = created_time + datetime.timedelta(seconds=5, hours=settings.CONFIRM_UTC)
+    print(now, cmp)
+    confirm.delete()
     if now > cmp:
         message = 'Your email expired. Please register again.'
+        print(message)
         return render(request, 'email_expired.html', locals())
-    # 下面这条语句结束后需要添加
-    confirm.delete()
     message = 'Successfully confirmed.'
+    print(message)
     return render(request, 'Successfully_confirmed.html', {"email": confirm.usr_email})
 
 

@@ -94,11 +94,11 @@ def change_pwd_test(url, data):
 
 def login_logout_test(url, data):
     print('login_logout_test:')
-    resp = requests.post(url + 'login/log_in', json=data)
+    resp = requests.post(url + 'login/log_in', data)
     cookie = resp.cookies
     print(cookie.items())
     print(resp.json())
-    resp = requests.post(url + 'login/log_in', json=data, cookies=cookie)
+    resp = requests.post(url + 'login/log_in', data, cookies=cookie)
     print(resp.json())
     resp = requests.post(url + 'login/log_out', cookies=cookie)
     print(resp.json())
@@ -158,6 +158,5 @@ def doinputrecommend(cookie):
 
 
 if __name__ == '__main__':
-    resp = requests.post(local_url + 'login/log_in', register_data1)
-    cookie = resp.cookies
+    login_logout_test(local_url,register_data1)
 
