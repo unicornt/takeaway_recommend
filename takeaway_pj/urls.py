@@ -45,6 +45,7 @@ urlpatterns = [
     path('recommend/all_recommend', recommend_app.views.all_recommend),
     #path('recommend/update_recommend', recommend_app.views.update_recommend),
     #path('recommend/sort', recommend_app.views.get_recommend_for_range_and_order),
+    path('recommend/word_separate', recommend_app.views.word_separate),
 
     re_path(r'^recommend/like/$', recommend_app.views.like),
     #re_path(r'^recommend/edit_recommend/$', recommend_app.views.edit_index),

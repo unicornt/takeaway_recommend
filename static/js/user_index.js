@@ -33,7 +33,6 @@ function mySort(type){
     var N = N_user;
     var list = list_user;
     var retdata = retdata_user;
-    $('#show_container').empty();
     if(type == 0) {
         // sort with upload time
         console.log("sort with time");
@@ -67,6 +66,7 @@ function mySort(type){
 }
 
 function myRender(){
+    $('#show_container').empty();
     var list = list_user;
     var N = N_user;
     var retdata = retdata_user;

@@ -121,7 +121,6 @@ function mySort(type){
     var list = list_index;
     var retdata = retdata_index;
     var N = N_index;
-    $('#show_container').empty();
     if(type == 0) {
         // sort with upload time
         console.log("sort with time");
@@ -156,6 +155,7 @@ function mySort(type){
 }
 
 function myRender(){
+    $('#show_container').empty();
     var list = list_index;
     var retdata = retdata_index;
     var N = N_index;
@@ -192,4 +192,10 @@ function myRender(){
             '                </div>');
         num += 1;
     }
+}
+
+function do_search(sentense){
+    list_index = search(retdata_index, sentense);
+    console.log(list_index);
+    myRender();
 }
