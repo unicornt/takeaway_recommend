@@ -82,27 +82,28 @@
 
         <!--<p><input class="btn btn-primary" type="button" value="Submit" onclick="create_recommend1($('#title').val(), $('#editor').val(), 'pic_div', vm.$data.tag)"></p> -->
     </form>
-    
+    <div class="upload-content" style="margin: 0rem;width: 100%">
+        <div class="content-img">
+            <ul class="content-img-list">
+                <!-- <li class="content-img-list-item"><img src="https://www.baidu.com/img/bd_logo1.png" alt=""><a class="delete-btn"><i class="ico-delete"></i></a></li> -->
+            </ul>
+            <div class="file">
+                上传图片，支持jpg/png
+                <input type="file" name="file" accept="image/*" id="upload" >
+            </div>
+        </div>
+        <div class="upload-tips">
+
+        </div>
+        <div class="upload-submit">
+            <a href="javascript:;" id="btn-submit-upload" class="btn-submit-upload">提交</a>
+        </div>
+    </div>
 
 </div>
 <!-- <img id="imgContent1" style="width:33%;height:33%"/> -->
 
-<div class="upload-content">
-    <div class="content-img">
-        <ul class="content-img-list">
-            <!-- <li class="content-img-list-item"><img src="https://www.baidu.com/img/bd_logo1.png" alt=""><a class="delete-btn"><i class="ico-delete"></i></a></li> -->
-        </ul>
-        <div class="file">
-            <i class="ico-plus"></i>上传图片，支持jpg/png<input type="file" name="file" accept="image/*" id="upload" >
-        </div>	
-    </div>
-    <div class="upload-tips">
-        
-    </div>
-    <div class="upload-submit">
-        <a href="javascript:;" id="btn-submit-upload" class="btn-submit-upload">提交</a>
-    </div>
-</div>
+
 
 <script>
     // TODO: upload tags

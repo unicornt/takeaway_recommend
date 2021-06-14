@@ -2,8 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="483d23d7-9ef4-4d74-ab87-5e1ff1606638" name="默认的" comment="默认的">
+      <change afterPath="$PROJECT_DIR$/static/img/delete.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-14-112158-1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-14-112158-2.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-14-112158-3.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-14-112158-4.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index/show_recommend.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index/show_recommend.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/static/css/new_recommend.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/new_recommend.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/index/new_recommend.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index/new_recommend.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test_html/upload_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_html/upload_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -236,7 +244,7 @@
       <workItem from="1623400033999" duration="1229000" />
       <workItem from="1623401357220" duration="9603000" />
       <workItem from="1623412863566" duration="2783000" />
-      <workItem from="1623655629062" duration="1271000" />
+      <workItem from="1623655629062" duration="7786000" />
     </task>
     <servers />
   </component>
