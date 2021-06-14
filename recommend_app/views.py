@@ -379,7 +379,7 @@ def all_recommend(request):  # 获得所有用户的推荐
         print('recommends not exist.')
         return get_error_response('recommends not exist.')
     ret_dict = {}
-    for i,recommend_atom in enumerate(recommend):
+    for recommend_atom in recommend:
         now_dict = {}
         key = recommend_atom.recommend_key
         now_dict['user'] = recommend_atom.recommend_user
@@ -392,7 +392,7 @@ def all_recommend(request):  # 获得所有用户的推荐
         '''新增'''
         now_dict['timeRange'] = recommend_atom.recommend_time
         now_dict['catalog'] = recommend_atom.recommend_catalog
-        ret_dict[str(i+1)] = now_dict
+        ret_dict[key] = now_dict
     return get_ok_response('all_recommend', ret_dict)
 
 
@@ -423,6 +423,9 @@ def like(request):  # 记录点赞
 
 
 def check_like(request):
+    reason = check_cookie_logout(request)
+    if (reason != 'ok'):
+        return get_error_response(reason)
     user = request.session['user_name']
     print(user)
     rid = request.GET['rid']
@@ -452,7 +455,7 @@ def click(request):
     recommend_click.objects.create(click_id=recommend_id, click_user=user,
                                    click_time=recommend_atom.recommend_time,
                                    click_catalog=recommend_atom.recommend_catalog)
-    return get_ok_response('click', {"clicks": recommend_atom.recommend_clicks})
+    return get_ok_response('click', {"likes": recommend_atom.recommend_clicks})
 
 
 '''新增'''
@@ -627,11 +630,8 @@ def get_liked_recommend(request):
             ret_dict[str(i + 1)] = now_dict
     return get_ok_response('get_recommend', ret_dict)
 
-
 def word_separate(request):
-    print(request.POST)
     sentense = request.POST['sentense']
     word_list = jieba.cut(sentense, cut_all=False, HMM=True)
-    #print(type(word_list))
     ret_dict = {'word_list':list(word_list)}
     return get_ok_response('word_separate', ret_dict)

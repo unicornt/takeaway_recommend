@@ -8,7 +8,7 @@ function search(data, sentense){
     }
     for(var i = 0; i < N; i++){
         for(var j = i + 1; j < N; j++){
-            if (match_cmp(data[list[j]].text, data[list[i]].text, sentense, word_list)){
+            if (match_cmp(data[list[j]].text + data[list[j]].title, data[list[i]].text + data[list[i]].title, sentense, word_list)){
                 var tmp = list[i];
                 list[i] = list[j];
                 list[j] = tmp;
@@ -61,6 +61,7 @@ function match_cmp(a, b, sentense, word_list){
         console.log(ra);
         console.log(a);
     }
+    
     var rb = ub.match(sentense);
     if (ra != null && rb != null)
         return false;
