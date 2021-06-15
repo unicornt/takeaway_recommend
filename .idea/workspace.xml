@@ -2,16 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="483d23d7-9ef4-4d74-ab87-5e1ff1606638" name="默认的" comment="默认的">
-      <change afterPath="$PROJECT_DIR$/static/img/delete.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-14-112158-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-14-112158-2.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-14-112158-3.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-14-112158-4.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/BACKEND TEST/black box/test_example.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-15-201619-1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-15-202000-1.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/css/new_recommend.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/css/new_recommend.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/index/new_recommend.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index/new_recommend.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test_html/upload_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_html/upload_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/blackBoxTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/blackBoxTest.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,8 +62,8 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
-  <component name="RunManager">
-    <configuration name="login_test" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.blackBoxTest">
+    <configuration name="blackBoxTest" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="takeaway_pj" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -80,7 +76,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/login_test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/scripts/blackBoxTest.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -200,6 +196,11 @@
       <option name="customRunCommand" value="" />
       <method v="2" />
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.blackBoxTest" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -245,6 +246,7 @@
       <workItem from="1623401357220" duration="9603000" />
       <workItem from="1623412863566" duration="2783000" />
       <workItem from="1623655629062" duration="7786000" />
+      <workItem from="1623758946524" duration="661000" />
     </task>
     <servers />
   </component>
@@ -265,5 +267,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/index_html$blackBoxTest.coverage" NAME="blackBoxTest 覆盖结果" MODIFIED="1623759591301" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/scripts" />
   </component>
 </project>

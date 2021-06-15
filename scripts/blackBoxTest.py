@@ -15,10 +15,13 @@ def branch1():
     }
     resp = requests.post(local_url + 'login/email_validate', data)
     print("注册邮箱\n",resp.text)
-    content = json.loads(resp.text).get('content')
-    code = content['code']
-    resp = requests.post(local_url + 'login/confirm?code={0}'.format(code))
-    print("校对验证码\n",resp.status_code, "此处关注后端输出")
+    try:
+        content = json.loads(resp.text).get('content')
+        code = content['code']
+        resp = requests.post(local_url + 'login/confirm?code={0}'.format(code))
+        print("校对验证码\n",resp.status_code, "此处关注后端输出")
+    except:
+        print("校对验证码：邮箱已被注册，跳过此步骤")
     data2 = {
         'email': data['email'],
         'usr': "jinchenzhe",
@@ -129,13 +132,13 @@ def branch3():
     }
     resp = requests.post(local_url + 'recommend/type_recommend', data=body, cookies=cookie)
     dicts = json.loads(resp.text)['content']
-    print("返回0数目推荐\n")
+    print("返回1010数目推荐\n总返回输入数：{0}\n".format(len(dicts)))
     for key, value in dicts.items():
         print(key, value['rid'], value['user'], value['title'], value['timeRange'], value['catalog'])
     resp = requests.post(local_url + 'login/log_out', cookies=cookie)
     print("登出\n",resp.text)
 
 if __name__ == '__main__':
-    # branch1()
+    branch1()
     # branch2()
-    branch3()
+    # branch3()
