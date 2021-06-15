@@ -46,6 +46,9 @@
         <p id="text" class="lead" style="width: 100%; word-break: break-all"></p>
     </div>
     <img class="d-block mx-lg-auto img-fluid" src="" alt="img" id="img1" style="max-width: 100%">
+    <img class="d-block mx-lg-auto img-fluid" src="" alt="img" id="img2" style="max-width: 100%">
+    <img class="d-block mx-lg-auto img-fluid" src="" alt="img" id="img3" style="max-width: 100%">
+    <img class="d-block mx-lg-auto img-fluid" src="" alt="img" id="img4" style="max-width: 100%">
 </div>
 <script>
     var textrid = null;
@@ -93,7 +96,11 @@
                 if(retdata != null) {
                     $('#title').text(retdata.title);
                     $('#text').text(retdata.text);
-                    $('#img1').attr('src', '/media/recommend/' + JSON.parse(retdata.piclist)['1']);
+                    for(let i = 1; i < 5; i++) {
+                        if(retdata.piclist[i.toString()] != undefined) {
+                            $('#img' + i.toString()).attr('src', '/media/recommend/' + JSON.parse(retdata.piclist)[i.toString()]);
+                        }
+                    }
                 }
                 console.log('ok1234');
                 if (is_like(theRequest['rid'])){

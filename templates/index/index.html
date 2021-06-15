@@ -19,6 +19,7 @@
     <script type="text/javascript" src="/static/js/cookie.js"></script>
     <script type="text/javascript" src="/static/js/index.js"></script>
     <script type="text/javascript" src="/static/js/get_recommend.js"></script>
+    <script type="text/javascript" src="/static/js/search.js"></script>
 </head>
 <body>
 <header>
@@ -36,7 +37,7 @@
                 </ul>
                 <div class="input-group" style="width: 25%">
                     <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
-                    <button class="btn btn-light btn-outline-secondary">搜索</button>
+                    <button class="btn btn-light btn-outline-secondary" onclick="do_search($('#basic-url').val())">搜索</button>
                 </div>
             </div>
         </div>

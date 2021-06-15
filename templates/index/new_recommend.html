@@ -15,10 +15,13 @@
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <script type="text/javascript" src="/static/js/bootstrap.bundle.min.js"></script>
     <script src="/static/js/new_recommend.js"></script>
+    <script src="/static/js/get_recommend.js"></script>
     <script src="/static/js/cookie.js"></script>
     <script src="/static/js/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <link href="/static/css/bootstrap5-dropdown-ml-hack-hover.css" rel="stylesheet" />
+    <link href="/static/css/new_recommend.css" rel="stylesheet" />
+
 </head>
 <body>
 <header>
@@ -70,15 +73,38 @@
         <div class="input-group mb-3">
              <textarea type="text" class="form-control" aria-label="With textarea" name="content" id="editor" style="min-height: 20rem;" placeholder="正文"></textarea>
         </div>
+        <!--
         <div id="pic_div" class="input-group mb-3">
             <input type="file" class="form-control" onchange="loadImg(this.files[0], $('#imgContent1'))"><br/>
         </div>
+        -->
 
 
-        <p><input class="btn btn-primary" type="button" value="Submit" onclick="create_recommend1($('#title').val(), $('#editor').val(), 'pic_div', vm.$data.tag)"></p>
+        <!--<p><input class="btn btn-primary" type="button" value="Submit" onclick="create_recommend1($('#title').val(), $('#editor').val(), 'pic_div', vm.$data.tag)"></p> -->
     </form>
+    <div class="upload-content" style="margin: 0rem;width: 100%">
+        <div class="content-img">
+            <ul class="content-img-list">
+                <!-- <li class="content-img-list-item"><img src="https://www.baidu.com/img/bd_logo1.png" alt=""><a class="delete-btn"><i class="ico-delete"></i></a></li> -->
+            </ul>
+            <div class="file">
+                上传图片，支持jpg/png
+                <input type="file" name="file" accept="image/*" id="upload" >
+            </div>
+        </div>
+        <div class="upload-tips">
+
+        </div>
+        <div class="upload-submit">
+            <a href="javascript:;" id="btn-submit-upload" class="btn-submit-upload">提交</a>
+        </div>
     </div>
-    <img id="imgContent1" style="width:33%;height:33%"/>
+
+</div>
+<!-- <img id="imgContent1" style="width:33%;height:33%"/> -->
+
+
+
 <script>
     // TODO: upload tags
     let vm=new Vue({

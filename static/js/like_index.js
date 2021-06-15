@@ -32,7 +32,6 @@ function mySort(type){
     var N = N_like;
     var list = list_like;
     var retdata = retdata_like;
-    $('#show_container').empty();
     if(type == 0) {
         // sort with upload time
         console.log("sort with time");
@@ -67,6 +66,7 @@ function mySort(type){
 }
 
 function myRender(){
+    $('#show_container').empty();
     var N = N_like;
     var list = list_like;
     var retdata = retdata_like;
