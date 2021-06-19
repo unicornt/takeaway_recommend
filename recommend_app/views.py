@@ -92,7 +92,7 @@ def create_recommend(request):  # 创建推荐
                                   recommend_user=request.session['user_name'],
                                   recommend_picnum=pic_num,
                                   recommend_time=timeRange, recommend_catalog=catalog,
-                                  recommend_text=text, recommend_piclist=json.dumps(newdict), recommend_flag=False)
+                                  recommend_text=text, recommend_piclist=json.dumps(newdict))
     return get_ok_response('create_recommend', {'key': str(key)})
 
 
@@ -125,7 +125,7 @@ def input_recommend(request):  # 创建原始推荐数据库
                                   recommend_picnum=len(pic_dict),
                                   recommend_time=timeRange, recommend_catalog=catalog,
                                   recommend_like=like, recommend_clicks=clicks,
-                                  recommend_text=text, recommend_piclist=json.dumps(newdict), recommend_flag=False)
+                                  recommend_text=text, recommend_piclist=json.dumps(newdict))
     if flag == 1:
         for i in range(like):
             recommend_like.objects.create(like_id=key, like_user=request.session['user_name'],

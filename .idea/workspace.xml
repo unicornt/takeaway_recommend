@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="483d23d7-9ef4-4d74-ab87-5e1ff1606638" name="默认的" comment="默认的">
-      <change afterPath="$PROJECT_DIR$/BACKEND TEST/black box/test_example.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-15-201619-1.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-15-202000-1.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/upload/recommend/2021-06-19-152912-1.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DOCUMENT/pic.drawio" beforeDir="false" afterPath="$PROJECT_DIR$/DOCUMENT/pic.drawio" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DOCUMENT/pic.png" beforeDir="false" afterPath="$PROJECT_DIR$/DOCUMENT/pic.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scripts/blackBoxTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/blackBoxTest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/recommend_app/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/recommend_app/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/takeaway_pj/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/takeaway_pj/urls.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -247,6 +248,8 @@
       <workItem from="1623412863566" duration="2783000" />
       <workItem from="1623655629062" duration="7786000" />
       <workItem from="1623758946524" duration="661000" />
+      <workItem from="1624086158238" duration="478000" />
+      <workItem from="1624086645097" duration="3556000" />
     </task>
     <servers />
   </component>
