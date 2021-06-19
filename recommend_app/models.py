@@ -35,7 +35,6 @@ class recommend_info(models.Model):
     recommend_catalog = models.CharField('推荐类别', max_length=20, null=False, default="炒菜饭")
     recommend_text = models.TextField('推荐文本', max_length=10000, null=False)
     recommend_piclist = models.CharField('存储图片列表', max_length=1000)
-    recommend_flag = models.BooleanField('信息是否上传', default=False)
     recommend_picnum = models.IntegerField('图片数量')
     recommend_like = models.IntegerField('喜欢数量', default=0)
     recommend_clicks = models.IntegerField('点击数', default=1)
