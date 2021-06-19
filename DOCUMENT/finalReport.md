@@ -60,7 +60,7 @@ Sprint1阶段请求后端支持的访问地址为http://localhost:8000 。
 
 #### 接口参数说明
 
-**usr：**用户输入的用户名/邮箱，字符格式。
+**usr：**用户输入的用户名，字符格式。
 
 **pwd：**用户输入的密码，字符格式。
 
@@ -399,19 +399,19 @@ recommend_info.objects.create(recommend_key=key,
 
 #### 接口参数说明
 
-**title：**推荐标题。
+**title：**推荐标题，text格式。
 
-**text：**推荐文字。
+**text：**推荐文字，text格式。
 
-**picture：**推荐的图片。
+**picture：**推荐的图片，FILE格式。
 
-**timeRange：**推荐的时间段。
+**timeRange：**推荐的时间段，字符格式。
 
-**catalog：**推荐食物的类别。
+**catalog：**推荐食物的类别，字符格式。
 
 #### 返回值说明
 
-##### 状态正常
+**状态正常：**
 
 ```
 HTTP Response:
@@ -421,7 +421,7 @@ HTTP Response:
 }
 ```
 
-##### 状态不正常
+**状态不正常：**
 
 ```
 HTTP Response:
@@ -486,35 +486,35 @@ recommend_click.objects.create(click_id=key,
 
 #### 接口参数说明
 
-**title：**推荐标题。
+**title：**推荐标题，text格式。
 
-**text：**推荐文字。
+**text：**推荐文字，text格式。
 
-**picture_dict：**推荐的图片。
+**picture_dict：**推荐的图片，FILE格式。
 
-**timeRange：**推荐的时间段。
+**timeRange：**推荐的时间段，字符格式。
 
-**catalog：**推荐食物的类别。
+**catalog：**推荐食物的类别，字符格式。
 
-**like：**点赞数。
+**like：**点赞数，字符格式。
 
-**clicks：**点击数。
+**clicks：**点击数，字符格式。
 
-**testflag：**是否写入点赞数据库和点击数据库标志，为“1”则写入
+**testflag：**是否写入点赞数据库和点击数据库标志，为“1”则写入。
 
 #### 返回值说明
 
-##### 状态正常
+**状态正常：**
 
 ```
 HTTP Response:
 {
     'status': 'ok',
-    'type': 'create_recommend', {'key': key},
+    'type': 'input_recommend', {'key': key},
 }
 ```
 
-##### 状态不正常
+**状态不正常：**
 
 ```
 HTTP Response:
@@ -524,25 +524,32 @@ HTTP Response:
 }
 ```
 
-### recommend/delete_recommend
+### [3] recommend/delete_recommend
 
 #### 接口信息
 
 接口为POST请求，要求用户已登录（即cookie中有登录信息）。
 
+对应函数为：`login_module.views.delete_recommend`
+
 #### 功能描述
 
 实现前端界面删除推荐功能。
+
+```
+recommend_pic.objects.get(picture_id=pic_name).delete()
+recommend_atom.delete()
+```
 
 删除推荐对应图片以及recommend_info中的条目。
 
 #### 接口参数说明
 
-**key：**推荐对应的索引。
+**key：**推荐对应的编号，字符格式。
 
 #### 返回值说明
 
-##### 状态正常
+**状态正常：**
 
 ```
 HTTP Response:
@@ -552,7 +559,7 @@ HTTP Response:
 }
 ```
 
-##### 状态不正常
+**状态不正常：**
 
 ```
 HTTP Response:
@@ -561,33 +568,54 @@ HTTP Response:
     'type': reason,
 }
 ```
+
+#### 非平凡的状态不正常返回原因
 
 **推荐key错误：**`reason='recommend_info not exist.'`
 
-### recommend/download_pic
+**删除的推荐不是当前用户创建：**`reason='Invalid Operation!'`
+
+### [4] recommend/get_recommend
 
 #### 接口信息
 
-接口为POST请求，要求用户已登录（即cookie中有登录信息）。
+接口为GET请求。
 
 #### 功能描述
 
-实现前端界面获取推荐图片功能。
+实现前端界面获取推荐id对应的推荐信息。
+
+对应函数为：`login_module.views.get_recommend`
 
 #### 接口参数说明
 
-**path：**用户输入的需求图片。
+ **id：**推荐对应的编号，字符格式。
 
 #### 返回值说明
 
-##### 状态正常
+**状态正常：**
 
 ```
-HTTP Response：
-包含返回图片，以及格式信息。
+HTTP Response:
+{
+    'status': 'ok',
+    'type': 'get_recommend', ret_dict,
+}
+
+其中：
+ret_dict = {'text': recommend_atom.recommend_text,
+            'title': recommend_atom.recommend_title,
+            'piclist': recommend_atom.recommend_piclist,
+            'picnum': recommend_atom.recommend_picnum,
+            'user': recommend_atom.recommend_user,
+            'like': recommend_atom.recommend_like,
+            'rid': id,
+            "timeRange": recommend_atom.recommend_time,
+            "catalog": recommend_atom.recommend_catalog,
+            }
 ```
 
-##### 状态不正常
+**状态不正常：**
 
 ```
 HTTP Response:
@@ -597,11 +625,17 @@ HTTP Response:
 }
 ```
 
-### recommend/user_recommend
+#### 非平凡的状态不正常返回原因
+
+**无id对应的推荐：**`reason='recommend not exist.'`
+
+### [5] recommend/user_recommend
 
 #### 接口信息
 
-接口为POST请求，要求用户已登录（即cookie中有登录信息）。
+接口为POST请求。
+
+对应函数为：`login_module.views.user_recommend`
 
 #### 功能描述
 
@@ -609,13 +643,11 @@ HTTP Response:
 
 #### 接口参数说明
 
-**usr：**用户输入的用户名/邮箱，字符格式。
-
-**pwd：**用户输入的密码，字符格式。
+**username：**用户输入的用户名，字符格式。
 
 #### 返回值说明
 
-##### 状态正常
+**状态正常：**
 
 ```
 HTTP Response:
@@ -625,16 +657,20 @@ HTTP Response:
 }
 
 其中：
-		key = filt.recommend_key
-        now_dict['user'] = filt.recommend_user
-        now_dict['title'] = filt.recommend_title
-        now_dict['text'] = filt.recommend_text
-        now_dict['piclist'] = filt.recommend_piclist
-        now_dict['like'] = filt.recommend_like
-        ret_dict[key] = now_dict
+key = recommend_atom.recommend_key
+now_dict['user'] = recommend_atom.recommend_user
+now_dict['title'] = recommend_atom.recommend_title
+now_dict['text'] = recommend_atom.recommend_text
+now_dict['piclist'] = recommend_atom.recommend_piclist
+now_dict['like'] = recommend_atom.recommend_like
+now_dict['picnum'] = recommend_atom.recommend_picnum
+now_dict['rid'] = key
+now_dict['timeRange'] = recommend_atom.recommend_time
+now_dict['catalog'] = recommend_atom.recommend_catalog
+ret_dict[key] = now_dict
 ```
 
-##### 状态不正常
+**状态不正常：**
 
 ```
 HTTP Response:
@@ -644,13 +680,55 @@ HTTP Response:
 }
 ```
 
+#### 非平凡的状态不正常返回原因
+
 **用户无上传的推荐：**`reason='recommends not exist.'`
 
-### recommend/all_recommend
+### [6] recommend/get_liked_recommend
 
 #### 接口信息
 
 接口为POST请求，要求用户已登录（即cookie中有登录信息）。
+
+对应函数为：`login_module.views.get_liked_recommend`
+
+#### 功能描述
+
+实现前端界面获取当前用户所有点赞的推荐信息。
+
+#### 接口参数说明
+
+无。
+
+#### 返回值说明
+
+**状态正常：**
+
+```
+HTTP Response:
+{
+    'status': 'ok',
+    'type': 'like_recommend', ret_dict,
+}
+
+其中ret_dict与user_recommend相同
+```
+
+**状态不正常：**
+
+```
+HTTP Response:
+{
+    'status': 'error',
+    'type': reason,
+}
+```
+
+### [7] recommend/all_recommend
+
+#### 接口信息
+
+对应函数为：`login_module.views.all_recommend`
 
 #### 功能描述
 
@@ -658,32 +736,23 @@ HTTP Response:
 
 #### 接口参数说明
 
-**usr：**用户输入的用户名/邮箱，字符格式。
-
-**pwd：**用户输入的密码，字符格式。
+无。
 
 #### 返回值说明
 
-##### 状态正常
+**状态正常：**
 
 ```
 HTTP Response:
 {
     'status': 'ok',
-    'type': 'user_recommend', ret_dict,
+    'type': all_recommend', ret_dict,
 }
 
-其中：
-		key = filt.recommend_key
-        now_dict['user'] = filt.recommend_user
-        now_dict['title'] = filt.recommend_title
-        now_dict['text'] = filt.recommend_text
-        now_dict['piclist'] = filt.recommend_piclist
-        now_dict['like'] = filt.recommend_like
-        ret_dict[key] = now_dict
+其中ret_dict与user_recommend相同
 ```
 
-##### 状态不正常
+**状态不正常：**
 
 ```
 HTTP Response:
@@ -693,4 +762,178 @@ HTTP Response:
 }
 ```
 
-**用户无上传的推荐：**`reason='recommends not exist.'`
+#### 非平凡的状态不正常返回原因
+
+**无上传的推荐：**`reason='recommends not exist.'`
+
+### [8] recommend/like
+
+#### 接口信息
+
+接口为GET请求，要求用户已登录（即cookie中有登录信息）。
+
+对应函数为：`login_module.views.like`
+
+#### 功能描述
+
+记录点赞/取消点赞信息。
+
+#### 接口参数说明
+
+**rid：**点赞/取消点赞的推荐编号，字符格式。
+
+**otype：**点赞"like"/取消点赞"cancel"，字符格式。
+
+#### 返回值说明
+
+**状态正常：**
+
+```
+HTTP Response:
+{
+    'status': 'ok',
+    'type': 'like', {"likes": recommend_atom.recommend_like},
+}
+
+其中recommend_atom.recommend_like为修改后的推荐的点赞数。
+```
+
+**状态不正常：**
+
+```
+HTTP Response:
+{
+    'status': 'error',
+    'type': reason,
+}
+```
+
+### [9] recommend/check_like
+
+#### 接口信息
+
+接口为GET请求，要求用户已登录（即cookie中有登录信息）。
+
+对应函数为：`login_module.views.check_like`
+
+#### 功能描述
+
+确认用户是否对当前推荐点赞。
+
+#### 接口参数说明
+
+**id：**当前推荐的编号，字符格式。
+
+#### 返回值说明
+
+**状态正常：**
+
+```
+HTTP Response:
+{
+    'status': 'ok',
+    'type': 'like', {'result' : result},
+}
+其中result为'YES'/'NO'代表用户已点赞/未点赞。
+```
+
+**状态不正常：**
+
+```
+HTTP Response:
+{
+    'status': 'error',
+    'type': reason,
+}
+```
+
+### [10] recommend/click
+
+#### 接口信息
+
+接口为GET请求，要求用户已登录（即cookie中有登录信息）。
+
+对应函数为：`login_module.views.like`
+
+#### 功能描述
+
+记录点赞/取消点赞信息。
+
+#### 接口参数说明
+
+**rid：**点赞/取消点赞的推荐编号，字符格式。
+
+**otype：**点赞"like"/取消点赞"cancel"，字符格式。
+
+#### 返回值说明
+
+**状态正常：**
+
+```
+HTTP Response:
+{
+    'status': 'ok',
+    'type': 'like', {"likes": recommend_atom.recommend_like},
+}
+
+其中recommend_atom.recommend_like为修改后的推荐的点赞数。
+```
+
+**状态不正常：**
+
+```
+HTTP Response:
+{
+    'status': 'error',
+    'type': reason,
+}
+```
+
+### [11] recommend/type_recommend
+
+#### 接口信息
+
+接口为POST请求。
+
+对应函数为：`login_module.views.get_recommend_for_type`
+
+#### 功能描述
+
+实现前端界面获取推荐算法处理后的信息。如果用户已经登录，则可根据用户的选择和浏览记录，选出用户更偏好的推荐顺序。如果用户未登录，则按照用户点赞情况，推荐当前时间段的美食。
+
+#### 接口参数说明
+
+**type：**推荐类别（时间段或种类），字符格式。
+
+**clock：**当前时间段，字符格式。
+
+**downbound：**推荐列表的读取下界，字符格式。
+
+**upbound：**推荐列表的读取上界，字符格式。
+
+**refresh：**刷新标示，为1则刷新。
+
+#### 返回值说明
+
+**状态正常：**
+
+```
+HTTP Response:
+{
+    'status': 'ok',
+    'type': 'get_recommend', ret_dict,
+}
+
+其中ret_dict与user_recommend相同
+```
+
+**状态不正常：**
+
+```
+HTTP Response:
+{
+    'status': 'error',
+    'type': reason,
+}
+```
+
