@@ -350,26 +350,26 @@ def user_recommend(request):  # 获得某个用户的所有推荐
     return get_ok_response('user_recommend', ret_dict)
 
 
-def like_recommend(request):
-    user = request.session['user_name']
-    like_atom = recommend_like.objects.filter(like_user=user)
-    ret_dict = {}
-    for recommend in like_atom:
-        now_dict = {}
-        rid = recommend.like_id
-        recommend_atom = recommend_info.objects.get(recommend_key=rid)
-        now_dict['user'] = recommend_atom.recommend_user
-        now_dict['title'] = recommend_atom.recommend_title
-        now_dict['text'] = recommend_atom.recommend_text
-        now_dict['piclist'] = recommend_atom.recommend_piclist
-        now_dict['like'] = recommend_atom.recommend_like
-        now_dict['picnum'] = recommend_atom.recommend_picnum
-        now_dict['rid'] = rid
-        '''新增'''
-        now_dict['timeRange'] = recommend_atom.recommend_time
-        now_dict['catalog'] = recommend_atom.recommend_catalog
-        ret_dict[rid] = now_dict
-    return get_ok_response('like_recommend', ret_dict)
+# def like_recommend(request):
+#     user = request.session['user_name']
+#     like_atom = recommend_like.objects.filter(like_user=user)
+#     ret_dict = {}
+#     for recommend in like_atom:
+#         now_dict = {}
+#         rid = recommend.like_id
+#         recommend_atom = recommend_info.objects.get(recommend_key=rid)
+#         now_dict['user'] = recommend_atom.recommend_user
+#         now_dict['title'] = recommend_atom.recommend_title
+#         now_dict['text'] = recommend_atom.recommend_text
+#         now_dict['piclist'] = recommend_atom.recommend_piclist
+#         now_dict['like'] = recommend_atom.recommend_like
+#         now_dict['picnum'] = recommend_atom.recommend_picnum
+#         now_dict['rid'] = rid
+#         '''新增'''
+#         now_dict['timeRange'] = recommend_atom.recommend_time
+#         now_dict['catalog'] = recommend_atom.recommend_catalog
+#         ret_dict[rid] = now_dict
+#     return get_ok_response('like_recommend', ret_dict)
 
 
 def all_recommend(request):  # 获得所有用户的推荐
@@ -424,7 +424,7 @@ def like(request):  # 记录点赞
 
 def check_like(request):
     reason = check_cookie_logout(request)
-    if (reason != 'ok'):
+    if reason != 'ok':
         return get_error_response(reason)
     user = request.session['user_name']
     print(user)
@@ -607,7 +607,7 @@ def get_recommend_for_type(request):  # 获得排序的推荐
 
 def get_liked_recommend(request):
     reason = check_cookie_logout(request)
-    if (reason != 'ok'):
+    if reason != 'ok':
         return get_error_response(reason)
     user = request.session['user_name']
     liked_recommends = recommend_like.objects.filter(like_user=user)
